@@ -13,7 +13,7 @@ export default async function AuthLayout({
   return (
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
       <BackgroundPattern />
-      <div className="w-full max-w-sm">{children}</div>
+      <div className="z-10 w-full max-w-sm">{children}</div>
     </div>
   );
 }
