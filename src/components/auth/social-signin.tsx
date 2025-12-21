@@ -40,9 +40,9 @@ export default function SocialSignIn({
           <LoaderCircle className="animate-spin" /> <span>Please wait...</span>
         </div>
       ) : (
-        <span className="flex items-center gap-2">
-          {icon} Continue with{' '}
-          <span className="capitalize">{label || provider}</span>
+        <span className="flex items-center">
+          <span className="mr-2">{icon}</span> Continue with
+          <span className="ml-1 capitalize">{label || provider}</span>
         </span>
       )}
       {isProviderLastMethod && <LastUsedMethodBadge />}
