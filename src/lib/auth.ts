@@ -27,3 +27,5 @@ export const auth = betterAuth({
   },
   plugins: [lastLoginMethod(), nextCookies()],
 });
+
+export type Provider = keyof typeof auth.options.socialProviders;

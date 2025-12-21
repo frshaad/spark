@@ -1,5 +1,6 @@
 'use client';
 
+import { Toaster } from '@/components/ui/sonner';
 import { ThemeProvider } from './theme-provider';
 
 export default function Providers({ children }: React.PropsWithChildren) {
@@ -11,6 +12,7 @@ export default function Providers({ children }: React.PropsWithChildren) {
       enableSystem
     >
       {children}
+      <Toaster richColors />
     </ThemeProvider>
   );
 }
