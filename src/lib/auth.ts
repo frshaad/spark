@@ -1,9 +1,9 @@
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
-import prisma from './prisma';
-import { lastLoginMethod } from 'better-auth/plugins';
 import { nextCookies } from 'better-auth/next-js';
+import { lastLoginMethod } from 'better-auth/plugins';
 import { hashPassword as hash, verifyPassword as verify } from './argon2';
+import prisma from './prisma';
 import { MIN_PASSWORD_LENGTH } from './validation/schema';
 
 export const auth = betterAuth({
