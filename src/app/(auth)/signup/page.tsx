@@ -14,5 +14,7 @@ export default function SignupPage() {
 }
 
 export const metadata: Metadata = {
-  title: 'Sign Up',
+  title: 'Create an Account | Spark',
+  description:
+    'Sign up for YourAppName and start managing your projects in minutes.',
 };

@@ -11,5 +11,7 @@ export default function SigninPage() {
 }
 
 export const metadata: Metadata = {
-  title: 'Login',
+  title: 'Login | Spark',
+  description:
+    'Log in to your Spark account to access your dashboard and manage your projects.',
 };

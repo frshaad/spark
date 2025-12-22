@@ -20,6 +20,10 @@ export default function RootLayout({
 }
 
 export const metadata: Metadata = {
-  title: 'Next Starter',
-  description: 'A starter template for Next.js applications.',
+  title: {
+    default: 'Spark',
+    template: '%s',
+  },
+  description:
+    'Spark is a social media platform to connect with friends and family.',
 };
