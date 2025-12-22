@@ -54,6 +54,26 @@ export default function SignupForm() {
           />
 
           <Controller
+            name="username"
+            control={control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor="signup-form-username">Username</FieldLabel>
+                <Input
+                  {...field}
+                  id="signup-form-username"
+                  aria-invalid={fieldState.invalid}
+                  placeholder="johndoe"
+                  autoComplete="username"
+                />
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+
+          <Controller
             name="email"
             control={control}
             render={({ field, fieldState }) => (

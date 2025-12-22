@@ -37,17 +37,17 @@ export default function LoginForm() {
       <form onSubmit={handleSubmit}>
         <FieldGroup className="gap-4">
           <Controller
-            name="email"
+            name="loginIdentifier"
             control={control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="login-form-email">Email</FieldLabel>
+                <FieldLabel htmlFor="login-form-identifier">
+                  Username or Email
+                </FieldLabel>
                 <Input
                   {...field}
-                  id="login-form-email"
+                  id="login-form-identifier"
                   aria-invalid={fieldState.invalid}
-                  placeholder="m@example.com"
-                  autoComplete="email"
                 />
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
