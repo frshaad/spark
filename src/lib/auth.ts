@@ -1,7 +1,7 @@
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 import { nextCookies } from 'better-auth/next-js';
-import { haveIBeenPwned, lastLoginMethod } from 'better-auth/plugins';
+import { haveIBeenPwned, lastLoginMethod, username } from 'better-auth/plugins';
 import { hashPassword as hash, verifyPassword as verify } from './argon2';
 import prisma from './prisma';
 import { MIN_PASSWORD_LENGTH } from './validation/schema';
@@ -26,6 +26,7 @@ export const auth = betterAuth({
     },
   },
   plugins: [
+    username(),
     lastLoginMethod(),
     haveIBeenPwned({
       customPasswordCompromisedMessage: 'Please choose a more secure password.',
