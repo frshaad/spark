@@ -1,7 +1,7 @@
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 import { nextCookies } from 'better-auth/next-js';
-import { lastLoginMethod } from 'better-auth/plugins';
+import { haveIBeenPwned, lastLoginMethod } from 'better-auth/plugins';
 import { hashPassword as hash, verifyPassword as verify } from './argon2';
 import prisma from './prisma';
 import { MIN_PASSWORD_LENGTH } from './validation/schema';
@@ -25,7 +25,13 @@ export const auth = betterAuth({
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
     },
   },
-  plugins: [lastLoginMethod(), nextCookies()],
+  plugins: [
+    lastLoginMethod(),
+    haveIBeenPwned({
+      customPasswordCompromisedMessage: 'Please choose a more secure password.',
+    }),
+    nextCookies(),
+  ],
 });
 
 export type Provider = keyof typeof auth.options.socialProviders;
