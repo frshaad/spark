@@ -7,7 +7,7 @@ export default function SignOutButton() {
   const { signOut, isPending } = useSignOut();
 
   return (
-    <Button onClick={signOut} disabled={isPending}>
+    <Button variant="destructive" onClick={signOut} disabled={isPending}>
       Sign Out
     </Button>
   );

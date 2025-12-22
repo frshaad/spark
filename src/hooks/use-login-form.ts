@@ -18,7 +18,7 @@ export function useLoginForm() {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const searchParams = useSearchParams();
-  const callbackURL = (searchParams.get('redirect') || '/dashboard') as Route;
+  const callbackURL = (searchParams.get('redirect') || '/') as Route;
 
   const form = useForm({
     resolver: zodResolver(loginSchema),
