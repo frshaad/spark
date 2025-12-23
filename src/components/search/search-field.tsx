@@ -1,12 +1,13 @@
 'use client';
 
 import type React from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { Route } from 'next';
 import { useRouter } from 'next/navigation';
 import { Search } from 'lucide-react';
-import { useDebounceValue } from 'usehooks-ts';
+import { useOnClickOutside } from 'usehooks-ts';
 import { Input } from '@/components/ui/input';
+import { useSearch } from '@/hooks/use-search';
 import { cn } from '@/lib/utils';
 
 // Mock search function - replace with your actual search logic
@@ -36,56 +37,22 @@ async function searchResults(query: string) {
 
 export default function SearchField() {
   const router = useRouter();
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState<
-    Array<{ id: number; title: string; url: string }>
-  >([]);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const wrapperRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef(null);
 
-  const [debouncedQuery] = useDebounceValue(query, 300);
+  const { query, setQuery, results, open, close, isOpen, isLoading } =
+    useSearch({ searchFn: searchResults });
 
-  useEffect(() => {
-    if (debouncedQuery.trim()) {
-      setIsLoading(true);
-      searchResults(debouncedQuery)
-        .then((data) => {
-          setResults(data);
-          setIsOpen(true);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    } else {
-      setResults([]);
-      setIsOpen(false);
-    }
-  }, [debouncedQuery]);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        wrapperRef.current &&
-        !wrapperRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  useOnClickOutside(wrapperRef, close);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && query.trim()) {
-      setIsOpen(false);
+      close();
       router.push(`/search?q=${encodeURIComponent(query)}` as Route);
     }
   };
 
   const handleResultClick = (url: string) => {
-    setIsOpen(false);
+    close();
     setQuery('');
     router.push(url as Route);
   };
@@ -100,7 +67,7 @@ export default function SearchField() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
-          onFocus={() => query.trim() && results.length > 0 && setIsOpen(true)}
+          onFocus={() => query.trim() && results.length > 0 && open()}
           className="pl-9"
         />
       </div>

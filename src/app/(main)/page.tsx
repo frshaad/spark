@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import SearchField from '@/components/search-field';
+import SearchField from '@/components/search/search-field';
 
 export default function Home() {
   return (
