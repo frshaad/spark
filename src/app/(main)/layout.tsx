@@ -10,6 +10,7 @@ export default async function AppLayout({
 }>) {
   const session = await getServerSession();
   if (!session) redirect('/login');
+  if (!session.user.username) redirect('/add-username');
 
   return (
     <div className="flex min-h-screen gap-5">

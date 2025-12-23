@@ -1,8 +1,13 @@
 import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 import { AuthCard } from '@/components/auth/auth-card';
 import LoginForm from '@/components/auth/login-form';
+import { getServerSession } from '@/lib/session';
 
-export default function SigninPage() {
+export default async function SigninPage() {
+  const session = await getServerSession();
+  if (session) redirect('/');
+
   return (
     <AuthCard title="Login" description="Enter your information below to login">
       <LoginForm />

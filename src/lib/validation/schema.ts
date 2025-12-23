@@ -92,5 +92,9 @@ export const loginSchema = z.object({
   rememberMe: z.boolean().default(false),
 });
 
+export const usernameFormSchema = z.object({
+  username: usernameSchema,
+});
+
 export type SignupInput = z.infer<typeof signupSchema>;
 export type LoginInput = z.infer<typeof loginSchema>;
