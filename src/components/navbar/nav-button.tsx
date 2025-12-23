@@ -13,7 +13,10 @@ export default function NavButton({
   className = '',
 }: NavigationButton) {
   const pathname = usePathname();
-  const isActive = pathname.startsWith(href);
+  const isActive =
+    href === '/'
+      ? pathname === '/'
+      : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <Link href={href}>
@@ -22,7 +25,6 @@ export default function NavButton({
         size="lg"
         className={cn(
           'relative h-14 w-full justify-start gap-4 rounded-full pl-10 text-lg',
-          isActive && 'font-semibold',
           className,
         )}
       >

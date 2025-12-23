@@ -29,7 +29,7 @@ const NAV_LINKS: NavigationButton[] = [
 
 export default function Navbar() {
   return (
-    <aside className="flex flex-1 flex-col justify-between py-8 pl-2">
+    <aside className="flex max-w-sm flex-1 flex-col justify-between py-8 pr-10 pl-2 max-md:hidden">
       <Logo />
 
       <nav className="flex flex-col">

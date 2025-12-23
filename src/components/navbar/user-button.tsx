@@ -1,7 +1,9 @@
 'use client';
 
+import { Route } from 'next';
 import Link from 'next/link';
 import { CircleUser, LogOut } from 'lucide-react';
+import SignOutButton from '@/components/auth/signout-button';
 import { ModeToggle } from '@/components/mode-toggle';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -21,14 +23,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { User } from '@/generated/prisma/client';
-import SignOutButton from '../auth/signout-button';
 
 export default function UserButton({
   name,
   username,
   image,
-}: Pick<User, 'image' | 'name' | 'username'>) {
+}: {
+  name: string;
+  username?: string | null;
+  image?: string | null;
+}) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="ml-10 flex h-14 w-full cursor-pointer items-center justify-start gap-5 rounded-full text-lg">
@@ -40,7 +44,7 @@ export default function UserButton({
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="start">
         <DropdownMenuGroup>
-          <Link href={`/${username}`}>
+          <Link href={`/${username}` as Route}>
             <DropdownMenuItem>
               <CircleUser />
               Profile
