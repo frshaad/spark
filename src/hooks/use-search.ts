@@ -34,7 +34,7 @@ export function useSearch({
 
     setIsLoading(true);
 
-    searchFn(debouncedQuery)
+    void searchFn(debouncedQuery)
       .then((data) => {
         setResults(data);
         setIsOpen(true);

@@ -42,7 +42,7 @@ export default function SearchField() {
   const { query, setQuery, results, open, close, isOpen, isLoading } =
     useSearch({ searchFn: searchResults });
 
-  useOnClickOutside(wrapperRef, close);
+  useOnClickOutside(wrapperRef as React.RefObject<HTMLDivElement>, close);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && query.trim()) {
