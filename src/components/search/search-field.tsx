@@ -37,7 +37,7 @@ async function searchResults(query: string) {
 
 export default function SearchField() {
   const router = useRouter();
-  const wrapperRef = useRef(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   const { query, setQuery, results, open, close, isOpen, isLoading } =
     useSearch({ searchFn: searchResults });
