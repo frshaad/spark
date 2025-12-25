@@ -8,7 +8,7 @@ export default function Logo() {
       className="ml-10 flex items-center gap-2 text-2xl font-semibold"
     >
       <Sparkle className="size-7" />
-      Spark
+      <span className="max-lg:hidden">Spark</span>
     </Link>
   );
 }

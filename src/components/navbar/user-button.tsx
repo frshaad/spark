@@ -40,7 +40,7 @@ export default function UserButton({
           <AvatarImage src={image ?? undefined} alt={name} />
           <AvatarFallback>{name[0]}</AvatarFallback>
         </Avatar>
-        <span>{name}</span>
+        <span className="max-lg:hidden">{name}</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="start">
         <DropdownMenuGroup>

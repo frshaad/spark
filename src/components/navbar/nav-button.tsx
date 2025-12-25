@@ -24,12 +24,12 @@ export default function NavButton({
         variant="ghost"
         size="lg"
         className={cn(
-          'relative h-14 w-full justify-start gap-4 rounded-full pl-10 text-lg',
+          'relative h-14 w-full justify-start gap-4 rounded-full pl-10 text-lg max-lg:pr-10',
           className,
         )}
       >
         {Icon}
-        {label}
+        <span className="max-lg:hidden">{label}</span>
         {isActive && (
           <span className="bg-primary absolute top-1/2 left-4 size-2 -translate-y-1/2 rounded-full" />
         )}
