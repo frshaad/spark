@@ -24,7 +24,7 @@ export default function NavButton({
         variant="ghost"
         size="lg"
         className={cn(
-          'relative h-14 w-full justify-start gap-4 rounded-full pl-10 text-lg max-lg:pr-10',
+          'relative h-14 w-full justify-start gap-4 rounded-full text-lg lg:pl-10',
           className,
         )}
       >

@@ -35,7 +35,7 @@ export default function UserButton({
 }) {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="ml-10 flex h-14 w-full cursor-pointer items-center justify-start gap-5 rounded-full text-lg">
+      <DropdownMenuTrigger className="flex h-14 w-full cursor-pointer items-center justify-start gap-5 rounded-full text-lg lg:ml-10">
         <Avatar>
           <AvatarImage src={image ?? undefined} alt={name} />
           <AvatarFallback>{name[0]}</AvatarFallback>

@@ -13,7 +13,7 @@ export default async function AppLayout({
   if (!session.user.username) redirect('/add-username');
 
   return (
-    <div className="flex min-h-screen gap-5">
+    <div className="min-h-screen gap-5 lg:flex">
       <Navbar />
       <main>{children}</main>
       <DiscoveryPanel />

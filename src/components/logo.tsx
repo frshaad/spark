@@ -5,10 +5,10 @@ export default function Logo() {
   return (
     <Link
       href="/"
-      className="ml-10 flex items-center gap-2 text-2xl font-semibold"
+      className="flex items-center gap-2 text-2xl font-semibold lg:ml-10"
     >
       <Sparkle className="size-7" />
-      <span className="max-lg:hidden">Spark</span>
+      <span>Spark</span>
     </Link>
   );
 }
