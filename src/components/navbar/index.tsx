@@ -1,31 +1,7 @@
-import { Bell, Bookmark, House, Send } from 'lucide-react';
 import Logo from '@/components/logo';
-import { NavigationButton } from '@/lib/types';
 import NavButton from './nav-button';
+import { NAV_LINKS } from './navbar.constants';
 import ProfileButton from './profile-button';
-
-const NAV_LINKS: NavigationButton[] = [
-  {
-    href: '/',
-    label: 'Home',
-    Icon: <House className="size-6" />,
-  },
-  {
-    href: '/notifications',
-    label: 'Notifications',
-    Icon: <Bell className="size-6" />,
-  },
-  {
-    href: '/direct',
-    label: 'Messages',
-    Icon: <Send className="size-6" />,
-  },
-  {
-    href: '/bookmarks',
-    label: 'Bookmarks',
-    Icon: <Bookmark className="size-6" />,
-  },
-];
 
 export default function Navbar() {
   return (
