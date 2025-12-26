@@ -19,21 +19,21 @@ export default function NavButton({
       : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <Link href={href}>
+    <Link href={href} className="relative">
       <Button
         variant="ghost"
         size="lg"
         className={cn(
-          'relative h-14 w-full justify-start gap-4 rounded-full text-lg lg:pl-10',
+          'h-14 w-full justify-start gap-4 rounded-full px-4 text-lg',
           className,
         )}
       >
         {Icon}
         <span className="max-lg:hidden">{label}</span>
-        {isActive && (
-          <span className="bg-primary absolute top-1/2 left-4 size-2 -translate-y-1/2 rounded-full" />
-        )}
       </Button>
+      {isActive && (
+        <span className="bg-primary absolute top-1/2 -left-4 size-2 -translate-y-1/2 rounded-full" />
+      )}
     </Link>
   );
 }
