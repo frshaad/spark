@@ -39,7 +39,7 @@ export default function Navbar() {
       </header>
 
       {/* Mobile/Tablet Bottom Navigation */}
-      <nav className="border-border bg-card/95 supports-backdrop-filter:bg-card/80 fixed right-0 bottom-0 left-0 z-50 flex items-center justify-around border-t px-2 py-2 backdrop-blur lg:hidden">
+      <nav className="border-border bg-card/95 supports-backdrop-filter:bg-card/80 fixed right-0 bottom-0 left-0 z-50 flex items-center justify-around border-t p-1 backdrop-blur lg:hidden">
         {NAV_LINKS.map((item) => (
           <NavButton key={item.href} {...item} />
         ))}
