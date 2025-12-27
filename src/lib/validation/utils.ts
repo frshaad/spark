@@ -1,4 +1,4 @@
-import { emailSchema } from './schema';
+import { emailSchema } from './auth';
 
 export function sanitizeName(name: string) {
   return name.trim().replace(/\s+/g, ' ');

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { authClient } from '@/lib/auth-client';
-import { signupSchema } from '@/lib/validation/schema';
+import { signupSchema } from '@/lib/validation/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 export function useSignupForm() {

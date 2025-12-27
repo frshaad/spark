@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { authClient } from '@/lib/auth-client';
-import { loginSchema } from '@/lib/validation/schema';
+import { loginSchema } from '@/lib/validation/auth';
 import { identifyLoginType } from '@/lib/validation/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 

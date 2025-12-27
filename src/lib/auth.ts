@@ -4,7 +4,7 @@ import { nextCookies } from 'better-auth/next-js';
 import { haveIBeenPwned, lastLoginMethod, username } from 'better-auth/plugins';
 import { hashPassword as hash, verifyPassword as verify } from './argon2';
 import prisma from './prisma';
-import { MIN_PASSWORD_LENGTH } from './validation/schema';
+import { MIN_PASSWORD_LENGTH } from './validation/auth';
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
