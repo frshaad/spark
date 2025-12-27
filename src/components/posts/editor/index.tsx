@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 import { submitPost } from '@/actions/post.action';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import UserAvatar from '@/components/user-avatar';
 import { authClient } from '@/lib/auth-client';
 import Placeholder from '@tiptap/extension-placeholder';
@@ -26,7 +27,7 @@ export default function PostEditor() {
     editorProps: {
       attributes: {
         class:
-          'prose prose-sm max-w-none focus:outline-none min-h-[80px] text-base text-foreground leading-relaxed',
+          'prose prose-sm max-w-none focus:outline-none min-h-[60px] text-base text-foreground leading-relaxed',
       },
     },
     onUpdate: ({ editor }) => {
@@ -54,28 +55,32 @@ export default function PostEditor() {
   }
 
   return (
-    <div className="border-border bg-card border-b px-4 py-3">
-      <div className="flex gap-3">
-        <UserAvatar
-          image={session?.user.image}
-          name={session?.user.name || ''}
-          className="h-10 w-10 shrink-0"
-        />
-        <div className="flex-1 pt-1">
-          <EditorContent editor={editor} className="w-full" />
+    <Card>
+      <CardContent>
+        <div className="flex gap-3">
+          <UserAvatar
+            image={session?.user.image}
+            name={session?.user.name || ''}
+            className="size-10 shrink-0"
+          />
+          <div className="flex-1 pt-1">
+            <EditorContent editor={editor} className="w-full" />
+          </div>
         </div>
-      </div>
+      </CardContent>
 
-      <div className="border-border mt-3 flex items-center justify-end border-t pt-3">
+      {/*<Separator />*/}
+
+      <CardFooter className="justify-end">
         <Button
           onClick={onSubmit}
           disabled={!canPost || isSubmitting}
-          size="sm"
-          className="rounded-full px-6 font-semibold"
+          size="lg"
+          className="rounded-full px-10"
         >
           {isSubmitting ? 'Posting...' : 'Post'}
         </Button>
-      </div>
-    </div>
+      </CardFooter>
+    </Card>
   );
 }

@@ -15,7 +15,7 @@ export default async function AppLayout({
   return (
     <div className="min-h-screen gap-5 lg:flex">
       <Navbar />
-      <main className="w-full">{children}</main>
+      <main className="w-full pt-6">{children}</main>
       <DiscoveryPanel />
     </div>
   );
