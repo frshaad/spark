@@ -31,6 +31,7 @@ export function ModeToggle() {
       <DropdownMenuContent side="right" className="w-fit">
         <DropdownMenuItem
           onClick={setLight}
+          nativeButton={true}
           render={
             <Button
               variant={theme === 'light' ? 'secondary' : 'ghost'}
@@ -43,6 +44,7 @@ export function ModeToggle() {
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={setDark}
+          nativeButton={true}
           render={
             <Button
               variant={theme === 'dark' ? 'secondary' : 'ghost'}
@@ -54,6 +56,7 @@ export function ModeToggle() {
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={setSystem}
+          nativeButton={true}
           render={
             <Button
               variant={theme === 'system' ? 'secondary' : 'ghost'}
