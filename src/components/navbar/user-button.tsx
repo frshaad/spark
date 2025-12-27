@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { CircleUser, LogOut } from 'lucide-react';
 import SignOutButton from '@/components/auth/signout-button';
 import { ModeToggle } from '@/components/mode-toggle';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -24,6 +23,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import UserAvatar from '@/components/user-avatar';
 
 export default function UserButton({
   name,
@@ -40,10 +40,7 @@ export default function UserButton({
         render={<Button variant="ghost" size="sm" />}
         className="flex h-14 cursor-pointer items-center justify-start gap-3 rounded-full text-lg"
       >
-        <Avatar>
-          <AvatarImage src={image ?? undefined} alt={name} />
-          <AvatarFallback>{name[0]}</AvatarFallback>
-        </Avatar>
+        <UserAvatar name={name} image={image} />
         <span className="max-lg:hidden">{name}</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="start">
