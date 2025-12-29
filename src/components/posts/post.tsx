@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import UserAvatar from '@/components/user-avatar';
 import { PostData } from '@/lib/dal/post';
+import { formatPostDate } from '@/lib/time';
 
 export default function Post({ post }: { post: PostData }) {
   const isLiked = false;
@@ -29,13 +30,7 @@ export default function Post({ post }: { post: PostData }) {
               </span>
               <span className="text-muted-foreground text-sm">·</span>
               <span className="text-muted-foreground text-sm">
-                {post.createdAt.toLocaleString('en-US', {
-                  year: 'numeric',
-                  month: 'short',
-                  day: 'numeric',
-                  hour: 'numeric',
-                  minute: 'numeric',
-                })}
+                {formatPostDate(post.createdAt)}
               </span>
             </div>
 
