@@ -10,7 +10,7 @@ export default function Navbar() {
   return (
     <>
       {/* Desktop Sidebar - Hidden on mobile/tablet */}
-      <aside className="hidden max-w-lg flex-col justify-between border-r p-10 lg:flex">
+      <aside className="hidden max-w-lg flex-col justify-between p-10 lg:flex">
         <Logo />
 
         <nav className="flex flex-col max-lg:gap-3">

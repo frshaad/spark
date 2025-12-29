@@ -1,90 +1,67 @@
-import { Heart, MessageCircle, Repeat2, Share } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+'use client';
+
+import { Route } from 'next';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
 import UserAvatar from '@/components/user-avatar';
 import { PostData } from '@/lib/dal/post';
 import { formatPostDate } from '@/lib/time';
 
+// import PostActions from './post-actions';
+
 export default function Post({ post }: { post: PostData }) {
-  const isLiked = false;
+  const router = useRouter();
+
+  function stopPropagation(e: React.MouseEvent) {
+    e.stopPropagation();
+  }
 
   return (
-    <Card>
+    <Card
+      onClick={() => router.push(`/posts/${post.id}`)}
+      className="cursor-pointer"
+    >
       <CardContent>
         <div className="flex gap-3">
-          <UserAvatar
-            name={post.author.displayUsername || ''}
-            image={post.author.image || '/placeholder.svg'}
-            className="size-10"
-          />
+          <Link
+            href={`/${post.author.username}` as Route}
+            onClick={stopPropagation}
+          >
+            <UserAvatar
+              name={post.author.displayUsername || ''}
+              image={post.author.image}
+              className="size-10 transition hover:opacity-80"
+            />
+          </Link>
 
-          {/* Content */}
           <div className="min-w-0 flex-1">
-            {/* Header */}
             <div className="mb-1 flex items-center gap-2">
-              <span className="text-sm font-semibold">
-                {post.author.displayUsername || 'Unknown'}
-              </span>
-              <span className="text-muted-foreground text-sm">
-                @{post.author.username || 'unknown'}
-              </span>
+              <Link
+                href={`/${post.author.username}` as Route}
+                onClick={stopPropagation}
+                className="text-sm font-semibold hover:underline"
+              >
+                {post.author.displayUsername}
+              </Link>
+
+              <Link
+                href={`/${post.author.username}` as Route}
+                onClick={stopPropagation}
+                className="text-muted-foreground text-sm hover:underline"
+              >
+                @{post.author.username}
+              </Link>
+
               <span className="text-muted-foreground text-sm">·</span>
               <span className="text-muted-foreground text-sm">
                 {formatPostDate(post.createdAt)}
               </span>
             </div>
 
-            {/* Post Content */}
             <p className="mb-3 text-sm leading-relaxed">{post.content}</p>
 
-            {/* Action Buttons */}
-            <div className="flex items-center gap-1">
-              <Button
-                variant="ghost"
-                size="icon-sm"
-                className="hover:bg-primary/10 hover:text-primary group -ml-2"
-              >
-                <MessageCircle className="group-hover:fill-primary/20 size-4" />
-              </Button>
-              {/*<span className="text-muted-foreground min-w-4 text-xs">
-                {comments > 0 && comments}
-              </span>*/}
-
-              <Button
-                variant="ghost"
-                size="icon-sm"
-                className="group ml-2 hover:bg-green-500/10 hover:text-green-600"
-              >
-                <Repeat2 className="size-4" />
-              </Button>
-              {/*<span className="text-muted-foreground min-w-4 text-xs">
-                {reposts > 0 && reposts}
-              </span>*/}
-
-              <Button
-                variant="ghost"
-                size="icon-sm"
-                className="group ml-2 hover:bg-red-500/10 hover:text-red-600"
-                // onClick={handleLike}
-              >
-                <Heart
-                  className={`size-4 transition-all ${isLiked ? 'fill-red-600 text-red-600' : 'group-hover:fill-red-600/20'}`}
-                />
-              </Button>
-              {/*<span
-                className={`min-w-4 text-xs ${isLiked ? 'text-red-600' : 'text-muted-foreground'}`}
-              >
-                {likeCount > 0 && likeCount}
-              </span>*/}
-
-              <Button
-                variant="ghost"
-                size="icon-sm"
-                className="hover:bg-primary/10 hover:text-primary group ml-2"
-              >
-                <Share className="size-4" />
-              </Button>
-            </div>
+            {/*<PostActions />*/}
           </div>
         </div>
       </CardContent>

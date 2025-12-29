@@ -1,13 +1,7 @@
 import { PostData } from '@/lib/dal/post';
 import Post from './post';
 
-export default async function PostsList({
-  promise,
-}: {
-  promise: Promise<PostData[]>;
-}) {
-  const posts = await promise;
-
+export default function PostsList({ posts }: { posts: PostData[] }) {
   return (
     <div className="space-y-3">
       {posts.map((post) => (
