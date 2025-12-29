@@ -9,13 +9,13 @@ export default function Post({ post }: { post: PostData }) {
   const isLiked = false;
 
   return (
-    <Card className="border-border hover:bg-accent/50 shadow-none transition-colors">
-      <CardContent className="p-4">
+    <Card>
+      <CardContent>
         <div className="flex gap-3">
-          {/* Avatar */}
           <UserAvatar
             name={post.author.displayUsername || ''}
             image={post.author.image || '/placeholder.svg'}
+            className="size-10"
           />
 
           {/* Content */}

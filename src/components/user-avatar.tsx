@@ -11,7 +11,7 @@ export default function UserAvatar({
 }) {
   return (
     <Avatar className={className}>
-      <AvatarImage src={image ?? undefined} alt={name} />
+      <AvatarImage src={image || '/avatar-placeholder.webp'} alt={name} />
       <AvatarFallback>{name[0]}</AvatarFallback>
     </Avatar>
   );
