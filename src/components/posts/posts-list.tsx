@@ -1,4 +1,4 @@
-import { PostData } from '@/lib/dal/post';
+import { PostData } from '@/lib/types';
 import Post from './post';
 
 export default function PostsList({ posts }: { posts: PostData[] }) {

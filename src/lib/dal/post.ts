@@ -1,20 +1,6 @@
 import { cache } from 'react';
-import { PostGetPayload, PostInclude } from '@/generated/prisma/models';
 import prisma from '@/lib/prisma';
-
-const postDataInclude = {
-  author: {
-    select: {
-      username: true,
-      displayUsername: true,
-      image: true,
-    },
-  },
-} satisfies PostInclude;
-
-export type PostData = PostGetPayload<{
-  include: typeof postDataInclude;
-}>;
+import { postDataInclude } from '@/lib/types';
 
 export const getPosts = cache(async () => {
   return await prisma.post.findMany({
