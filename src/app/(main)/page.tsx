@@ -1,3 +1,4 @@
+import DiscoveryPanel from '@/components/discovery-panel';
 import PostEditor from '@/components/posts/editor';
 import PostsList from '@/components/posts/posts-list';
 import { getPosts } from '@/lib/dal/post';
@@ -8,9 +9,12 @@ export default async function Home() {
   const posts = await getPosts();
 
   return (
-    <div className="mx-auto w-full max-w-3xl min-w-0 space-y-5">
-      <PostEditor userName={user.name} userImage={user.image || undefined} />
-      <PostsList posts={posts} />
+    <div className="flex gap-10 xl:gap-20">
+      <main className="mx-auto w-11/12 max-w-4xl space-y-5 lg:min-w-2xl">
+        <PostEditor userName={user.name} userImage={user.image || undefined} />
+        <PostsList posts={posts} />
+      </main>
+      <DiscoveryPanel />
     </div>
   );
 }

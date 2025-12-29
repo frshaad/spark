@@ -6,13 +6,13 @@ export default function UserAvatar({
   className = '',
 }: {
   image?: string | null;
-  name: string;
+  name: string | null;
   className?: string;
 }) {
   return (
     <Avatar className={className}>
-      <AvatarImage src={image || '/avatar-placeholder.webp'} alt={name} />
-      <AvatarFallback>{name[0]}</AvatarFallback>
+      <AvatarImage src={image || '/avatar-placeholder.webp'} alt={name ?? ''} />
+      <AvatarFallback>{name?.[0] ?? ''}</AvatarFallback>
     </Avatar>
   );
 }

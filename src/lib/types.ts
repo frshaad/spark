@@ -1,5 +1,9 @@
 import { Route } from 'next';
-import { PostGetPayload, PostInclude } from '@/generated/prisma/models';
+import {
+  PostGetPayload,
+  PostInclude,
+  UserSelect,
+} from '@/generated/prisma/models';
 
 export type NavigationButton = {
   href: Route;
@@ -8,13 +12,16 @@ export type NavigationButton = {
   className?: string;
 };
 
+export const userDataSelect = {
+  id: true,
+  username: true,
+  displayUsername: true,
+  image: true,
+} satisfies UserSelect;
+
 export const postDataInclude = {
   author: {
-    select: {
-      username: true,
-      displayUsername: true,
-      image: true,
-    },
+    select: userDataSelect,
   },
 } satisfies PostInclude;
 

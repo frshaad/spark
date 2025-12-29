@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Search } from 'lucide-react';
 import Logo from '@/components/logo';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 import NavButton from './nav-button';
 import { NAV_LINKS } from './navbar.constants';
 import ProfileButton from './profile-button';
@@ -10,7 +10,7 @@ export default function Navbar() {
   return (
     <>
       {/* Desktop Sidebar - Hidden on mobile/tablet */}
-      <aside className="hidden max-w-lg flex-col justify-between p-10 lg:flex">
+      <aside className="hidden max-w-lg flex-col justify-between px-10 lg:flex lg:pb-6">
         <Logo />
 
         <nav className="flex flex-col max-lg:gap-3">

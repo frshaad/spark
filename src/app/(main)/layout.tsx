@@ -1,5 +1,4 @@
 import { redirect } from 'next/navigation';
-import DiscoveryPanel from '@/components/discovery-panel';
 import Navbar from '@/components/navbar';
 import { getServerSession } from '@/lib/session';
 
@@ -13,10 +12,9 @@ export default async function AppLayout({
   if (!session.user.username) redirect('/add-username');
 
   return (
-    <div className="min-h-screen lg:flex lg:gap-8 xl:gap-12">
+    <div className="container mx-auto min-h-screen gap-10 lg:flex lg:pt-4 xl:gap-20">
       <Navbar />
-      <main className="w-full pt-6">{children}</main>
-      <DiscoveryPanel />
+      {children}
     </div>
   );
 }

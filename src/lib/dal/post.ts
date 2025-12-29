@@ -3,7 +3,7 @@ import prisma from '@/lib/prisma';
 import { postDataInclude } from '@/lib/types';
 
 export const getPosts = cache(async () => {
-  return await prisma.post.findMany({
+  return prisma.post.findMany({
     include: postDataInclude,
     orderBy: { createdAt: 'desc' },
   });
