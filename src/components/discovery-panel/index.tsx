@@ -7,7 +7,6 @@ export default function DiscoveryPanel() {
       <Suspense fallback={<div>Loading...</div>}>
         <WhoToFollow />
       </Suspense>
-      
     </aside>
   );
 }
