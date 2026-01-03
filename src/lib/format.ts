@@ -48,3 +48,22 @@ export function formatPostDate(date: Date): string {
   // previous years → "Jan 3, 2023"
   return from.format('MMM D, YYYY');
 }
+
+export function formatCount(value: number): string {
+  if (!Number.isFinite(value)) return '0';
+
+  const abs = Math.abs(value);
+  const sign = value < 0 ? '-' : '';
+
+  const format = (num: number, suffix: string) => {
+    const rounded = Math.round(num * 10) / 10;
+    return `${sign}${rounded % 1 === 0 ? rounded.toFixed(0) : rounded}${suffix}`;
+  };
+
+  if (abs < 1_000) return `${value}`;
+  if (abs < 1_000_000) return format(abs / 1_000, 'K');
+  if (abs < 1_000_000_000) return format(abs / 1_000_000, 'M');
+  if (abs < 1_000_000_000_000) return format(abs / 1_000_000_000, 'B');
+
+  return format(abs / 1_000_000_000_000, 'T');
+}

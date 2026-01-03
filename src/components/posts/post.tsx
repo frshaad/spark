@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
 import UserAvatar from '@/components/user-avatar';
-import { formatPostDate } from '@/lib/time';
+import { formatPostDate } from '@/lib/format';
 import { PostData } from '@/lib/types';
 
 // import PostActions from './post-actions';
