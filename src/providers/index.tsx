@@ -1,6 +1,7 @@
 'use client';
 
 import { Toaster } from '@/components/ui/sonner';
+import ReactQueryProvider from './react-query-provider';
 import { ThemeProvider } from './theme-provider';
 
 export default function Providers({ children }: React.PropsWithChildren) {
@@ -11,8 +12,10 @@ export default function Providers({ children }: React.PropsWithChildren) {
       disableTransitionOnChange
       enableSystem
     >
-      {children}
-      <Toaster richColors />
+      <ReactQueryProvider>
+        {children}
+        <Toaster richColors />
+      </ReactQueryProvider>
     </ThemeProvider>
   );
 }
