@@ -20,7 +20,7 @@ export function usePostSubmit() {
       toast.error('Failed to submit post');
     } finally {
       setIsSubmitting(false);
-      queryClient.invalidateQueries({ queryKey: queryKeys.feed });
+      void queryClient.invalidateQueries({ queryKey: queryKeys.feed });
     }
   };
 
