@@ -1,6 +1,6 @@
 import ky from 'ky';
 
-export const kyInstance = ky.create({
+export const api = ky.create({
   prefixUrl: '/api',
   parseJson: (text) =>
     JSON.parse(text, (key, value) => {
@@ -10,5 +10,3 @@ export const kyInstance = ky.create({
       return value;
     }),
 });
-
-export default kyInstance;
