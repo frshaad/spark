@@ -28,3 +28,8 @@ export const postDataInclude = {
 export type PostData = PostGetPayload<{
   include: typeof postDataInclude;
 }>;
+
+export type PostsPage = {
+  posts: PostData[];
+  nextCursor: string | null;
+};

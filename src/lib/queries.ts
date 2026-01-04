@@ -1,11 +1,18 @@
 import { api } from '@/lib/ky';
 import { queryKeys } from '@/lib/query-keys';
-import { PostData } from '@/lib/types';
-import { queryOptions } from '@tanstack/react-query';
+import { PostsPage } from '@/lib/types';
+import { infiniteQueryOptions } from '@tanstack/react-query';
 
 export function getFeedQuery() {
-  return queryOptions({
+  return infiniteQueryOptions({
     queryKey: queryKeys.feed,
-    queryFn: () => api.get('posts/for-you').json<PostData[]>(),
+    queryFn: ({ pageParam }) =>
+      api
+        .get('posts/for-you', {
+          searchParams: pageParam ? { cursor: pageParam } : undefined,
+        })
+        .json<PostsPage>(),
+    initialPageParam: undefined as string | undefined,
+    getNextPageParam: (lastPage) => lastPage.nextCursor,
   });
 }
