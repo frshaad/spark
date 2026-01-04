@@ -8,7 +8,7 @@ export default async function Home() {
 
   return (
     <div className="flex w-full gap-6 lg:pr-10 xl:gap-10">
-      <main className="mx-auto w-11/12 max-w-4xl space-y-5 max-lg:pt-5 lg:min-w-sm">
+      <main className="no-scrollbar mx-auto w-11/12 max-w-4xl space-y-5 overflow-y-auto p-1 py-4 max-lg:pt-5 lg:min-w-sm">
         <PostEditor userName={user.name} userImage={user.image || undefined} />
         <ForYouFeed />
       </main>
