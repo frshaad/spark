@@ -9,10 +9,10 @@ import {
 } from '@/components/ui/item';
 import UserAvatar from '@/components/user-avatar';
 import { usersToFollow } from '@/lib/dal/user';
-import { requireUser } from '@/lib/session';
+import { requireOnboardedUser } from '@/lib/session';
 
 export default async function SuggestedUsersList() {
-  const { user } = await requireUser();
+  const { user } = await requireOnboardedUser();
   const suggestedUsers = await usersToFollow(user.id);
 
   return (
@@ -22,7 +22,12 @@ export default async function SuggestedUsersList() {
           <ItemContent>
             <Link href={`/${user.username}` as Route}>
               <ItemTitle>
-                <UserAvatar name={user.displayUsername} image={user.image} />
+                <UserAvatar
+                  user={{
+                    image: user.image,
+                    name: user.displayUsername ?? user.name,
+                  }}
+                />
                 <div>
                   <p className="text-sm font-semibold">
                     {user.displayUsername}

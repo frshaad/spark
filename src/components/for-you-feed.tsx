@@ -4,6 +4,7 @@ import { Loader2 } from 'lucide-react';
 import PostsList from '@/components/posts/posts-list';
 import { getFeedQuery } from '@/lib/queries';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import ForYouFeedSkeleton from './for-you-feed.skeleton';
 import InfiniteScrollContainer from './infinite-scroll-container';
 
 export default function ForYouFeed() {
@@ -11,7 +12,7 @@ export default function ForYouFeed() {
     useInfiniteQuery(getFeedQuery());
 
   if (status === 'pending') {
-    return <div>Loading posts...</div>;
+    return <ForYouFeedSkeleton count={5} />;
   }
 
   if (status === 'error') {
