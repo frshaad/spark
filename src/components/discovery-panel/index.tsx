@@ -3,7 +3,7 @@ import WhoToFollow from './who-to-follow';
 
 export default function DiscoveryPanel() {
   return (
-    <aside className="sticky top-0 right-0 h-fit w-96 space-y-5 max-lg:hidden">
+    <aside className="min-w-64 space-y-5 pt-4 max-xl:hidden xl:min-w-72">
       <WhoToFollow />
       <TrendingTopics />
     </aside>
