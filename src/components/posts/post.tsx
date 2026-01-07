@@ -29,8 +29,10 @@ export default function Post({ post }: { post: PostData }) {
             onClick={stopPropagation}
           >
             <UserAvatar
-              name={post.author.displayUsername || ''}
-              image={post.author.image}
+              user={{
+                image: post.author.image,
+                name: post.author.displayUsername ?? post.author.name,
+              }}
               className="size-10 transition hover:opacity-80"
             />
           </Link>

@@ -17,6 +17,7 @@ export const userDataSelect = {
   username: true,
   displayUsername: true,
   image: true,
+  name: true,
 } satisfies UserSelect;
 
 export const postDataInclude = {

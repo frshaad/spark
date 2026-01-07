@@ -9,11 +9,13 @@ import { usePostSubmit } from '@/hooks/use-post-submit';
 import { EditorContent } from '@tiptap/react';
 
 type Props = {
-  userName: string;
-  userImage: string | undefined;
+  user: {
+    name: string;
+    image: string | null;
+  };
 };
 
-export default function PostEditor({ userName, userImage }: Props) {
+export default function PostEditor({ user }: Props) {
   const { editor, content, canPost, clear } = usePostEditor();
   const { submit, isSubmitting } = usePostSubmit();
 
@@ -21,11 +23,7 @@ export default function PostEditor({ userName, userImage }: Props) {
     <Card>
       <CardContent>
         <div className="flex gap-3">
-          <UserAvatar
-            image={userImage}
-            name={userName}
-            className="size-10 shrink-0"
-          />
+          <UserAvatar user={user} className="size-10 shrink-0" />
           <div className="flex-1 pt-1">
             <EditorContent editor={editor} className="w-full" />
           </div>

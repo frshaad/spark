@@ -36,3 +36,8 @@ export const auth = betterAuth({
 });
 
 export type Provider = keyof typeof auth.options.socialProviders;
+export type Session = typeof auth.$Infer.Session;
+export type RawUser = Session['user'];
+export type OnboardedUser = Omit<RawUser, 'username'> & {
+  username: string;
+};

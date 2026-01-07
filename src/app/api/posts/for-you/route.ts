@@ -1,12 +1,12 @@
 import { NextRequest } from 'next/server';
 import { handleRouteError } from '@/lib/errors';
 import prisma from '@/lib/prisma';
-import { requireUserApi } from '@/lib/session';
+import { requireOnboardedUserApi } from '@/lib/session';
 import { PostsPage, postDataInclude } from '@/lib/types';
 
 export async function GET(req: NextRequest) {
   try {
-    await requireUserApi();
+    await requireOnboardedUserApi();
 
     const cursor = req.nextUrl.searchParams.get('cursor') || undefined;
     const pageSize = 10;

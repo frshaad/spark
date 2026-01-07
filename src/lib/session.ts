@@ -1,10 +1,10 @@
 import { cache } from 'react';
 import { headers } from 'next/headers';
-import { unauthorized } from 'next/navigation';
-import { auth } from './auth';
+import { redirect } from 'next/navigation';
+import { OnboardedUser, Session, auth } from './auth';
 import { HttpError } from './errors';
 
-const fetchSession = async () => {
+const fetchSession = async (): Promise<Session | null> => {
   return auth.api.getSession({ headers: await headers() });
 };
 
@@ -19,9 +19,21 @@ export const getServerSession = cache(async () => fetchSession());
  * Redirects with 401 if missing.
  */
 export const requireUser = cache(async () => {
-  const session = await fetchSession();
-  if (!session) unauthorized();
+  const session = await getServerSession();
+  if (!session) redirect('/login');
   return session;
+});
+
+/**
+ * For server pages/layouts: redirect to onboarding if username missing.
+ * Returns a session typed with an OnboardedUser.
+ */
+export const requireOnboardedUser = cache(async () => {
+  const session = await getServerSession();
+  if (!session) redirect('/login');
+  if (!session.user.username) redirect('/add-username');
+
+  return session as Session & { user: OnboardedUser };
 });
 
 /**
@@ -34,4 +46,12 @@ export async function requireUserApi() {
     throw new HttpError(401, 'Unauthorized');
   }
   return session;
+}
+
+// For API route handlers (no redirect — you must return proper status)
+export async function requireOnboardedUserApi() {
+  const session = await fetchSession();
+  if (!session) throw new HttpError(401, 'Unauthorized');
+  if (!session.user.username) throw new HttpError(403, 'Username required');
+  return session as Session & { user: OnboardedUser };
 }

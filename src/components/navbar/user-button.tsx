@@ -25,22 +25,24 @@ import {
 } from '@/components/ui/dropdown-menu';
 import UserAvatar from '@/components/user-avatar';
 
-export default function UserButton({
-  name,
-  username,
-  image,
-}: {
-  name: string;
-  username?: string | null;
-  image?: string | null;
-}) {
+type UserButtonProps = {
+  user: {
+    name: string;
+    username: string;
+    image: string | null;
+  };
+};
+
+export default function UserButton({ user }: UserButtonProps) {
+  const { name, username } = user;
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
         render={<Button variant="ghost" size="sm" />}
         className="flex h-14 cursor-pointer items-center justify-start gap-3 rounded-full text-lg"
       >
-        <UserAvatar name={name} image={image} />
+        <UserAvatar user={user} />
         <span className="max-lg:hidden">{name}</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="start">
