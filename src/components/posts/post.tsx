@@ -19,7 +19,9 @@ export default function Post({ post }: { post: PostData }) {
 
   return (
     <Card
-      onClick={() => router.push(`/posts/${post.id}`)}
+      onClick={() =>
+        router.push(`/${post.author.username}/${post.id}` as Route)
+      }
       className="cursor-pointer"
     >
       <CardContent>

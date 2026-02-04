@@ -4,9 +4,9 @@ import { redirect } from 'next/navigation';
 import { OnboardedUser, Session, auth } from './auth';
 import { HttpError } from './errors';
 
-const fetchSession = async (): Promise<Session | null> => {
+async function fetchSession(): Promise<Session | null> {
   return auth.api.getSession({ headers: await headers() });
-};
+}
 
 /**
  * Returns the current session without enforcing auth.
