@@ -17,7 +17,16 @@ type Props = {
 
 export default function PostEditor({ user }: Props) {
   const { editor, content, canPost, clear } = usePostEditor();
-  const { submit, isSubmitting } = usePostSubmit();
+  const { mutate, isPending } = usePostSubmit();
+
+  function submit(content: string) {
+    if (!content.trim()) return;
+    mutate(content, {
+      onSuccess() {
+        clear();
+      },
+    });
+  }
 
   return (
     <Card>
@@ -32,12 +41,12 @@ export default function PostEditor({ user }: Props) {
 
       <CardFooter className="justify-end">
         <Button
-          onClick={() => submit(content, clear)}
-          disabled={!canPost || isSubmitting}
+          onClick={() => submit(content)}
+          disabled={!canPost || isPending}
           size="lg"
           className="rounded-full px-10"
         >
-          {isSubmitting ? 'Posting...' : 'Post'}
+          {isPending ? 'Posting...' : 'Post'}
         </Button>
       </CardFooter>
     </Card>

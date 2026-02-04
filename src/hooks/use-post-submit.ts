@@ -1,28 +1,54 @@
-import { useState } from 'react';
 import { toast } from 'sonner';
 import { submitPost } from '@/actions/post.action';
 import { queryKeys } from '@/lib/query-keys';
-import { useQueryClient } from '@tanstack/react-query';
+import { PostsPage } from '@/lib/types';
+import {
+  InfiniteData,
+  QueryFilters,
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query';
 
 export function usePostSubmit() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const queryClient = useQueryClient();
 
-  const submit = async (content: string, clear: () => void) => {
-    if (!content.trim()) return;
+  return useMutation({
+    mutationFn: submitPost,
+    async onSuccess(newPost) {
+      const queryFilter: QueryFilters = {
+        queryKey: queryKeys.feed,
+      };
 
-    setIsSubmitting(true);
-    try {
-      await submitPost(content);
-      clear();
+      await queryClient.cancelQueries(queryFilter);
+
+      queryClient.setQueriesData<InfiniteData<PostsPage, string | null>>(
+        queryFilter,
+        (oldData) => {
+          const firstPage = oldData?.pages[0];
+          if (!firstPage) return oldData;
+          return {
+            pageParams: oldData.pageParams,
+            pages: [
+              {
+                posts: [newPost, ...firstPage.posts],
+                nextCursor: firstPage.nextCursor,
+              },
+              ...oldData.pages.slice(1),
+            ],
+          };
+        },
+      );
+
+      await queryClient.invalidateQueries({
+        queryKey: queryFilter.queryKey,
+        predicate: (query) => !query.state.data,
+      });
+
       toast.success('Post published!');
-    } catch {
+    },
+    onError(error) {
+      console.error(error);
       toast.error('Failed to submit post');
-    } finally {
-      setIsSubmitting(false);
-      void queryClient.invalidateQueries({ queryKey: queryKeys.feed });
-    }
-  };
-
-  return { isSubmitting, submit };
+    },
+  });
 }

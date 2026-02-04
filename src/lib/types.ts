@@ -28,7 +28,7 @@ export const postDataInclude = {
 
 export type PostData = PostGetPayload<{
   include: typeof postDataInclude;
-}> & { author: { username: string } };
+}>;
 
 export type PostsPage = {
   posts: PostData[];

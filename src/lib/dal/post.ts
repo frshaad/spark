@@ -12,5 +12,6 @@ export const getPosts = cache(async () => {
 export async function createPost(authorId: string, content: string) {
   return prisma.post.create({
     data: { content, authorId },
+    include: postDataInclude,
   });
 }
