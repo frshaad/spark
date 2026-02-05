@@ -128,3 +128,11 @@
 @utility no-scrollbar {
   @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
 }
+
+.font-inter {
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+.font-vazir {
+  font-family: var(--font-vazir), system-ui, sans-serif;
+}

@@ -5,8 +5,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
 import UserAvatar from '@/components/user-avatar';
-import { formatPostDate } from '@/lib/format';
+import { formatPostDate, isRTL } from '@/lib/format';
 import { PostData } from '@/lib/types';
+import { cn } from '@/lib/utils';
 
 // import PostActions from './post-actions';
 
@@ -14,6 +15,8 @@ export default function Post({ post }: { post: PostData }) {
   const router = useRouter();
   const postUrl = `/${post.author.username}/${post.id}` as Route;
   const authorUrl = `/${post.author.username}` as Route;
+
+  const isRtl = isRTL(post.content);
 
   const navigateToPost = () => {
     router.push(postUrl);
@@ -76,7 +79,15 @@ export default function Post({ post }: { post: PostData }) {
               </span>
             </div>
 
-            <p className="mb-3 text-sm leading-relaxed">{post.content}</p>
+            <p
+              dir={isRtl ? 'rtl' : 'ltr'}
+              className={cn(
+                'mb-3 text-sm leading-relaxed',
+                isRtl ? 'font-vazir text-right' : 'font-inter text-left',
+              )}
+            >
+              {post.content}
+            </p>
 
             {/*<PostActions />*/}
           </div>

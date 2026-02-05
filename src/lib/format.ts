@@ -67,3 +67,11 @@ export function formatCount(value: number): string {
 
   return format(abs / 1_000_000_000_000, 'T');
 }
+
+// **************** Text Direction ****************
+// Strong RTL ranges: Arabic, Hebrew, Persian, Urdu, etc.
+const RTL_CHAR_REGEX = /[\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC]/;
+
+export function isRTL(text: string): boolean {
+  return RTL_CHAR_REGEX.test(text);
+}

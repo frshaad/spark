@@ -1,15 +1,8 @@
-import { Geist, Geist_Mono, Inter } from 'next/font/google';
+import { Inter, Vazirmatn } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
+export const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
+export const vazirMatn = Vazirmatn({
+  variable: '--font-vazirmatn',
+  subsets: ['arabic'],
 });
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
-
-export { inter, geistSans, geistMono };

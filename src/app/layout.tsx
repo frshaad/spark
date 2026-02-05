@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { geistMono, geistSans, inter } from '@/lib/fonts';
+import { inter, vazirMatn } from '@/lib/fonts';
 import Providers from '@/providers';
 
 export default function RootLayout({
@@ -9,10 +9,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.variable} ${vazirMatn.variable} antialiased`}>
         <Providers>{children}</Providers>
       </body>
     </html>
