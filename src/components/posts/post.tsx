@@ -12,24 +12,37 @@ import { PostData } from '@/lib/types';
 
 export default function Post({ post }: { post: PostData }) {
   const router = useRouter();
+  const postUrl = `/${post.author.username}/${post.id}` as Route;
+  const authorUrl = `/${post.author.username}` as Route;
 
-  function stopPropagation(e: React.MouseEvent) {
+  const navigateToPost = () => {
+    router.push(postUrl);
+  };
+
+  const handleCardClick = () => {
+    const selection = window.getSelection();
+    if (selection && selection.toString().length > 0) return;
+
+    navigateToPost();
+  };
+
+  const stopPropagation = (e: React.MouseEvent) => {
     e.stopPropagation();
-  }
+  };
 
   return (
     <Card
-      onClick={() =>
-        router.push(`/${post.author.username}/${post.id}` as Route)
-      }
+      role="button"
+      tabIndex={0}
       className="cursor-pointer"
+      onClick={handleCardClick}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') navigateToPost();
+      }}
     >
       <CardContent>
         <div className="flex gap-3">
-          <Link
-            href={`/${post.author.username}` as Route}
-            onClick={stopPropagation}
-          >
+          <Link href={authorUrl} onClick={stopPropagation}>
             <UserAvatar
               user={{
                 image: post.author.image,
@@ -42,7 +55,7 @@ export default function Post({ post }: { post: PostData }) {
           <div className="min-w-0 flex-1">
             <div className="mb-1 flex items-center gap-2">
               <Link
-                href={`/${post.author.username}` as Route}
+                href={authorUrl}
                 onClick={stopPropagation}
                 className="text-sm font-semibold hover:underline"
               >
@@ -50,7 +63,7 @@ export default function Post({ post }: { post: PostData }) {
               </Link>
 
               <Link
-                href={`/${post.author.username}` as Route}
+                href={authorUrl}
                 onClick={stopPropagation}
                 className="text-muted-foreground text-sm hover:underline"
               >
