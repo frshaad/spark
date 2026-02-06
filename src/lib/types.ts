@@ -26,9 +26,16 @@ export const postDataInclude = {
   },
 } satisfies PostInclude;
 
-export type PostData = PostGetPayload<{
+type PostDataGenerated = PostGetPayload<{
   include: typeof postDataInclude;
 }>;
+
+// Override the author type to require username
+export type PostData = Omit<PostDataGenerated, 'author'> & {
+  author: Omit<PostDataGenerated['author'], 'username'> & {
+    username: string;
+  };
+};
 
 export type PostsPage = {
   posts: PostData[];

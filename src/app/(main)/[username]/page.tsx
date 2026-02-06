@@ -1,3 +1,3 @@
 export default function UserProfile() {
-  return null;
+  return <div>Hello World</div>;
 }

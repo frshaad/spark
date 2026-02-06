@@ -6,9 +6,10 @@ import {
   getPost,
 } from '@/lib/dal/post';
 import { getServerSession } from '@/lib/session';
+import { PostData } from '@/lib/types';
 import { createPostSchema } from '@/lib/validation/post';
 
-export async function submitPost(input: string) {
+export async function submitPost(input: string): Promise<PostData> {
   const session = await getServerSession();
   if (!session) {
     throw new Error('Unauthorized');
@@ -16,10 +17,10 @@ export async function submitPost(input: string) {
 
   const { content } = createPostSchema.parse({ content: input });
   const newPost = await createPost(session.user.id, content);
-  return newPost;
+  return newPost as PostData;
 }
 
-export async function deletePost(postId: string) {
+export async function deletePost(postId: string): Promise<PostData> {
   const session = await getServerSession();
   if (!session) {
     throw new Error('Unauthorized');
@@ -36,5 +37,5 @@ export async function deletePost(postId: string) {
   }
 
   const deletedPost = await deletePostById(post.id);
-  return deletedPost;
+  return deletedPost as PostData;
 }

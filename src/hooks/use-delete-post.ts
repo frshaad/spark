@@ -1,3 +1,4 @@
+import { Route } from 'next';
 import { usePathname, useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { deletePost } from '@/actions/post.action';
@@ -40,7 +41,7 @@ export function useDeletePost() {
       if (
         pathname === `/${deletedPost.author.username}/posts/${deletedPost.id}`
       ) {
-        router.push(`/${deletedPost.author.username}`);
+        router.push(`/${deletedPost.author.username}` as Route);
       }
 
       toast.success('Post deleted!');
