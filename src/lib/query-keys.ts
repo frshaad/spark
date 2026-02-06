@@ -1,3 +1,4 @@
 export const queryKeys = {
-  feed: ['feed'] as const,
+  feed: ['for-you', 'post-feed'] as const,
+  posts: ['post-feed'] as const,
 };
