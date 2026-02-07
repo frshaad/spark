@@ -4,7 +4,6 @@ import { QUERY_KEYS } from '@/lib/query-keys';
 import { PostsPage } from '@/lib/types';
 import {
   InfiniteData,
-  QueryFilters,
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query';
@@ -14,24 +13,36 @@ export function usePostSubmit() {
 
   return useMutation({
     mutationFn: submitPost,
-    async onSuccess(newPost) {
-      const queryFilter: QueryFilters = {
-        queryKey: QUERY_KEYS.feed,
-      };
 
-      await queryClient.cancelQueries(queryFilter);
+    async onMutate(content) {
+      await queryClient.cancelQueries({ queryKey: QUERY_KEYS.feed });
 
       queryClient.setQueriesData<InfiniteData<PostsPage, string | null>>(
-        queryFilter,
+        { queryKey: QUERY_KEYS.feed },
         (oldData) => {
-          const firstPage = oldData?.pages[0];
-          if (!firstPage) return oldData;
+          if (!oldData?.pages[0]) return oldData;
+
           return {
             pageParams: oldData.pageParams,
             pages: [
               {
-                posts: [newPost, ...firstPage.posts],
-                nextCursor: firstPage.nextCursor,
+                ...oldData.pages[0],
+                posts: [
+                  {
+                    id: `temp-${Date.now()}`,
+                    content,
+                    createdAt: new Date(),
+                    authorId: '',
+                    author: {
+                      id: '',
+                      username: '',
+                      displayUsername: '',
+                      image: null,
+                      name: '',
+                    },
+                  },
+                  ...oldData.pages[0].posts,
+                ],
               },
               ...oldData.pages.slice(1),
             ],
@@ -39,16 +50,49 @@ export function usePostSubmit() {
         },
       );
 
-      await queryClient.invalidateQueries({
-        queryKey: queryFilter.queryKey,
-        predicate: (query) => !query.state.data,
-      });
+      return { optimisticPostId: `temp-${Date.now()}` };
+    },
+
+    async onSuccess(newPost) {
+      queryClient.setQueriesData<InfiniteData<PostsPage, string | null>>(
+        { queryKey: QUERY_KEYS.feed },
+        (oldData) => {
+          if (!oldData) return oldData;
+
+          return {
+            pageParams: oldData.pageParams,
+            pages: oldData.pages.map((page) => ({
+              ...page,
+              posts: page.posts.map((post) =>
+                post.id.startsWith('temp-') ? newPost : post,
+              ),
+            })),
+          };
+        },
+      );
 
       toast.success('Post published!');
     },
-    onError(error) {
+    onError(error, _variables, context) {
+      queryClient.setQueriesData<InfiniteData<PostsPage, string | null>>(
+        { queryKey: QUERY_KEYS.feed },
+        (oldData) => {
+          if (!oldData) return oldData;
+
+          return {
+            pageParams: oldData.pageParams,
+            pages: oldData.pages.map((page) => ({
+              ...page,
+              posts: page.posts.filter(
+                (p) => p.id !== context?.optimisticPostId,
+              ),
+            })),
+          };
+        },
+      );
+
       console.error(error);
-      toast.error('Failed to submit post');
+      toast.error('Failed to publish post. Try again.');
     },
   });
 }

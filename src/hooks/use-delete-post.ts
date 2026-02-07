@@ -6,7 +6,6 @@ import { QUERY_KEYS } from '@/lib/query-keys';
 import { PostsPage } from '@/lib/types';
 import {
   InfiniteData,
-  QueryFilters,
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query';
@@ -19,37 +18,50 @@ export function useDeletePost() {
   return useMutation({
     mutationFn: deletePost,
 
-    async onSuccess(deletedPost) {
-      const queryFilter: QueryFilters = { queryKey: QUERY_KEYS.feed };
+    async onMutate(postId) {
+      await queryClient.cancelQueries({ queryKey: QUERY_KEYS.feed });
 
-      await queryClient.cancelQueries(queryFilter);
+      const cachedPost = queryClient.getQueryData<{
+        author: { username: string };
+      }>(QUERY_KEYS.post(postId));
 
       queryClient.setQueriesData<InfiniteData<PostsPage, string | null>>(
-        queryFilter,
+        { queryKey: QUERY_KEYS.feed },
         (oldData) => {
-          if (!oldData) return;
+          if (!oldData) return oldData;
+
           return {
             pageParams: oldData.pageParams,
             pages: oldData.pages.map((page) => ({
-              nextCursor: page.nextCursor,
-              posts: page.posts.filter((post) => post.id !== deletedPost.id),
+              ...page,
+              posts: page.posts.filter((p) => p.id !== postId),
             })),
           };
         },
       );
 
-      if (
-        pathname === `/${deletedPost.author.username}/posts/${deletedPost.id}`
-      ) {
-        router.push(`/${deletedPost.author.username}` as Route);
-      }
-
-      toast.success('Post deleted!');
+      return { cachedPost };
     },
 
-    onError(error) {
+    async onSuccess(deletedPost) {
+      queryClient.removeQueries({ queryKey: QUERY_KEYS.post(deletedPost.id) });
+
+      const postPage = `/${deletedPost.author.username}/posts/${deletedPost.id}`;
+      if (pathname === postPage) {
+        router.push(`/${deletedPost.author.username}` as Route);
+        toast.success('Post deleted. Redirecting...');
+      } else {
+        toast.success('Post deleted!');
+      }
+    },
+
+    async onError(error, postId, context) {
+      if (context?.cachedPost) {
+        await queryClient.invalidateQueries({ queryKey: QUERY_KEYS.feed });
+      }
+
       console.error(error);
-      toast.error('Failed to delete post. Please try again later!');
+      toast.error('Failed to delete post. Try again.');
     },
   });
 }

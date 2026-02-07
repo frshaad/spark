@@ -27,7 +27,6 @@ export async function deletePost(postId: string): Promise<PostData> {
   }
 
   const post = await getPost(postId);
-
   if (!post) {
     throw new Error('Post not found');
   }
