@@ -20,7 +20,7 @@ export function useDeletePost() {
     mutationFn: deletePost,
 
     async onSuccess(deletedPost) {
-      const queryFilter: QueryFilters = { queryKey: QUERY_KEYS.posts };
+      const queryFilter: QueryFilters = { queryKey: QUERY_KEYS.feed };
 
       await queryClient.cancelQueries(queryFilter);
 
