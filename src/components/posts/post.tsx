@@ -1,166 +1,84 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Route } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { EllipsisVertical, Trash } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import UserAvatar from '@/components/user-avatar';
-import { useDeletePost } from '@/hooks/use-delete-post';
-import { authClient } from '@/lib/auth-client';
 import { formatPostDate, isRTL } from '@/lib/format';
 import { PostData } from '@/lib/types';
-import { cn } from '@/lib/utils';
+import UserAvatar from '../user-avatar';
+import PostContent from './post-content';
+import PostHeader from './post-header';
+import PostMenu from './post-menu';
 
 // import PostActions from './post-actions';
 
 export default function Post({ post }: { post: PostData }) {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const { data } = authClient.useSession();
   const router = useRouter();
-  const { mutate: deletePost, isPending: isDeleting } = useDeletePost();
 
-  function handleDeletePost() {
-    deletePost(post.id, {
-      onSuccess() {
-        setIsDialogOpen(false);
-      },
-    });
-  }
+  const postUrl = useMemo(
+    () => `/${post.author.username}/${post.id}` as Route,
+    [post.id, post.author.username],
+  );
+  const authorUrl = useMemo(
+    () => `/${post.author.username}` as Route,
+    [post.author.username],
+  );
 
-  const postUrl = `/${post.author.username}/${post.id}` as Route;
-  const authorUrl = `/${post.author.username}` as Route;
-  const isRtl = isRTL(post.content);
+  const isRtl = useMemo(() => isRTL(post.content), [post.content]);
 
-  const navigateToPost = () => {
+  const navigateToPost = useCallback(() => {
     router.push(postUrl);
-  };
+  }, [router, postUrl]);
 
-  const handleCardClick = () => {
-    const selection = window.getSelection();
-    if (selection && selection.toString().length > 0) return;
-
+  const handleCardClick = useCallback(() => {
+    if (typeof window !== 'undefined') {
+      const selection = window.getSelection();
+      if (selection && selection.toString().length > 0) return;
+    }
     navigateToPost();
-  };
+  }, [navigateToPost]);
 
   return (
-    <Card className="group/post">
-      <CardContent>
-        <div className="flex gap-3">
-          <Link href={authorUrl}>
-            <UserAvatar
-              user={{
-                image: post.author.image,
-                name: post.author.displayUsername ?? post.author.name,
-              }}
-              className="size-10 transition hover:opacity-80"
+    <Card role="button" className="group/post">
+      <CardContent className="flex gap-3">
+        <Link href={authorUrl} onClick={(e) => e.stopPropagation()}>
+          <UserAvatar
+            user={{
+              image: post.author.image,
+              name: post.author.displayUsername ?? post.author.name,
+            }}
+            className="size-10 transition hover:opacity-80"
+          />
+        </Link>
+
+        <div className="w-full">
+          <div className="flex items-center justify-between">
+            <PostHeader
+              author={post.author}
+              authorUrl={authorUrl}
+              createdAt={post.createdAt}
+              formatDate={formatPostDate}
             />
-          </Link>
 
-          <div className="min-w-0 flex-1">
-            <div className="mb-1 flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2">
-                <Link
-                  href={authorUrl}
-                  className="text-sm font-semibold hover:underline"
-                >
-                  {post.author.displayUsername}
-                </Link>
-
-                <Link
-                  href={authorUrl}
-                  className="text-muted-foreground text-sm hover:underline"
-                >
-                  @{post.author.username}
-                </Link>
-
-                <span className="text-muted-foreground text-sm">·</span>
-                <span className="text-muted-foreground text-sm">
-                  {formatPostDate(post.createdAt)}
-                </span>
+            <div className="min-w-0 flex-1">
+              <div className="mb-1 flex items-center justify-between gap-2">
+                <div className="flex-1" />
+                <PostMenu post={post} />
               </div>
-
-              {post.authorId === data?.user.id && (
-                <DropdownMenu>
-                  <DropdownMenuTrigger
-                    render={<Button variant="ghost" />}
-                    className="opacity-0 transition-opacity group-hover/post:opacity-100"
-                  >
-                    <EllipsisVertical />
-                  </DropdownMenuTrigger>
-
-                  <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                    <DropdownMenuContent>
-                      <DropdownMenuItem variant="destructive">
-                        <DialogTrigger className="flex w-full items-center gap-2">
-                          <Trash /> Delete
-                        </DialogTrigger>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-
-                    <DialogContent>
-                      <DialogHeader>
-                        <DialogTitle>Delete post?</DialogTitle>
-                        <DialogDescription>
-                          Are you sure you want to delete this post? This action
-                          cannot be undone.
-                        </DialogDescription>
-                      </DialogHeader>
-                      <DialogFooter>
-                        <DialogClose
-                          render={
-                            <Button variant="outline" disabled={isDeleting}>
-                              Cancel
-                            </Button>
-                          }
-                        />
-                        <Button
-                          type="submit"
-                          variant="destructive"
-                          onClick={handleDeletePost}
-                          disabled={isDeleting}
-                        >
-                          {isDeleting ? 'Deleting...' : 'Delete'}
-                        </Button>
-                      </DialogFooter>
-                    </DialogContent>
-                  </Dialog>
-                </DropdownMenu>
-              )}
             </div>
-
-            <div onClick={handleCardClick} className="cursor-pointer">
-              <p
-                dir={isRtl ? 'rtl' : 'ltr'}
-                className={cn(
-                  'mb-3 text-sm leading-relaxed',
-                  isRtl ? 'font-vazir text-right' : 'font-inter text-left',
-                )}
-              >
-                {post.content}
-              </p>
-            </div>
-
-            {/*<PostActions />*/}
           </div>
+
+          <div
+            onClick={handleCardClick}
+            aria-label={`Open post by ${post.author.displayUsername}`}
+            className="cursor-pointer"
+          >
+            <PostContent content={post.content} isRtl={isRtl} />
+          </div>
+
+          {/*<PostActions />*/}
         </div>
       </CardContent>
     </Card>
