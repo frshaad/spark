@@ -5,9 +5,8 @@ import { Route } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
-import { formatPostDate, isRTL } from '@/lib/format';
+import UserAvatar from '@/components/user-avatar';
 import { PostData } from '@/lib/types';
-import UserAvatar from '../user-avatar';
 import PostContent from './post-content';
 import PostHeader from './post-header';
 import PostMenu from './post-menu';
@@ -25,8 +24,6 @@ export default function Post({ post }: { post: PostData }) {
     () => `/${post.author.username}` as Route,
     [post.author.username],
   );
-
-  const isRtl = useMemo(() => isRTL(post.content), [post.content]);
 
   const navigateToPost = useCallback(() => {
     router.push(postUrl);
@@ -59,13 +56,12 @@ export default function Post({ post }: { post: PostData }) {
               author={post.author}
               authorUrl={authorUrl}
               createdAt={post.createdAt}
-              formatDate={formatPostDate}
             />
 
             <div className="min-w-0 flex-1">
               <div className="mb-1 flex items-center justify-between gap-2">
                 <div className="flex-1" />
-                <PostMenu post={post} />
+                <PostMenu authorId={post.authorId} postId={post.id} />
               </div>
             </div>
           </div>
@@ -75,7 +71,7 @@ export default function Post({ post }: { post: PostData }) {
             aria-label={`Open post by ${post.author.displayUsername}`}
             className="cursor-pointer"
           >
-            <PostContent content={post.content} isRtl={isRtl} />
+            <PostContent content={post.content} />
           </div>
 
           {/*<PostActions />*/}

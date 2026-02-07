@@ -1,23 +1,20 @@
+import { useMemo } from 'react';
 import type { Route } from 'next';
 import Link from 'next/link';
-import { formatPostDate } from '@/lib/format';
+import { formatPostDate, isRTL } from '@/lib/format';
 import type { PostData } from '@/lib/types';
-
-type Author = PostData['author'];
 
 export default function PostHeader({
   author,
   authorUrl,
   createdAt,
-  formatDate = (d: Date) => formatPostDate(d),
 }: {
-  author: Author;
+  author: PostData['author'];
   authorUrl: Route;
   createdAt: Date | string;
-  formatDate?: (d: Date) => string;
 }) {
-  const displayName =
-    author.displayUsername ?? author.name ?? author.username ?? 'User';
+  const displayName = author.displayUsername ?? author.name;
+  const isRtl = useMemo(() => isRTL(displayName), [displayName]);
 
   return (
     <div className="min-w-0">
@@ -27,9 +24,7 @@ export default function PostHeader({
           onClick={(e) => e.stopPropagation()}
           className="font-semibold hover:underline"
         >
-          <span dir={/[\u0591-\u07FF]/.test(displayName) ? 'rtl' : 'ltr'}>
-            {displayName}
-          </span>
+          <span dir={isRtl ? 'rtl' : 'ltr'}>{displayName}</span>
         </Link>
 
         <Link
@@ -43,7 +38,7 @@ export default function PostHeader({
         <span className="text-muted-foreground">·</span>
 
         <span className="text-muted-foreground">
-          {formatDate(new Date(createdAt))}
+          {formatPostDate(new Date(createdAt))}
         </span>
       </div>
     </div>

@@ -1,18 +1,16 @@
+import { useMemo } from 'react';
+import { isRTL } from '@/lib/format';
 import { cn } from '@/lib/utils';
 
-export default function PostContent({
-  content,
-  isRtl,
-}: {
-  content: string;
-  isRtl: boolean;
-}) {
+export default function PostContent({ content }: { content: string }) {
+  const isContentRtl = useMemo(() => isRTL(content), [content]);
+
   return (
     <p
-      dir={isRtl ? 'rtl' : 'ltr'}
+      dir={isContentRtl ? 'rtl' : 'ltr'}
       className={cn(
         'mb-3 text-sm leading-relaxed wrap-break-word whitespace-pre-wrap',
-        isRtl ? 'font-vazir text-right' : 'font-inter text-left',
+        isContentRtl ? 'font-vazir text-right' : 'font-inter text-left',
       )}
     >
       {content}

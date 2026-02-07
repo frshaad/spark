@@ -18,21 +18,25 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useDeletePost } from '@/hooks/use-delete-post';
 import { authClient } from '@/lib/auth-client';
-import type { PostData } from '@/lib/types';
 
-export default function PostMenu({ post }: { post: PostData }) {
+type PostMenuProps = {
+  authorId: string;
+  postId: string;
+};
+
+export default function PostMenu({ authorId, postId }: PostMenuProps) {
   const { data } = authClient.useSession();
-  const canManage = post.authorId === data?.user.id;
+  const canManage = authorId === data?.user.id;
   const { mutate: deletePost, isPending: isDeleting } = useDeletePost();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const onConfirmDelete = useCallback(() => {
-    deletePost(post.id, {
+    deletePost(postId, {
       onSuccess() {
         setIsDialogOpen(false);
       },
     });
-  }, [deletePost, post.id]);
+  }, [deletePost, postId]);
 
   if (!canManage) return null;
 

@@ -2,7 +2,7 @@ import { Route } from 'next';
 import { usePathname, useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { deletePost } from '@/actions/post.action';
-import { queryKeys } from '@/lib/query-keys';
+import { QUERY_KEYS } from '@/lib/query-keys';
 import { PostsPage } from '@/lib/types';
 import {
   InfiniteData,
@@ -20,7 +20,7 @@ export function useDeletePost() {
     mutationFn: deletePost,
 
     async onSuccess(deletedPost) {
-      const queryFilter: QueryFilters = { queryKey: queryKeys.posts };
+      const queryFilter: QueryFilters = { queryKey: QUERY_KEYS.posts };
 
       await queryClient.cancelQueries(queryFilter);
 

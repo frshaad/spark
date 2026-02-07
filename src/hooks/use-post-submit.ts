@@ -1,6 +1,6 @@
 import { toast } from 'sonner';
 import { submitPost } from '@/actions/post.action';
-import { queryKeys } from '@/lib/query-keys';
+import { QUERY_KEYS } from '@/lib/query-keys';
 import { PostsPage } from '@/lib/types';
 import {
   InfiniteData,
@@ -16,7 +16,7 @@ export function usePostSubmit() {
     mutationFn: submitPost,
     async onSuccess(newPost) {
       const queryFilter: QueryFilters = {
-        queryKey: queryKeys.feed,
+        queryKey: QUERY_KEYS.feed,
       };
 
       await queryClient.cancelQueries(queryFilter);
