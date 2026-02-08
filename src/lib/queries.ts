@@ -14,5 +14,6 @@ export function getFeedQuery() {
         .json<PostsPage>(),
     initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
+    maxPages: 15,
   });
 }
