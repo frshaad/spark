@@ -8,7 +8,7 @@ import ForYouFeedSkeleton from './for-you-feed.skeleton';
 import InfiniteScrollContainer from './infinite-scroll-container';
 
 export default function ForYouFeed() {
-  const { data, status, hasNextPage, fetchNextPage, isFetchingNextPage } =
+  const { data, status, hasNextPage, isFetching, fetchNextPage } =
     useInfiniteQuery(getFeedQuery());
 
   if (status === 'pending') {
@@ -32,12 +32,12 @@ export default function ForYouFeed() {
   return (
     <InfiniteScrollContainer
       className="space-y-3"
-      onBottomReached={fetchNextPage}
+      onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
       hasNextPage={hasNextPage}
-      isLoading={isFetchingNextPage}
+      isFetching={isFetching}
     >
       <PostsList posts={posts} />
-      {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
+      {isFetching && <Loader2 className="mx-auto my-3 animate-spin" />}
     </InfiniteScrollContainer>
   );
 }

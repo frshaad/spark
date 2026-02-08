@@ -5,7 +5,7 @@ import { useInView } from 'react-intersection-observer';
 type InfiniteScrollContainerProps = {
   onBottomReached: () => void;
   hasNextPage?: boolean;
-  isLoading?: boolean;
+  isFetching?: boolean;
   className?: string;
 } & React.PropsWithChildren;
 
@@ -13,14 +13,14 @@ export default function InfiniteScrollContainer({
   children,
   onBottomReached,
   hasNextPage = true,
-  isLoading = false,
+  isFetching = false,
   className = '',
 }: InfiniteScrollContainerProps) {
   const { ref } = useInView({
     rootMargin: '200px',
     triggerOnce: false,
     onChange: (inView) => {
-      if (inView && hasNextPage && !isLoading) {
+      if (inView && hasNextPage && !isFetching) {
         onBottomReached();
       }
     },
