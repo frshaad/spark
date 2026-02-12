@@ -1,8 +1,8 @@
 import { NextRequest } from 'next/server';
+import { getFeedPostsPage } from '@/lib/dal/post';
 import { handleApiError } from '@/lib/errors';
-import prisma from '@/lib/prisma';
 import { requireOnboardedUserApi } from '@/lib/session';
-import { PostsPage, isOnboardedPost, postDataInclude } from '@/lib/types';
+import { PostsPage, isOnboardedPost } from '@/lib/types';
 
 export async function GET(req: NextRequest) {
   try {
@@ -11,13 +11,7 @@ export async function GET(req: NextRequest) {
     const cursor = req.nextUrl.searchParams.get('cursor') || undefined;
     const pageSize = 10;
 
-    const posts = await prisma.post.findMany({
-      include: postDataInclude,
-      orderBy: { createdAt: 'desc' },
-      take: pageSize + 1,
-      cursor: cursor ? { id: cursor } : undefined,
-      skip: cursor ? 1 : 0,
-    });
+    const posts = await getFeedPostsPage(cursor, pageSize);
 
     // Filter out posts from users without username
     const validPosts = posts.filter(isOnboardedPost);

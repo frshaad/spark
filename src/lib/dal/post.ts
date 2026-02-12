@@ -8,12 +8,17 @@ export const getPost = cache((id: string) => {
   });
 });
 
-export const getPosts = cache(async () => {
-  return prisma.post.findMany({
-    include: postDataInclude,
-    orderBy: { createdAt: 'desc' },
-  });
-});
+export const getFeedPostsPage = cache(
+  (cursor: string | undefined, pageSize: number) => {
+    return prisma.post.findMany({
+      include: postDataInclude,
+      orderBy: { createdAt: 'desc' },
+      take: pageSize + 1,
+      cursor: cursor ? { id: cursor } : undefined,
+      skip: cursor ? 1 : 0,
+    });
+  },
+);
 
 export async function createPost(authorId: string, content: string) {
   return prisma.post.create({

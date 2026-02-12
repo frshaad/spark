@@ -1,5 +1,5 @@
+import { getUserFollowersSummary } from '@/lib/dal/follow';
 import { handleApiError } from '@/lib/errors';
-import prisma from '@/lib/prisma';
 import { requireOnboardedUserApi } from '@/lib/session';
 import { UserFollowersSummary } from '@/lib/types';
 
@@ -11,19 +11,10 @@ export async function GET(
     const { targetUserId } = await ctx.params;
     const { user: authenticatedUser } = await requireOnboardedUserApi();
 
-    const targetUser = await prisma.user.findUniqueOrThrow({
-      where: { id: targetUserId },
-      select: {
-        followers: {
-          where: { followerId: authenticatedUser.id },
-          select: { followerId: true },
-          take: 1,
-        },
-        _count: {
-          select: { followers: true },
-        },
-      },
-    });
+    const targetUser = await getUserFollowersSummary(
+      targetUserId,
+      authenticatedUser.id,
+    );
 
     const followersSummary: UserFollowersSummary = {
       totalFollowers: targetUser._count.followers,
