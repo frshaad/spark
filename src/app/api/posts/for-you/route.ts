@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { handleRouteError } from '@/lib/errors';
+import { handleApiError } from '@/lib/errors';
 import prisma from '@/lib/prisma';
 import { requireOnboardedUserApi } from '@/lib/session';
 import { PostsPage, isOnboardedPost, postDataInclude } from '@/lib/types';
@@ -32,6 +32,6 @@ export async function GET(req: NextRequest) {
 
     return Response.json(data);
   } catch (error) {
-    return handleRouteError(error);
+    return handleApiError(error);
   }
 }

@@ -9,7 +9,7 @@ export class HttpError extends Error {
   }
 }
 
-export function handleRouteError(error: unknown) {
+export function handleApiError(error: unknown) {
   // Expected, controlled errors
   if (error instanceof HttpError) {
     return NextResponse.json(

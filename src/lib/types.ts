@@ -43,6 +43,11 @@ export type PostsPage = {
   nextCursor: string | null;
 };
 
+export type UserFollowersSummary = {
+  totalFollowers: number;
+  isFollowedByViewer: boolean;
+};
+
 /**
  * Helper function to check if a post is onboarded
  */
