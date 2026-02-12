@@ -25,7 +25,7 @@ export function getFollowerSummaryQuery(
   return queryOptions({
     queryKey: QUERY_KEYS.followerInfo(targetUserId),
     queryFn: () =>
-      api.get(`users/${targetUserId}/followers`).json<UserFollowersSummary>(),
+      api.get(`users/${targetUserId}/follow`).json<UserFollowersSummary>(),
     initialData,
     staleTime: Infinity, // 60_000
   });

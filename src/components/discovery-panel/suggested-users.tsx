@@ -10,6 +10,7 @@ import {
 import UserAvatar from '@/components/user-avatar';
 import { usersToFollow } from '@/lib/dal/user';
 import { requireOnboardedUser } from '@/lib/session';
+import FollowButton from '../follow-button';
 
 export default async function SuggestedUsersList() {
   const { user } = await requireOnboardedUser();
@@ -40,9 +41,13 @@ export default async function SuggestedUsersList() {
             </Link>
           </ItemContent>
           <ItemActions>
-            <Button variant="outline" size="sm">
-              Follow
-            </Button>
+            <FollowButton
+              targetUserId={user.id}
+              initialState={{
+                totalFollowers: 0,
+                isFollowedByViewer: false,
+              }}
+            />
           </ItemActions>
         </Item>
       ))}

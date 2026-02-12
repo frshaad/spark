@@ -8,10 +8,9 @@ import { BadRequestError, NotFoundError, handleApiError } from '@/lib/errors';
 import { requireOnboardedUserApi } from '@/lib/session';
 import { UserFollowersSummary } from '@/lib/types';
 
-export async function GET(
-  _req: Request,
-  ctx: RouteContext<'/api/users/[targetUserId]/followers'>,
-) {
+type RouteCTX = RouteContext<'/api/users/[targetUserId]/follow'>;
+
+export async function GET(_req: Request, ctx: RouteCTX) {
   try {
     const { targetUserId } = await ctx.params;
     const { user: authenticatedUser } = await requireOnboardedUserApi();
@@ -33,10 +32,7 @@ export async function GET(
   }
 }
 
-export async function POST(
-  request: Request,
-  ctx: RouteContext<'/api/users/[targetUserId]/followers'>,
-) {
+export async function POST(_req: Request, ctx: RouteCTX) {
   try {
     const { targetUserId } = await ctx.params;
     const { user: authenticatedUser } = await requireOnboardedUserApi();
@@ -46,16 +42,13 @@ export async function POST(
 
     await followUser(targetUserId, authenticatedUser.id);
 
-    return new NextResponse();
+    return new Response();
   } catch (error) {
     return handleApiError(error);
   }
 }
 
-export async function DELETE(
-  req: Request,
-  ctx: RouteContext<'/api/users/[targetUserId]/followers'>,
-) {
+export async function DELETE(_req: Request, ctx: RouteCTX) {
   try {
     const { targetUserId } = await ctx.params;
     const { user: authenticatedUser } = await requireOnboardedUserApi();
@@ -64,7 +57,7 @@ export async function DELETE(
 
     await unfollowUser(targetUserId, authenticatedUser.id);
 
-    return new NextResponse();
+    return new Response();
   } catch (error) {
     return handleApiError(error);
   }
