@@ -34,3 +34,12 @@ export async function followUser(
     update: {},
   });
 }
+
+export async function unfollowUser(
+  targetUserId: string,
+  authenticatedUserId: string,
+) {
+  prisma.follow.deleteMany({
+    where: { followerId: authenticatedUserId, followingId: targetUserId },
+  });
+}
