@@ -3,7 +3,7 @@ import prisma from '@/lib/prisma';
 
 export const getUserFollowersSummary = cache(
   (targetUserId: string, authenticatedUserId: string) => {
-    return prisma.user.findUniqueOrThrow({
+    return prisma.user.findUnique({
       where: { id: targetUserId },
       select: {
         followers: {
@@ -18,3 +18,19 @@ export const getUserFollowersSummary = cache(
     });
   },
 );
+
+export async function followUser(
+  targetUserId: string,
+  authenticatedUserId: string,
+) {
+  const followData = {
+    followerId: authenticatedUserId,
+    followingId: targetUserId,
+  };
+
+  prisma.follow.upsert({
+    where: { followerId_followingId: followData },
+    create: followData,
+    update: {},
+  });
+}
