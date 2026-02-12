@@ -11,23 +11,23 @@ export async function GET(
     const { targetUserId } = await ctx.params;
     const { user: authenticatedUser } = await requireOnboardedUserApi();
 
-    const targetUserWithFollowerData = await prisma.user.findUnique({
+    const targetUser = await prisma.user.findUniqueOrThrow({
       where: { id: targetUserId },
       select: {
         followers: {
           where: { followerId: authenticatedUser.id },
           select: { followerId: true },
+          take: 1,
         },
         _count: {
           select: { followers: true },
         },
       },
     });
-    if (!targetUserWithFollowerData) throw new Error('User Not Found');
 
     const followersSummary: UserFollowersSummary = {
-      totalFollowers: targetUserWithFollowerData._count.followers,
-      isFollowedByViewer: targetUserWithFollowerData.followers.length > 0,
+      totalFollowers: targetUser._count.followers,
+      isFollowedByViewer: Boolean(targetUser.followers.length),
     };
 
     return Response.json(followersSummary);
