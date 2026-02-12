@@ -2,6 +2,8 @@ export const QUERY_KEYS = {
   feed: ['feed'] as const,
   userPosts: (username: string) => ['user-posts', username] as const,
   post: (id: string) => ['post', id] as const,
+
+  followerInfo: (userId: string) => ['follower-info', userId] as const,
 };
 
 /**

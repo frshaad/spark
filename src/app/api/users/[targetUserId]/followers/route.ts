@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { isAsyncFunction } from 'node:util/types';
 import {
   followUser,
   getUserFollowersSummary,
