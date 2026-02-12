@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server';
 import { handleRouteError } from '@/lib/errors';
 import prisma from '@/lib/prisma';
 import { requireOnboardedUserApi } from '@/lib/session';
-import { PostsPage, postDataInclude } from '@/lib/types';
+import { PostsPage, isOnboardedPost, postDataInclude } from '@/lib/types';
 
 export async function GET(req: NextRequest) {
   try {
@@ -19,10 +19,16 @@ export async function GET(req: NextRequest) {
       skip: cursor ? 1 : 0,
     });
 
-    const hasNextPage = posts.length > pageSize;
-    const nextCursor = hasNextPage ? posts[pageSize].id : null;
+    // Filter out posts from users without username
+    const validPosts = posts.filter(isOnboardedPost);
 
-    const data: PostsPage = { posts: posts.slice(0, pageSize), nextCursor };
+    const hasNextPage = validPosts.length > pageSize;
+    const nextCursor = hasNextPage ? validPosts[pageSize].id : null;
+
+    const data: PostsPage = {
+      posts: validPosts.slice(0, pageSize),
+      nextCursor,
+    };
 
     return Response.json(data);
   } catch (error) {

@@ -30,14 +30,22 @@ type PostDataGenerated = PostGetPayload<{
   include: typeof postDataInclude;
 }>;
 
-// Override the author type to require username
+export type OnboardedUser = Omit<PostDataGenerated['author'], 'username'> & {
+  username: string;
+};
+
 export type PostData = Omit<PostDataGenerated, 'author'> & {
-  author: Omit<PostDataGenerated['author'], 'username'> & {
-    username: string;
-  };
+  author: OnboardedUser;
 };
 
 export type PostsPage = {
   posts: PostData[];
   nextCursor: string | null;
 };
+
+/**
+ * Helper function to check if a post is onboarded
+ */
+export function isOnboardedPost(post: PostDataGenerated): post is PostData {
+  return post.author.username !== null;
+}
