@@ -1,6 +1,6 @@
 import { cache } from 'react';
 import prisma from '@/lib/prisma';
-import { buildPostInclude } from '@/lib/types';
+import { PostRecord, buildPostInclude } from '@/lib/types';
 
 export const getPost = cache((id: string) => {
   return prisma.post.findUnique({
@@ -8,7 +8,27 @@ export const getPost = cache((id: string) => {
   });
 });
 
-export const getFeedPostsPage = cache(
+export const getForYouFeedPosts = cache(
+  async ({
+    authenticatedUserId,
+    cursor,
+    pageSize = 10,
+  }: {
+    authenticatedUserId: string;
+    cursor: string | undefined;
+    pageSize: number | undefined;
+  }): Promise<PostRecord[]> => {
+    return prisma.post.findMany({
+      include: buildPostInclude(authenticatedUserId),
+      orderBy: { createdAt: 'desc' },
+      take: pageSize + 1,
+      cursor: cursor ? { id: cursor } : undefined,
+      skip: cursor ? 1 : 0,
+    });
+  },
+);
+
+export const getFollowingFeedPosts = cache(
   ({
     authenticatedUserId,
     cursor,
@@ -19,6 +39,13 @@ export const getFeedPostsPage = cache(
     pageSize: number | undefined;
   }) => {
     return prisma.post.findMany({
+      where: {
+        author: {
+          followers: {
+            some: { followerId: authenticatedUserId },
+          },
+        },
+      },
       include: buildPostInclude(authenticatedUserId),
       orderBy: { createdAt: 'desc' },
       take: pageSize + 1,

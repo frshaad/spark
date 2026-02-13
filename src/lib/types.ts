@@ -57,7 +57,7 @@ export function buildPostInclude(viewerId: string) {
 // ─────────────────────────────────────────────
 //
 
-type PostRecord = PostGetPayload<{
+export type PostRecord = PostGetPayload<{
   include: ReturnType<typeof buildPostInclude>;
 }>;
 
