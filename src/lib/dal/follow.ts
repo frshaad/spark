@@ -1,7 +1,7 @@
 import { cache } from 'react';
 import prisma from '@/lib/prisma';
 
-export const getUserFollowersSummary = cache(
+export const getFollowRelationship = cache(
   (targetUserId: string, authenticatedUserId: string) => {
     return prisma.user.findUnique({
       where: { id: targetUserId },

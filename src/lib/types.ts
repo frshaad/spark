@@ -82,9 +82,9 @@ export type CursorPaginatedPosts = {
   nextCursor: string | null;
 };
 
-export type UserFollowersSummary = {
-  totalFollowers: number;
-  isFollowedByViewer: boolean;
+export type FollowRelationship = {
+  followersCount: number;
+  isFollowing: boolean;
 };
 
 //

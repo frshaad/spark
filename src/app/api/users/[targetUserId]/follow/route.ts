@@ -1,11 +1,11 @@
 import {
   followUser,
-  getUserFollowersSummary,
+  getFollowRelationship,
   unfollowUser,
 } from '@/lib/dal/follow';
 import { BadRequestError, NotFoundError, handleApiError } from '@/lib/errors';
 import { requireOnboardedUserApi } from '@/lib/session';
-import { UserFollowersSummary } from '@/lib/types';
+import { FollowRelationship } from '@/lib/types';
 
 type RouteCTX = RouteContext<'/api/users/[targetUserId]/follow'>;
 
@@ -14,15 +14,15 @@ export async function GET(_req: Request, ctx: RouteCTX) {
     const { targetUserId } = await ctx.params;
     const { user: authenticatedUser } = await requireOnboardedUserApi();
 
-    const targetUser = await getUserFollowersSummary(
+    const targetUser = await getFollowRelationship(
       targetUserId,
       authenticatedUser.id,
     );
     if (!targetUser) throw new NotFoundError('User not found');
 
-    const followersSummary: UserFollowersSummary = {
-      totalFollowers: targetUser._count.followers,
-      isFollowedByViewer: Boolean(targetUser.followers.length),
+    const followersSummary: FollowRelationship = {
+      followersCount: targetUser._count.followers,
+      isFollowing: Boolean(targetUser.followers.length),
     };
 
     return Response.json(followersSummary);

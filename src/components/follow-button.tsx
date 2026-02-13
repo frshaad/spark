@@ -3,11 +3,11 @@
 import { Button } from '@/components/ui/button';
 import { useFollow } from '@/hooks/use-follow';
 import { useFollowerSummary } from '@/hooks/use-follower-summary';
-import { UserFollowersSummary } from '@/lib/types';
+import { FollowRelationship } from '@/lib/types';
 
 type FollowButtonProps = {
   targetUserId: string;
-  initialState: UserFollowersSummary;
+  initialState: FollowRelationship;
 };
 
 export default function FollowButton({
@@ -15,16 +15,16 @@ export default function FollowButton({
   initialState,
 }: FollowButtonProps) {
   const { data } = useFollowerSummary(targetUserId, initialState);
-  const isAlreadyFollowing = data.isFollowedByViewer;
+  const { isFollowing } = data;
 
   const { mutate } = useFollow();
 
   return (
     <Button
-      variant={isAlreadyFollowing ? 'secondary' : 'default'}
-      onClick={() => mutate({ targetUserId, isAlreadyFollowing })}
+      variant={isFollowing ? 'secondary' : 'default'}
+      onClick={() => mutate({ targetUserId, isFollowing })}
     >
-      {isAlreadyFollowing ? 'Following' : 'Follow'}
+      {isFollowing ? 'Following' : 'Follow'}
     </Button>
   );
 }

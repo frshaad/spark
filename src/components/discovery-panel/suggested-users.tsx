@@ -8,12 +8,12 @@ import {
   ItemTitle,
 } from '@/components/ui/item';
 import UserAvatar from '@/components/user-avatar';
-import { usersToFollow } from '@/lib/dal/user';
+import { getUsersToFollow } from '@/lib/dal/user';
 import { requireOnboardedUser } from '@/lib/session';
 
 export default async function SuggestedUsersList() {
-  const { user } = await requireOnboardedUser();
-  const suggestedUsers = await usersToFollow(user.id);
+  const { user: authenticatedUser } = await requireOnboardedUser();
+  const suggestedUsers = await getUsersToFollow(authenticatedUser.id);
 
   return (
     <>
@@ -43,8 +43,10 @@ export default async function SuggestedUsersList() {
             <FollowButton
               targetUserId={user.id}
               initialState={{
-                totalFollowers: 0,
-                isFollowedByViewer: false,
+                followersCount: user._count.followers,
+                isFollowing: user.followers.some(
+                  ({ followerId }) => followerId === authenticatedUser.id,
+                ),
               }}
             />
           </ItemActions>

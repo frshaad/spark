@@ -3,13 +3,13 @@ import { useMutation } from '@tanstack/react-query';
 
 type FollowVariables = {
   targetUserId: string;
-  isAlreadyFollowing: boolean;
+  isFollowing: boolean;
 };
 
 export function useFollow() {
   return useMutation({
-    mutationFn: ({ isAlreadyFollowing, targetUserId }: FollowVariables) =>
-      isAlreadyFollowing
+    mutationFn: ({ isFollowing, targetUserId }: FollowVariables) =>
+      isFollowing
         ? api.delete(`users/${targetUserId}/follow`)
         : api.post(`users/${targetUserId}/follow`),
   });

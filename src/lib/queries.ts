@@ -1,6 +1,6 @@
 import { api } from '@/lib/ky';
 import { QUERY_KEYS } from '@/lib/query-keys';
-import { CursorPaginatedPosts, UserFollowersSummary } from '@/lib/types';
+import { CursorPaginatedPosts, FollowRelationship } from '@/lib/types';
 import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query';
 
 export function getFeedQuery() {
@@ -20,12 +20,12 @@ export function getFeedQuery() {
 
 export function getFollowerSummaryQuery(
   targetUserId: string,
-  initialData: UserFollowersSummary,
+  initialData: FollowRelationship,
 ) {
   return queryOptions({
     queryKey: QUERY_KEYS.followerInfo(targetUserId),
     queryFn: () =>
-      api.get(`users/${targetUserId}/follow`).json<UserFollowersSummary>(),
+      api.get(`users/${targetUserId}/follow`).json<FollowRelationship>(),
     initialData,
     staleTime: Infinity, // 60_000
   });
