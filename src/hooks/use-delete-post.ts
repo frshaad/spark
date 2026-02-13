@@ -4,27 +4,21 @@ import { toast } from 'sonner';
 import { deletePost } from '@/actions/post.action';
 import { QUERY_KEYS } from '@/lib/query-keys';
 import { PostsPage } from '@/lib/types';
-import {
-  InfiniteData,
-  QueryFilters,
-  useMutation,
-  useQueryClient,
-} from '@tanstack/react-query';
+import { InfiniteData, QueryFilters, useMutation } from '@tanstack/react-query';
 
 export function useDeletePost() {
-  const queryClient = useQueryClient();
   const pathname = usePathname();
   const router = useRouter();
 
   return useMutation({
     mutationFn: deletePost,
 
-    async onSuccess(deletedPost) {
+    async onSuccess(deletedPost, _variables, _onMutateResult, context) {
       const queryFilter: QueryFilters = { queryKey: QUERY_KEYS.feed };
 
-      await queryClient.cancelQueries(queryFilter);
+      await context.client.cancelQueries(queryFilter);
 
-      queryClient.setQueriesData<InfiniteData<PostsPage, string | null>>(
+      context.client.setQueriesData<InfiniteData<PostsPage, string | null>>(
         queryFilter,
         (oldData) => {
           if (!oldData) return;

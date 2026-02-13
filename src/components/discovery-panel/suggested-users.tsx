@@ -1,6 +1,6 @@
 import { Route } from 'next';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import FollowButton from '@/components/follow-button';
 import {
   Item,
   ItemActions,
@@ -10,7 +10,6 @@ import {
 import UserAvatar from '@/components/user-avatar';
 import { usersToFollow } from '@/lib/dal/user';
 import { requireOnboardedUser } from '@/lib/session';
-import FollowButton from '../follow-button';
 
 export default async function SuggestedUsersList() {
   const { user } = await requireOnboardedUser();

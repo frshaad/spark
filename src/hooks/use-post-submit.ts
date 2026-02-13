@@ -2,27 +2,20 @@ import { toast } from 'sonner';
 import { submitPost } from '@/actions/post.action';
 import { QUERY_KEYS } from '@/lib/query-keys';
 import { PostsPage } from '@/lib/types';
-import {
-  InfiniteData,
-  QueryFilters,
-  useMutation,
-  useQueryClient,
-} from '@tanstack/react-query';
+import { InfiniteData, QueryFilters, useMutation } from '@tanstack/react-query';
 
 export function usePostSubmit() {
-  const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: submitPost,
 
-    async onSuccess(newPost) {
+    async onSuccess(newPost, _variables, _onMutateResult, context) {
       const queryFilter: QueryFilters = {
         queryKey: QUERY_KEYS.feed,
       };
 
-      await queryClient.cancelQueries(queryFilter);
+      await context.client.cancelQueries(queryFilter);
 
-      queryClient.setQueriesData<InfiniteData<PostsPage, string | null>>(
+      context.client.setQueriesData<InfiniteData<PostsPage, string | null>>(
         queryFilter,
         (oldData) => {
           const firstPage = oldData?.pages[0];
@@ -40,7 +33,7 @@ export function usePostSubmit() {
         },
       );
 
-      await queryClient.invalidateQueries({
+      await context.client.invalidateQueries({
         queryKey: queryFilter.queryKey,
         predicate: (query) => !query.state.data,
       });

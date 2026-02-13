@@ -28,7 +28,7 @@ export async function followUser(
     followingId: targetUserId,
   };
 
-  prisma.follow.upsert({
+  return prisma.follow.upsert({
     where: { followerId_followingId: followData },
     create: followData,
     update: {},
@@ -39,7 +39,7 @@ export async function unfollowUser(
   targetUserId: string,
   authenticatedUserId: string,
 ) {
-  prisma.follow.deleteMany({
+  return prisma.follow.deleteMany({
     where: { followerId: authenticatedUserId, followingId: targetUserId },
   });
 }
