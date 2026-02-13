@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 export default function Feeds() {
   return (
     <Tabs defaultValue="for-you">
-      <TabsList className="min-h-10 w-full">
+      <TabsList>
         <TabsTrigger value="for-you" className="cursor-pointer">
           For You
         </TabsTrigger>

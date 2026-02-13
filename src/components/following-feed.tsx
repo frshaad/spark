@@ -24,7 +24,7 @@ export default function FollowingFeed() {
   if (status === 'success' && !posts.length && !hasNextPage) {
     return (
       <p className="text-muted-foreground text-center">
-        No one has posted anything yet.
+        No posts found. Start following people to see their posts.
       </p>
     );
   }
