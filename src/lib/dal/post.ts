@@ -1,6 +1,6 @@
 import { cache } from 'react';
 import prisma from '@/lib/prisma';
-import { getPostDataInclude } from '@/lib/types';
+import { buildPostInclude } from '@/lib/types';
 
 export const getPost = cache((id: string) => {
   return prisma.post.findUnique({
@@ -19,7 +19,7 @@ export const getFeedPostsPage = cache(
     pageSize: number | undefined;
   }) => {
     return prisma.post.findMany({
-      include: getPostDataInclude(authenticatedUserId),
+      include: buildPostInclude(authenticatedUserId),
       orderBy: { createdAt: 'desc' },
       take: pageSize + 1,
       cursor: cursor ? { id: cursor } : undefined,
@@ -31,12 +31,12 @@ export const getFeedPostsPage = cache(
 export async function createPost(authorId: string, content: string) {
   return prisma.post.create({
     data: { content, authorId },
-    include: getPostDataInclude(authorId),
+    include: buildPostInclude(authorId),
   });
 }
 export async function deletePost(postId: string, authenticatedUserId: string) {
   return prisma.post.delete({
     where: { id: postId },
-    include: getPostDataInclude(authenticatedUserId),
+    include: buildPostInclude(authenticatedUserId),
   });
 }

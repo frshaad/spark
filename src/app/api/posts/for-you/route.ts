@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server';
 import { getFeedPostsPage } from '@/lib/dal/post';
 import { handleApiError } from '@/lib/errors';
 import { requireOnboardedUserApi } from '@/lib/session';
-import { PostsPage, isOnboardedPost } from '@/lib/types';
+import { CursorPaginatedPosts, isOnboardedPost } from '@/lib/types';
 
 export async function GET(req: NextRequest) {
   try {
@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
     const hasNextPage = validPosts.length > pageSize;
     const nextCursor = hasNextPage ? validPosts[pageSize].id : null;
 
-    const data: PostsPage = {
+    const data: CursorPaginatedPosts = {
       posts: validPosts.slice(0, pageSize),
       nextCursor,
     };

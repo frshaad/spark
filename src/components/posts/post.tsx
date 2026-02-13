@@ -6,14 +6,14 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
 import UserAvatar from '@/components/user-avatar';
-import { PostData } from '@/lib/types';
+import { PostView } from '@/lib/types';
 import PostContent from './post-content';
 import PostHeader from './post-header';
 import PostMenu from './post-menu';
 
 // import PostActions from './post-actions';
 
-export default function Post({ post }: { post: PostData }) {
+export default function Post({ post }: { post: PostView }) {
   const router = useRouter();
 
   const postUrl = useMemo(

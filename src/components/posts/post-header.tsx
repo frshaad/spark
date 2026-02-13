@@ -2,14 +2,14 @@ import { useMemo } from 'react';
 import type { Route } from 'next';
 import Link from 'next/link';
 import { formatPostDate, isRTL } from '@/lib/format';
-import type { PostData } from '@/lib/types';
+import type { PostView } from '@/lib/types';
 
 export default function PostHeader({
   author,
   authorUrl,
   createdAt,
 }: {
-  author: PostData['author'];
+  author: PostView['author'];
   authorUrl: Route;
   createdAt: Date | string;
 }) {

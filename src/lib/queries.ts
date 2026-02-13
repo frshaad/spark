@@ -1,6 +1,6 @@
 import { api } from '@/lib/ky';
 import { QUERY_KEYS } from '@/lib/query-keys';
-import { PostsPage, UserFollowersSummary } from '@/lib/types';
+import { CursorPaginatedPosts, UserFollowersSummary } from '@/lib/types';
 import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query';
 
 export function getFeedQuery() {
@@ -11,7 +11,7 @@ export function getFeedQuery() {
         .get('posts/for-you', {
           searchParams: pageParam ? { cursor: pageParam } : undefined,
         })
-        .json<PostsPage>(),
+        .json<CursorPaginatedPosts>(),
     initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
     maxPages: 15,

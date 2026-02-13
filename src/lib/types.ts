@@ -5,6 +5,12 @@ import {
   UserSelect,
 } from '@/generated/prisma/models';
 
+//
+// ─────────────────────────────────────────────
+// UI Types
+// ─────────────────────────────────────────────
+//
+
 export type NavigationButton = {
   href: Route;
   label: string;
@@ -12,45 +18,67 @@ export type NavigationButton = {
   className?: string;
 };
 
-export function getUserDataSelect(authenticatedUserId: string) {
+//
+// ─────────────────────────────────────────────
+// Prisma Select / Include Helpers
+// ─────────────────────────────────────────────
+//
+
+export function buildUserSelect(viewerId: string) {
   return {
     id: true,
     username: true,
     displayUsername: true,
     image: true,
     name: true,
+
     followers: {
-      where: { followerId: authenticatedUserId },
+      where: { followerId: viewerId },
       select: { followerId: true },
     },
+
     _count: {
       select: { followers: true },
     },
   } satisfies UserSelect;
 }
 
-export function getPostDataInclude(authenticatedUserId: string) {
+export function buildPostInclude(viewerId: string) {
   return {
     author: {
-      select: getUserDataSelect(authenticatedUserId),
+      select: buildUserSelect(viewerId),
     },
   } satisfies PostInclude;
 }
 
-type PostDataGenerated = PostGetPayload<{
-  include: ReturnType<typeof getPostDataInclude>;
+//
+// ─────────────────────────────────────────────
+// Prisma Derived Types
+// ─────────────────────────────────────────────
+//
+
+type PostRecord = PostGetPayload<{
+  include: ReturnType<typeof buildPostInclude>;
 }>;
 
-export type OnboardedUser = Omit<PostDataGenerated['author'], 'username'> & {
-  username: string;
+type AuthorFromPost = PostRecord['author'];
+
+//
+// ─────────────────────────────────────────────
+// Domain Types
+// ─────────────────────────────────────────────
+//
+
+export type OnboardedUser = AuthorFromPost & {
+  username: string; // ensures non-null
 };
 
-export type PostData = Omit<PostDataGenerated, 'author'> & {
+export type PostView = Omit<PostRecord, 'author'> & {
   author: OnboardedUser;
 };
 
-export type PostsPage = {
-  posts: PostData[];
+export type CursorPaginatedPosts = {
+  posts: PostView[];
   nextCursor: string | null;
 };
 
@@ -59,9 +87,15 @@ export type UserFollowersSummary = {
   isFollowedByViewer: boolean;
 };
 
+//
+// ─────────────────────────────────────────────
+// Type Guards
+// ─────────────────────────────────────────────
+//
+
 /**
- * Helper function to check if a post is onboarded
+ * Ensures post author has completed onboarding
  */
-export function isOnboardedPost(post: PostDataGenerated): post is PostData {
+export function isOnboardedPost(post: PostRecord): post is PostView {
   return post.author.username !== null;
 }

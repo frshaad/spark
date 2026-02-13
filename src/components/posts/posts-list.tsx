@@ -1,10 +1,10 @@
-import { PostData } from '@/lib/types';
+import { PostView } from '@/lib/types';
 import Post from './post';
 
 export default function PostsList({
   posts,
 }: {
-  posts: PostData[];
+  posts: PostView[];
   className?: string;
 }) {
   return (
