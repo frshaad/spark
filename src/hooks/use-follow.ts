@@ -41,9 +41,9 @@ export function useFollow() {
       toast.error('Something went wrong. Please try again.');
     },
 
-    onSettled(_d, _e, { targetUserId }, _o, ctx) {
+    async onSettled(_d, _e, { targetUserId }, _o, ctx) {
       const queryKey: QueryKey = QUERY_KEYS.followerInfo(targetUserId);
-      ctx.client.invalidateQueries({ queryKey });
+      await ctx.client.invalidateQueries({ queryKey });
     },
   });
 }

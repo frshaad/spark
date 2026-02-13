@@ -1,6 +1,8 @@
 import DiscoveryPanel from '@/components/discovery-panel';
+import FollowingFeed from '@/components/following-feed';
 import ForYouFeed from '@/components/for-you-feed';
 import PostEditor from '@/components/posts/editor';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { requireOnboardedUser } from '@/lib/session';
 
 export default async function Home() {
@@ -15,7 +17,22 @@ export default async function Home() {
             image: user.image ?? null,
           }}
         />
-        <ForYouFeed />
+        <Tabs defaultValue="for-you">
+          <TabsList className="w-full">
+            <TabsTrigger value="for-you" className="cursor-pointer">
+              For You
+            </TabsTrigger>
+            <TabsTrigger value="following" className="cursor-pointer">
+              Following
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="for-you">
+            <ForYouFeed />
+          </TabsContent>
+          <TabsContent value="following">
+            <FollowingFeed />
+          </TabsContent>
+        </Tabs>
       </main>
       <DiscoveryPanel />
     </div>

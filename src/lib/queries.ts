@@ -1,14 +1,18 @@
 import { api } from '@/lib/ky';
 import { QUERY_KEYS } from '@/lib/query-keys';
 import { CursorPaginatedPosts, FollowRelationship } from '@/lib/types';
-import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query';
+import {
+  QueryKey,
+  infiniteQueryOptions,
+  queryOptions,
+} from '@tanstack/react-query';
 
-export function getFeedQuery() {
+export function getFeedQuery(queryKey: QueryKey, apiRoute: string) {
   return infiniteQueryOptions({
-    queryKey: QUERY_KEYS.feed,
+    queryKey,
     queryFn: ({ pageParam }) =>
       api
-        .get('posts/for-you', {
+        .get(apiRoute, {
           searchParams: pageParam ? { cursor: pageParam } : undefined,
         })
         .json<CursorPaginatedPosts>(),
@@ -17,6 +21,16 @@ export function getFeedQuery() {
     maxPages: 15,
   });
 }
+
+export const forYouFeedQuery = getFeedQuery(
+  QUERY_KEYS.forYouFeed,
+  'posts/for-you',
+);
+
+export const followingFeedQuery = getFeedQuery(
+  QUERY_KEYS.followingFeed,
+  'posts/following',
+);
 
 export function getFollowerSummaryQuery(
   targetUserId: string,

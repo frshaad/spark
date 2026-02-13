@@ -2,14 +2,14 @@
 
 import { Loader2 } from 'lucide-react';
 import PostsList from '@/components/posts/posts-list';
-import { forYouFeedQuery } from '@/lib/queries';
+import { followingFeedQuery } from '@/lib/queries';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import FeedSkeleton from './feed.skeleton';
 import InfiniteScrollContainer from './infinite-scroll-container';
 
-export default function ForYouFeed() {
+export default function FollowingFeed() {
   const { data, status, hasNextPage, isFetching, fetchNextPage } =
-    useInfiniteQuery(forYouFeedQuery);
+    useInfiniteQuery(followingFeedQuery);
 
   if (status === 'pending') {
     return <FeedSkeleton count={5} />;

@@ -10,7 +10,7 @@ export function usePostSubmit() {
 
     async onSuccess(newPost, _variables, _onMutateResult, context) {
       const queryFilter: QueryFilters = {
-        queryKey: QUERY_KEYS.feed,
+        queryKey: QUERY_KEYS.forYouFeed,
       };
 
       await context.client.cancelQueries(queryFilter);
