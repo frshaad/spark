@@ -1,11 +1,11 @@
 import { cache } from 'react';
 import prisma from '@/lib/prisma';
-import { userDataSelect } from '@/lib/types';
+import { getUserDataSelect } from '@/lib/types';
 
 export const usersToFollow = cache(async (userId: string) => {
   return prisma.user.findMany({
     where: { NOT: { id: userId } },
-    select: userDataSelect,
+    select: getUserDataSelect(userId),
     take: 5,
   });
 });

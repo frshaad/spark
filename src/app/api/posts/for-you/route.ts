@@ -6,12 +6,16 @@ import { PostsPage, isOnboardedPost } from '@/lib/types';
 
 export async function GET(req: NextRequest) {
   try {
-    await requireOnboardedUserApi();
+    const { user } = await requireOnboardedUserApi();
 
     const cursor = req.nextUrl.searchParams.get('cursor') || undefined;
     const pageSize = 10;
 
-    const posts = await getFeedPostsPage(cursor, pageSize);
+    const posts = await getFeedPostsPage({
+      cursor,
+      pageSize,
+      authenticatedUserId: user.id,
+    });
 
     // Filter out posts from users without username
     const validPosts = posts.filter(isOnboardedPost);

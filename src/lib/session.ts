@@ -41,7 +41,7 @@ export const requireOnboardedUser = cache(async () => {
  * Redirects with 401 if missing.
  */
 export async function requireUserApi() {
-  const session = await fetchSession();
+  const session = await getServerSession();
   if (!session) throw new UnauthorizedError();
 
   return session;
@@ -49,7 +49,7 @@ export async function requireUserApi() {
 
 // For API route handlers (no redirect — you must return proper status)
 export async function requireOnboardedUserApi() {
-  const session = await fetchSession();
+  const session = await getServerSession();
   if (!session) throw new UnauthorizedError();
   if (!session.user.username) throw new ForbiddenError();
   return session as Session & { user: OnboardedUser };

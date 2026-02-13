@@ -12,22 +12,33 @@ export type NavigationButton = {
   className?: string;
 };
 
-export const userDataSelect = {
-  id: true,
-  username: true,
-  displayUsername: true,
-  image: true,
-  name: true,
-} satisfies UserSelect;
+export function getUserDataSelect(authenticatedUserId: string) {
+  return {
+    id: true,
+    username: true,
+    displayUsername: true,
+    image: true,
+    name: true,
+    followers: {
+      where: { followerId: authenticatedUserId },
+      select: { followerId: true },
+    },
+    _count: {
+      select: { followers: true },
+    },
+  } satisfies UserSelect;
+}
 
-export const postDataInclude = {
-  author: {
-    select: userDataSelect,
-  },
-} satisfies PostInclude;
+export function getPostDataInclude(authenticatedUserId: string) {
+  return {
+    author: {
+      select: getUserDataSelect(authenticatedUserId),
+    },
+  } satisfies PostInclude;
+}
 
 type PostDataGenerated = PostGetPayload<{
-  include: typeof postDataInclude;
+  include: ReturnType<typeof getPostDataInclude>;
 }>;
 
 export type OnboardedUser = Omit<PostDataGenerated['author'], 'username'> & {
