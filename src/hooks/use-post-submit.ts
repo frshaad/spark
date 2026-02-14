@@ -8,36 +8,47 @@ export function usePostSubmit() {
   return useMutation({
     mutationFn: submitPost,
 
-    async onSuccess(newPost, _variables, _onMutateResult, context) {
-      const queryFilter: QueryFilters = {
-        queryKey: QUERY_KEYS.forYouFeed,
-      };
+    async onSuccess(newPost, _variables, _onMutateResult, { client }) {
+      const userId = newPost.author.id;
 
-      await context.client.cancelQueries(queryFilter);
+      // const feedFilter: QueryFilters = {
+      //   queryKey: QUERY_KEYS.forYouFeed,
+      // };
+      // const userPostsFilter: QueryFilters = {
+      //   queryKey: QUERY_KEYS.userPosts(userId),
+      // };
 
-      context.client.setQueriesData<
-        InfiniteData<CursorPaginatedPosts, string | null>
-      >(queryFilter, (oldData) => {
-        const firstPage = oldData?.pages[0];
-        if (!firstPage) return oldData;
-        return {
-          pageParams: oldData.pageParams,
-          pages: [
-            {
-              posts: [newPost, ...firstPage.posts],
-              nextCursor: firstPage.nextCursor,
-            },
-            ...oldData.pages.slice(1),
-          ],
-        };
-      });
+      const queryFilter = {
+        queryKey: ['feed'],
+        predicate(query) {
+          return (
+            query.queryKey.includes(QUERY_KEYS.forYouFeed[0]) ||
+            (query.queryKey.includes(QUERY_KEYS.userPosts(userId)[0]) &&
+              query.queryKey.includes(userId))
+          );
+        },
+      } satisfies QueryFilters;
 
-      await context.client.invalidateQueries({
+      console.log({ queryFilter });
+
+      await client.cancelQueries(queryFilter);
+
+      client.setQueriesData<InfiniteData<CursorPaginatedPosts, string | null>>(
+        queryFilter,
+        (old) => prependPostToInfiniteCache(old, newPost),
+      );
+
+      // client.setQueriesData<InfiniteData<CursorPaginatedPosts, string | null>>(
+      //   userPostsFilter,
+      //   (old) => (old ? prependPostToInfiniteCache(old, newPost) : old),
+      // );
+
+      await client.invalidateQueries({
         queryKey: queryFilter.queryKey,
-        predicate: (query) => !query.state.data,
+        predicate(query) {
+          return queryFilter.predicate(query) && !query.state.data;
+        },
       });
-
-      toast.success('Post published!');
     },
 
     onError(error) {
@@ -45,4 +56,23 @@ export function usePostSubmit() {
       toast.error('Failed to submit post');
     },
   });
+}
+
+function prependPostToInfiniteCache(
+  oldData: InfiniteData<CursorPaginatedPosts, string | null> | undefined,
+  newPost: CursorPaginatedPosts['posts'][number],
+) {
+  const firstPage = oldData?.pages[0];
+  if (!firstPage) return oldData;
+
+  return {
+    pageParams: oldData.pageParams,
+    pages: [
+      {
+        ...firstPage,
+        posts: [newPost, ...firstPage.posts],
+      },
+      ...oldData.pages.slice(1),
+    ],
+  };
 }
