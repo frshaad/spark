@@ -55,6 +55,27 @@ export const getFollowingFeedPosts = cache(
   },
 );
 
+export const getUserPosts = cache(
+  async ({
+    userId,
+    cursor,
+    pageSize = 10,
+  }: {
+    userId: string;
+    cursor: string | undefined;
+    pageSize: number | undefined;
+  }): Promise<PostRecord[]> => {
+    return prisma.post.findMany({
+      where: { authorId: userId },
+      include: buildPostInclude(userId),
+      orderBy: { createdAt: 'desc' },
+      take: pageSize + 1,
+      cursor: cursor ? { id: cursor } : undefined,
+      skip: cursor ? 1 : 0,
+    });
+  },
+);
+
 export async function createPost(authorId: string, content: string) {
   return prisma.post.create({
     data: { content, authorId },

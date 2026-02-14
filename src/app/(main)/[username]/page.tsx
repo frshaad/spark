@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import DiscoveryPanel from '@/components/discovery-panel';
 import ProfileHeader from '@/components/profile/profile-header';
+import UserProfileFeed from '@/components/profile/user-feed';
 import { Separator } from '@/components/ui/separator';
 import { getUser } from '@/lib/dal/user';
 import { requireOnboardedUser } from '@/lib/session';
@@ -18,6 +19,7 @@ export default async function UserProfile({
       <main className="no-scrollbar mx-auto w-11/12 max-w-4xl space-y-5 overflow-y-auto p-1 py-4 lg:min-w-sm">
         <ProfileHeader user={user} authenticatedUserId={authenticatedUser.id} />
         <Separator />
+        <UserProfileFeed userId={user.id} />
       </main>
       <DiscoveryPanel />
     </div>

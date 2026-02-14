@@ -1,7 +1,6 @@
 import { CalendarDays, UserPen } from 'lucide-react';
 import FollowButton from '@/components/follow-button';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import UserAvatar from '@/components/user-avatar';
 import { formatCount, formatJoinedDate } from '@/lib/format';
 import { FollowInfo, UserRecord } from '@/lib/types';
@@ -66,8 +65,6 @@ export default function ProfileHeader({
         <CalendarDays className="h-3.5 w-3.5" />
         Joined {formatJoinedDate(user.createdAt)}
       </span>
-
-      {Boolean(user.bio) && <Separator className="mb-5" />}
 
       {/* Stats row */}
       <div className="flex items-center gap-8 md:gap-10">
