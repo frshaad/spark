@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import DiscoveryPanel from '@/components/discovery-panel';
 import ProfileHeader from '@/components/profile/profile-header';
 import UserProfileFeed from '@/components/profile/user-feed';
 import { Separator } from '@/components/ui/separator';
@@ -15,14 +14,11 @@ export default async function UserProfile({
   const user = await getUser(username, authenticatedUser.id);
 
   return (
-    <div className="flex w-full gap-6 lg:pr-10 xl:gap-10">
-      <main className="no-scrollbar mx-auto w-11/12 max-w-4xl space-y-5 overflow-y-auto p-1 py-4 lg:min-w-sm">
-        <ProfileHeader user={user} authenticatedUserId={authenticatedUser.id} />
-        <Separator />
-        <UserProfileFeed userId={user.id} />
-      </main>
-      <DiscoveryPanel />
-    </div>
+    <>
+      <ProfileHeader user={user} authenticatedUserId={authenticatedUser.id} />
+      <Separator />
+      <UserProfileFeed userId={user.id} />
+    </>
   );
 }
 
