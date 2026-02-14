@@ -5,7 +5,7 @@ import {
 } from '@/lib/dal/follow';
 import { BadRequestError, NotFoundError, handleApiError } from '@/lib/errors';
 import { requireOnboardedUserApi } from '@/lib/session';
-import { FollowRelationship } from '@/lib/types';
+import { FollowInfo } from '@/lib/types';
 
 type RouteCTX = RouteContext<'/api/users/[targetUserId]/follow'>;
 
@@ -20,8 +20,9 @@ export async function GET(_req: Request, ctx: RouteCTX) {
     );
     if (!targetUser) throw new NotFoundError('User not found');
 
-    const followersSummary: FollowRelationship = {
+    const followersSummary: FollowInfo = {
       followersCount: targetUser._count.followers,
+      followingCount: targetUser._count.following,
       isFollowing: Boolean(targetUser.followers.length),
     };
 

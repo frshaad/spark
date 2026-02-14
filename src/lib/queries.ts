@@ -1,6 +1,6 @@
 import { api } from '@/lib/ky';
 import { QUERY_KEYS } from '@/lib/query-keys';
-import { CursorPaginatedPosts, FollowRelationship } from '@/lib/types';
+import { CursorPaginatedPosts, FollowInfo } from '@/lib/types';
 import {
   QueryKey,
   infiniteQueryOptions,
@@ -34,12 +34,11 @@ export const followingFeedQuery = getFeedQuery(
 
 export function getFollowerSummaryQuery(
   targetUserId: string,
-  initialData: FollowRelationship,
+  initialData: FollowInfo,
 ) {
   return queryOptions({
     queryKey: QUERY_KEYS.followerInfo(targetUserId),
-    queryFn: () =>
-      api.get(`users/${targetUserId}/follow`).json<FollowRelationship>(),
+    queryFn: () => api.get(`users/${targetUserId}/follow`).json<FollowInfo>(),
     initialData,
     staleTime: Infinity, // 60_000
   });

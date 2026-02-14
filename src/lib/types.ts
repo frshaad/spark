@@ -2,6 +2,7 @@ import { Route } from 'next';
 import {
   PostGetPayload,
   PostInclude,
+  UserGetPayload,
   UserSelect,
 } from '@/generated/prisma/models';
 
@@ -31,6 +32,8 @@ export function buildUserSelect(viewerId: string) {
     displayUsername: true,
     image: true,
     name: true,
+    bio: true,
+    createdAt: true,
 
     followers: {
       where: { followerId: viewerId },
@@ -38,7 +41,7 @@ export function buildUserSelect(viewerId: string) {
     },
 
     _count: {
-      select: { followers: true },
+      select: { followers: true, posts: true, following: true },
     },
   } satisfies UserSelect;
 }
@@ -56,6 +59,10 @@ export function buildPostInclude(viewerId: string) {
 // Prisma Derived Types
 // ─────────────────────────────────────────────
 //
+
+export type UserRecord = UserGetPayload<{
+  select: ReturnType<typeof buildUserSelect>;
+}>;
 
 export type PostRecord = PostGetPayload<{
   include: ReturnType<typeof buildPostInclude>;
@@ -82,8 +89,9 @@ export type CursorPaginatedPosts = {
   nextCursor: string | null;
 };
 
-export type FollowRelationship = {
+export type FollowInfo = {
   followersCount: number;
+  followingCount: number;
   isFollowing: boolean;
 };
 

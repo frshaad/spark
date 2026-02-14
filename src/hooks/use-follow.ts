@@ -1,7 +1,7 @@
 import { toast } from 'sonner';
 import { api } from '@/lib/ky';
 import { QUERY_KEYS } from '@/lib/query-keys';
-import { FollowRelationship } from '@/lib/types';
+import { FollowInfo } from '@/lib/types';
 import { QueryKey, useMutation } from '@tanstack/react-query';
 
 type FollowVariables = {
@@ -21,13 +21,13 @@ export function useFollow() {
 
       await ctx.client.cancelQueries({ queryKey });
 
-      const previousData =
-        ctx.client.getQueryData<FollowRelationship>(queryKey);
+      const previousData = ctx.client.getQueryData<FollowInfo>(queryKey);
 
-      ctx.client.setQueryData<FollowRelationship>(queryKey, () => ({
+      ctx.client.setQueryData<FollowInfo>(queryKey, () => ({
         followersCount:
           (previousData?.followersCount || 0) +
           (previousData?.isFollowing ? -1 : 1),
+        followingCount: previousData?.followingCount || 0,
         isFollowing: !previousData?.isFollowing,
       }));
 
@@ -36,7 +36,7 @@ export function useFollow() {
 
     onError(error, { targetUserId }, previousData, ctx) {
       const queryKey: QueryKey = QUERY_KEYS.followerInfo(targetUserId);
-      ctx.client.setQueryData<FollowRelationship>(queryKey, previousData);
+      ctx.client.setQueryData<FollowInfo>(queryKey, previousData);
       console.error(error);
       toast.error('Something went wrong. Please try again.');
     },

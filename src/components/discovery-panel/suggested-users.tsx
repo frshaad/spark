@@ -44,6 +44,7 @@ export default async function SuggestedUsersList() {
               targetUserId={user.id}
               initialState={{
                 followersCount: user._count.followers,
+                followingCount: user._count.following,
                 isFollowing: user.followers.some(
                   ({ followerId }) => followerId === authenticatedUser.id,
                 ),

@@ -8,20 +8,22 @@ datasource db {
 }
 
 model User {
-  id              String    @id
+  id              String   @id
   name            String
   username        String?
   displayUsername String?
   email           String
-  emailVerified   Boolean   @default(false)
+  emailVerified   Boolean  @default(false)
   image           String?
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  sessions        Session[]
-  accounts        Account[]
-  posts           Post[]
-  following       Follow[]  @relation("UserFollowing")
-  followers       Follow[]  @relation("UserFollowers")
+  bio             String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  sessions  Session[]
+  accounts  Account[]
+  posts     Post[]
+  following Follow[]  @relation("UserFollowing")
+  followers Follow[]  @relation("UserFollowers")
 
   @@unique([email])
   @@unique([username])

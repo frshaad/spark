@@ -68,6 +68,20 @@ export function formatCount(value: number): string {
   return format(abs / 1_000_000_000_000, 'T');
 }
 
+export function formatJoinedDate(date: Date): string {
+  return dayjs(date).format('MMMM YYYY');
+}
+
+// export function formatCount(count: number): string {
+//   if (count >= 1_000_000) {
+//     return `${(count / 1_000_000).toFixed(1).replace(/\.0$/, '')}M`;
+//   }
+//   if (count >= 1_000) {
+//     return `${(count / 1_000).toFixed(1).replace(/\.0$/, '')}K`;
+//   }
+//   return count.toString();
+// }
+
 // **************** Text Direction ****************
 // Strong RTL ranges: Arabic, Hebrew, Persian, Urdu, etc.
 const RTL_CHAR_REGEX = /[\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC]/;

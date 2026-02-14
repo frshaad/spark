@@ -12,7 +12,7 @@ export const getFollowRelationship = cache(
           take: 1,
         },
         _count: {
-          select: { followers: true },
+          select: { followers: true, following: true },
         },
       },
     });
