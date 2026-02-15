@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import type { Route } from 'next';
 import Link from 'next/link';
+import UserTooltip from '@/components/user-tootltip';
 import { formatPostDate, isRTL } from '@/lib/format';
 import type { PostView } from '@/lib/types';
-import UserTooltip from '../user-tootltip';
 
 export default function PostHeader({
   author,

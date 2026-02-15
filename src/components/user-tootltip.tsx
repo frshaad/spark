@@ -40,7 +40,7 @@ export default function UserTooltip({ user, children }: UserTooltipProps) {
 
   return (
     <Tooltip>
-      <TooltipTrigger className="flex gap-2">{children}</TooltipTrigger>
+      <TooltipTrigger className="flex space-x-2">{children}</TooltipTrigger>
 
       <TooltipContent className="bg-card rounded-xl p-0">
         <Card>

@@ -8,6 +8,7 @@ import {
   ItemTitle,
 } from '@/components/ui/item';
 import UserAvatar from '@/components/user-avatar';
+import UserTooltip from '@/components/user-tootltip';
 import { getUsersToFollow } from '@/lib/dal/user';
 import { requireOnboardedUser } from '@/lib/session';
 
@@ -20,24 +21,26 @@ export default async function SuggestedUsersList() {
       {suggestedUsers.map((user) => (
         <Item key={user.id}>
           <ItemContent>
-            <Link href={`/${user.username}` as Route}>
-              <ItemTitle>
-                <UserAvatar
-                  user={{
-                    image: user.image,
-                    name: user.displayUsername ?? user.name,
-                  }}
-                />
-                <div>
-                  <p className="text-sm font-semibold">
-                    {user.displayUsername}
-                  </p>
-                  <p className="text-muted-foreground text-xs">
-                    @{user.username}
-                  </p>
-                </div>
-              </ItemTitle>
-            </Link>
+            <UserTooltip user={user}>
+              <Link href={`/${user.username}` as Route}>
+                <ItemTitle>
+                  <UserAvatar
+                    user={{
+                      image: user.image,
+                      name: user.displayUsername ?? user.name,
+                    }}
+                  />
+                  <div>
+                    <p className="text-sm font-semibold">
+                      {user.displayUsername}
+                    </p>
+                    <p className="text-muted-foreground text-left text-xs">
+                      @{user.username}
+                    </p>
+                  </div>
+                </ItemTitle>
+              </Link>
+            </UserTooltip>
           </ItemContent>
           <ItemActions>
             <FollowButton
