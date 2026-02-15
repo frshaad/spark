@@ -2,8 +2,9 @@ import * as z from 'zod';
 
 // - min 8 chars
 // - at least one lowercase, one uppercase, one digit, one special char
+export const USERNAME_PATTERN = '[a-z][a-z0-9]*(?:[._][a-z0-9]+)*';
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$/;
-const USERNAME_REGEX = /^[a-z][a-z0-9]*(?:[._][a-z0-9]+)*$/;
+const USERNAME_REGEX = new RegExp(`^${USERNAME_PATTERN}$`);
 const MIN_NAME_LENGTH = 2;
 const MAX_NAME_LENGTH = 32;
 const MIN_USERNAME_LENGTH = 3;
