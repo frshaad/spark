@@ -3,7 +3,8 @@ import { LinkIt, LinkItUrl } from 'react-linkify-it';
 import { USERNAME_PATTERN } from '@/lib/validation/auth';
 
 const AT_USERNAME_REGEX = new RegExp(`(?<!\\w)@${USERNAME_PATTERN}`, 'g');
-const HASHTAG_REGEX = /(#[a-zA-Z0-9_]+)/;
+const HASHTAG_REGEX =
+  /(?<![\p{L}\p{N}_])#[\p{L}\p{N}_\p{Emoji_Presentation}]+/u;
 
 export default function Linkify({ children }: React.PropsWithChildren) {
   return (
@@ -28,7 +29,7 @@ function LinkifyUsername({ children }: React.PropsWithChildren) {
       component={(match, key) => (
         <Link
           key={key}
-          href={`/${match.slice(1)}`}
+          href={`/${match.replace('@', '')}`}
           className="text-primary hover:underline"
         >
           {match}
@@ -47,7 +48,7 @@ function LinkifyHashtag({ children }: React.PropsWithChildren) {
       component={(match, key) => (
         <Link
           key={key}
-          href={`/topics/${match.slice(1)}`}
+          href={`/topics/${match.replace('#', '')}`}
           className="text-primary hover:underline"
         >
           {match}
