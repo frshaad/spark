@@ -3,6 +3,7 @@ import type { Route } from 'next';
 import Link from 'next/link';
 import { formatPostDate, isRTL } from '@/lib/format';
 import type { PostView } from '@/lib/types';
+import UserTooltip from '../user-tootltip';
 
 export default function PostHeader({
   author,
@@ -19,13 +20,15 @@ export default function PostHeader({
   return (
     <div className="min-w-0">
       <div className="mb-1 flex items-center gap-2 text-sm">
-        <Link
-          href={authorUrl}
-          onClick={(e) => e.stopPropagation()}
-          className="font-semibold hover:underline"
-        >
-          <span dir={isRtl ? 'rtl' : 'ltr'}>{displayName}</span>
-        </Link>
+        <UserTooltip user={author}>
+          <Link
+            href={authorUrl}
+            onClick={(e) => e.stopPropagation()}
+            className="font-semibold hover:underline"
+          >
+            <span dir={isRtl ? 'rtl' : 'ltr'}>{displayName}</span>
+          </Link>
+        </UserTooltip>
 
         <Link
           href={authorUrl}

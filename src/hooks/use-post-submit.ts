@@ -11,13 +11,6 @@ export function usePostSubmit() {
     async onSuccess(newPost, _variables, _onMutateResult, { client }) {
       const userId = newPost.author.id;
 
-      // const feedFilter: QueryFilters = {
-      //   queryKey: QUERY_KEYS.forYouFeed,
-      // };
-      // const userPostsFilter: QueryFilters = {
-      //   queryKey: QUERY_KEYS.userPosts(userId),
-      // };
-
       const queryFilter = {
         queryKey: ['feed'],
         predicate(query) {
@@ -37,11 +30,6 @@ export function usePostSubmit() {
         queryFilter,
         (old) => prependPostToInfiniteCache(old, newPost),
       );
-
-      // client.setQueriesData<InfiniteData<CursorPaginatedPosts, string | null>>(
-      //   userPostsFilter,
-      //   (old) => (old ? prependPostToInfiniteCache(old, newPost) : old),
-      // );
 
       await client.invalidateQueries({
         queryKey: queryFilter.queryKey,

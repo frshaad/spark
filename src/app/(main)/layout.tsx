@@ -1,4 +1,5 @@
 import Navbar from '@/components/navbar';
+import { TooltipProvider } from '@/components/ui/tooltip';
 import { requireOnboardedUser } from '@/lib/session';
 
 export default async function AppLayout({
@@ -9,9 +10,11 @@ export default async function AppLayout({
   await requireOnboardedUser();
 
   return (
-    <div className="mx-auto h-screen gap-10 lg:flex lg:pt-4 xl:gap-20">
-      <Navbar />
-      {children}
-    </div>
+    <TooltipProvider delay={400}>
+      <div className="mx-auto h-screen gap-10 lg:flex lg:pt-4 xl:gap-20">
+        <Navbar />
+        {children}
+      </div>
+    </TooltipProvider>
   );
 }
