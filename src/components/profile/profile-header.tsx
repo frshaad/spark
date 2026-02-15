@@ -1,5 +1,6 @@
 import { CalendarDays, UserPen } from 'lucide-react';
 import FollowButton from '@/components/follow-button';
+import Linkify from '@/components/linkify';
 import { Button } from '@/components/ui/button';
 import UserAvatar from '@/components/user-avatar';
 import { formatCount, formatJoinedDate } from '@/lib/format';
@@ -56,9 +57,13 @@ export default function ProfileHeader({
       </div>
 
       {/* Bio */}
-      <p className="text-foreground/80 mb-3 max-w-lg text-[15px] leading-relaxed text-pretty">
-        {user.bio}
-      </p>
+      {user.bio && (
+        <Linkify>
+          <p className="text-foreground/80 mb-3 max-w-lg text-[15px] leading-relaxed text-pretty">
+            {user.bio}
+          </p>
+        </Linkify>
+      )}
 
       {/* Joined date */}
       <span className="text-muted-foreground mb-5 flex items-center gap-1.5 text-sm">

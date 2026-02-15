@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { LinkIt, hashtagRegex, mentionRegex, urlRegex } from 'react-linkify-it';
 
@@ -22,7 +24,9 @@ function LinkifyURL({ children }: React.PropsWithChildren) {
           className="text-primary hover:underline"
           onClick={(e) => e.stopPropagation()}
         >
-          {match}
+          {match.replace(/^(https?:\/\/)?(www\.)?/, (_, protocol) =>
+            protocol === 'http://' ? 'http://' : '',
+          )}
         </Link>
       )}
     >
