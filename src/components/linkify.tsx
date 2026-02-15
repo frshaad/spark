@@ -1,31 +1,40 @@
 import Link from 'next/link';
-import { LinkIt, LinkItUrl } from 'react-linkify-it';
-import { USERNAME_PATTERN } from '@/lib/validation/auth';
-
-const AT_USERNAME_REGEX = new RegExp(`(?<!\\w)@${USERNAME_PATTERN}`, 'g');
-const HASHTAG_REGEX =
-  /(?<![\p{L}\p{N}_])#[\p{L}\p{N}_\p{Emoji_Presentation}]+/u;
+import { LinkIt, hashtagRegex, mentionRegex, urlRegex } from 'react-linkify-it';
 
 export default function Linkify({ children }: React.PropsWithChildren) {
   return (
-    <LinkifyUsername>
+    <LinkifyMention>
       <LinkifyHashtag>
         <LinkifyURL>{children}</LinkifyURL>
       </LinkifyHashtag>
-    </LinkifyUsername>
+    </LinkifyMention>
   );
 }
 
 function LinkifyURL({ children }: React.PropsWithChildren) {
   return (
-    <LinkItUrl className="text-primary hover:underline">{children}</LinkItUrl>
+    <LinkIt
+      regex={urlRegex}
+      component={(match, key) => (
+        <Link
+          key={key}
+          href={new URL(match)}
+          className="text-primary hover:underline"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {match}
+        </Link>
+      )}
+    >
+      {children}
+    </LinkIt>
   );
 }
 
-function LinkifyUsername({ children }: React.PropsWithChildren) {
+function LinkifyMention({ children }: React.PropsWithChildren) {
   return (
     <LinkIt
-      regex={AT_USERNAME_REGEX}
+      regex={mentionRegex}
       component={(match, key) => (
         <Link
           key={key}
@@ -45,7 +54,7 @@ function LinkifyUsername({ children }: React.PropsWithChildren) {
 function LinkifyHashtag({ children }: React.PropsWithChildren) {
   return (
     <LinkIt
-      regex={HASHTAG_REGEX}
+      regex={hashtagRegex}
       component={(match, key) => (
         <Link
           key={key}
