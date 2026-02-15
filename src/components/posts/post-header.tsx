@@ -28,15 +28,15 @@ export default function PostHeader({
           >
             <span dir={isRtl ? 'rtl' : 'ltr'}>{displayName}</span>
           </Link>
-        </UserTooltip>
 
-        <Link
-          href={authorUrl}
-          onClick={(e) => e.stopPropagation()}
-          className="text-muted-foreground hover:underline"
-        >
-          <span dir="ltr">@{author.username}</span>
-        </Link>
+          <Link
+            href={authorUrl}
+            onClick={(e) => e.stopPropagation()}
+            className="text-muted-foreground hover:underline"
+          >
+            <span dir="ltr">@{author.username}</span>
+          </Link>
+        </UserTooltip>
 
         <span className="text-muted-foreground">·</span>
 

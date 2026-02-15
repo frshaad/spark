@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
 import UserAvatar from '@/components/user-avatar';
 import { PostView } from '@/lib/types';
+import UserTooltip from '../user-tootltip';
 import PostContent from './post-content';
 import PostHeader from './post-header';
 import PostMenu from './post-menu';
@@ -40,15 +41,17 @@ export default function Post({ post }: { post: PostView }) {
   return (
     <Card role="button" className="group/post">
       <CardContent className="flex gap-3">
-        <Link href={authorUrl} onClick={(e) => e.stopPropagation()}>
-          <UserAvatar
-            user={{
-              image: post.author.image,
-              name: post.author.displayUsername ?? post.author.name,
-            }}
-            className="size-10 transition hover:opacity-80"
-          />
-        </Link>
+        <UserTooltip user={post.author}>
+          <Link href={authorUrl} onClick={(e) => e.stopPropagation()}>
+            <UserAvatar
+              user={{
+                image: post.author.image,
+                name: post.author.displayUsername ?? post.author.name,
+              }}
+              className="size-10 transition hover:opacity-80"
+            />
+          </Link>
+        </UserTooltip>
 
         <div className="w-full">
           <div className="flex items-center justify-between">
