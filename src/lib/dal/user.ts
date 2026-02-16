@@ -1,6 +1,7 @@
 import { cache } from 'react';
 import prisma from '@/lib/prisma';
 import { UserRecord, buildUserSelect } from '@/lib/types';
+import { UpdateUserProfileValues } from '@/lib/validation/user';
 
 export const getUsersToFollow = cache(async (userId: string) => {
   return prisma.user.findMany({
@@ -32,5 +33,16 @@ export async function updateAvatar(
   return prisma.user.update({
     where: { id: authenticatedUserId },
     data: { image: imageUrl },
+  });
+}
+
+export async function updateUserProfile(
+  userId: string,
+  data: UpdateUserProfileValues,
+) {
+  return prisma.user.update({
+    where: { id: userId },
+    data,
+    select: buildUserSelect(userId),
   });
 }
