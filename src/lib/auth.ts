@@ -2,9 +2,9 @@ import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 import { nextCookies } from 'better-auth/next-js';
 import { haveIBeenPwned, lastLoginMethod, username } from 'better-auth/plugins';
+import { baseSchemaConfig } from '@/lib/validation/base';
 import { hashPassword as hash, verifyPassword as verify } from './argon2';
 import prisma from './prisma';
-import { MIN_PASSWORD_LENGTH } from './validation/auth';
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -12,7 +12,7 @@ export const auth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true,
-    minPasswordLength: MIN_PASSWORD_LENGTH,
+    minPasswordLength: baseSchemaConfig.MIN_PASSWORD_LENGTH,
     password: { hash, verify },
   },
   socialProviders: {
