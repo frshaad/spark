@@ -8,7 +8,7 @@ import {
   ItemTitle,
 } from '@/components/ui/item';
 import UserAvatar from '@/components/user-avatar';
-import UserTooltip from '@/components/user-tootltip';
+import UserTooltip from '@/components/user-tooltip';
 import { getUsersToFollow } from '@/lib/dal/user';
 import { requireOnboardedUser } from '@/lib/session';
 

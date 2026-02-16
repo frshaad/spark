@@ -1,8 +1,9 @@
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import ProfileHeader from '@/components/profile/profile-header';
 import UserProfileFeed from '@/components/profile/user-feed';
 import { Separator } from '@/components/ui/separator';
-import { getUser } from '@/lib/dal/user';
+import { getUserByUsername } from '@/lib/dal/user';
 import { requireOnboardedUser } from '@/lib/session';
 
 export default async function UserProfile({
@@ -11,7 +12,8 @@ export default async function UserProfile({
   const { user: authenticatedUser } = await requireOnboardedUser();
   const { username } = await params;
 
-  const user = await getUser(username, authenticatedUser.id);
+  const user = await getUserByUsername(username, authenticatedUser.id);
+  if (!user) notFound();
 
   return (
     <>
@@ -28,7 +30,8 @@ export async function generateMetadata({
   const { user: authenticatedUser } = await requireOnboardedUser();
   const { username } = await params;
 
-  const user = await getUser(username, authenticatedUser.id);
+  const user = await getUserByUsername(username, authenticatedUser.id);
+  if (!user) notFound();
 
   return {
     title: `${user.displayUsername ?? user.name} (@${user.username})`,
