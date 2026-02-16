@@ -1,7 +1,9 @@
 import './globals.css';
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { inter, vazirMatn } from '@/lib/fonts';
 import Providers from '@/providers';
+import UploadthingSSRProvider from '@/providers/uploadthing-ssr-provider';
 
 export default function RootLayout({
   children,
@@ -11,6 +13,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${vazirMatn.variable} antialiased`}>
+        <Suspense>
+          <UploadthingSSRProvider />
+        </Suspense>
         <Providers>{children}</Providers>
       </body>
     </html>

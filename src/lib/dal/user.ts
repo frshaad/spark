@@ -24,3 +24,13 @@ export const getUserByUsername = cache(
     });
   },
 );
+
+export async function updateAvatar(
+  authenticatedUserId: string,
+  imageUrl: string,
+) {
+  return prisma.user.update({
+    where: { id: authenticatedUserId },
+    data: { image: imageUrl },
+  });
+}

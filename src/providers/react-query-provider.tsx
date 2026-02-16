@@ -6,9 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 export default function ReactQueryProvider({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+}: React.PropsWithChildren) {
   const queryClient = new QueryClient();
   const [client] = useState(queryClient);
 
