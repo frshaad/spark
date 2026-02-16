@@ -1,10 +1,10 @@
-import { CalendarDays, UserPen } from 'lucide-react';
+import { CalendarDays } from 'lucide-react';
 import FollowButton from '@/components/follow-button';
 import Linkify from '@/components/linkify';
-import { Button } from '@/components/ui/button';
 import UserAvatar from '@/components/user-avatar';
 import { formatCount, formatJoinedDate } from '@/lib/format';
 import { FollowInfo, UserRecord } from '@/lib/types';
+import EditProfileButton from './edit-profile-button';
 import FollowStats from './follow-stats';
 import StatBlock from './stat-block';
 
@@ -47,10 +47,7 @@ export default function ProfileHeader({
         </div>
 
         {user.id === authenticatedUserId ? (
-          <Button className="gap-1.5 rounded-full px-4 text-xs font-medium tracking-wide">
-            <UserPen />
-            Edit Profile
-          </Button>
+          <EditProfileButton user={user} />
         ) : (
           <FollowButton targetUserId={user.id} initialState={followInfo} />
         )}

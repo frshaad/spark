@@ -1,0 +1,163 @@
+'use client';
+
+import { useState } from 'react';
+import { LoaderCircle, UserPen } from 'lucide-react';
+import { Controller, useForm } from 'react-hook-form';
+import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  InputGroupTextarea,
+} from '@/components/ui/input-group';
+import { useUpdateProfile } from '@/hooks/use-update-profile';
+import type { UserRecord } from '@/lib/types';
+import {
+  UpdateUserProfileValues,
+  updateUserProfileSchema,
+} from '@/lib/validation/user';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+type EditProfileButtonProps = {
+  user: UserRecord;
+};
+
+export default function EditProfileButton({ user }: EditProfileButtonProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const form = useForm<UpdateUserProfileValues>({
+    resolver: zodResolver(updateUserProfileSchema),
+    defaultValues: {
+      displayName: user.name,
+      bio: user.bio || '',
+    },
+  });
+
+  const { mutate, isPending } = useUpdateProfile();
+
+  const onSubmit = async (values: UpdateUserProfileValues) => {
+    mutate(
+      { values },
+      {
+        onSuccess() {
+          setIsOpen(false);
+        },
+      },
+    );
+  };
+
+  return (
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTrigger
+        render={
+          <Button className="gap-1.5 rounded-full px-4 text-xs font-medium tracking-wide" />
+        }
+      >
+        <UserPen />
+        Edit Profile
+      </DialogTrigger>
+
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle className="text-2xl">Edit Profile</DialogTitle>
+          <DialogDescription>
+            Update your profile information.
+          </DialogDescription>
+        </DialogHeader>
+
+        <form
+          id="update-profile-form"
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-10"
+        >
+          <FieldGroup>
+            <Controller
+              name="displayName"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor="display-name-input">
+                    Display Name
+                  </FieldLabel>
+                  <Input
+                    {...field}
+                    id="display-name-input"
+                    aria-invalid={fieldState.invalid}
+                    placeholder="Enter your display name."
+                    autoComplete="name"
+                  />
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
+            <Controller
+              name="bio"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor="bio-input">Bio</FieldLabel>
+                  <InputGroup>
+                    <InputGroupTextarea
+                      {...field}
+                      id="bio-input"
+                      placeholder="Tell us about yourself"
+                      rows={6}
+                      className="min-h-24 resize-none"
+                      aria-invalid={fieldState.invalid}
+                    />
+                    <InputGroupAddon align="block-end">
+                      <InputGroupText className="tabular-nums">
+                        {field.value.length}/250 characters
+                      </InputGroupText>
+                    </InputGroupAddon>
+                  </InputGroup>
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
+          </FieldGroup>
+
+          <DialogFooter className="sm:justify-start">
+            <DialogClose
+              className="flex-1"
+              render={
+                <Button type="button" variant="outline" disabled={isPending}>
+                  Close
+                </Button>
+              }
+            />
+            <Button className="flex-1" type="submit" disabled={isPending}>
+              {isPending ? (
+                <>
+                  <LoaderCircle className="animate-spin" /> Saving...
+                </>
+              ) : (
+                'Save Changes'
+              )}
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+}
