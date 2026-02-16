@@ -44,7 +44,7 @@ export default function EditProfileButton({ user }: EditProfileButtonProps) {
   const form = useForm<UpdateUserProfileValues>({
     resolver: zodResolver(updateUserProfileSchema),
     defaultValues: {
-      displayName: user.name,
+      name: user.name,
       bio: user.bio || '',
     },
   });
@@ -88,16 +88,14 @@ export default function EditProfileButton({ user }: EditProfileButtonProps) {
         >
           <FieldGroup>
             <Controller
-              name="displayName"
+              name="name"
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="display-name-input">
-                    Display Name
-                  </FieldLabel>
+                  <FieldLabel htmlFor="name-input">Name</FieldLabel>
                   <Input
                     {...field}
-                    id="display-name-input"
+                    id="name-input"
                     aria-invalid={fieldState.invalid}
                     placeholder="Enter your display name."
                     autoComplete="name"
