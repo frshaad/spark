@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
         hostname: '<APP_ID>.ufs.sh',
         pathname: '/f/*',
       },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+      },
     ],
   },
   reactCompiler: true,

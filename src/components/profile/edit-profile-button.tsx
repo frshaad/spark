@@ -27,6 +27,7 @@ import {
   InputGroupText,
   InputGroupTextarea,
 } from '@/components/ui/input-group';
+import { Label } from '@/components/ui/label';
 import { useUpdateProfile } from '@/hooks/use-update-profile';
 import type { UserRecord } from '@/lib/types';
 import {
@@ -34,6 +35,7 @@ import {
   updateUserProfileSchema,
 } from '@/lib/validation/user';
 import { zodResolver } from '@hookform/resolvers/zod';
+import AvatarInput from './avatar-input';
 
 type EditProfileButtonProps = {
   user: UserRecord;
@@ -41,6 +43,8 @@ type EditProfileButtonProps = {
 
 export default function EditProfileButton({ user }: EditProfileButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [croppedAvatar, setCroppedAvatar] = useState<Blob | null>(null);
+
   const form = useForm<UpdateUserProfileValues>({
     resolver: zodResolver(updateUserProfileSchema),
     defaultValues: {
@@ -80,6 +84,18 @@ export default function EditProfileButton({ user }: EditProfileButtonProps) {
             Update your profile information.
           </DialogDescription>
         </DialogHeader>
+
+        <div className="space-y-1.5">
+          <Label>Avatar</Label>
+          <AvatarInput
+            src={
+              croppedAvatar
+                ? URL.createObjectURL(croppedAvatar)
+                : user.image || '/avatar-placeholder.webp'
+            }
+            onImageCroppedAction={setCroppedAvatar}
+          />
+        </div>
 
         <form
           id="update-profile-form"
