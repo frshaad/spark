@@ -7,7 +7,7 @@ export default async function ProfileButton() {
   return (
     <UserButton
       user={{
-        name: user.displayUsername ?? user.name,
+        name: user.name,
         username: user.username,
         image: user.image ?? null,
       }}

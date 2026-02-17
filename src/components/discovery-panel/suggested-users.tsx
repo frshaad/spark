@@ -27,13 +27,11 @@ export default async function SuggestedUsersList() {
                   <UserAvatar
                     user={{
                       image: user.image,
-                      name: user.displayUsername ?? user.name,
+                      name: user.name,
                     }}
                   />
                   <div>
-                    <p className="text-sm font-semibold">
-                      {user.displayUsername}
-                    </p>
+                    <p className="text-sm font-semibold">{user.name}</p>
                     <p className="text-muted-foreground text-left text-xs">
                       @{user.username}
                     </p>

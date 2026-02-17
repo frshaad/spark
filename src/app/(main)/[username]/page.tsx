@@ -34,6 +34,6 @@ export async function generateMetadata({
   if (!user) notFound();
 
   return {
-    title: `${user.displayUsername ?? user.name} (@${user.username})`,
+    title: `${user.name} (@${user.username})`,
   };
 }

@@ -14,7 +14,7 @@ export default function PostHeader({
   authorUrl: Route;
   createdAt: Date | string;
 }) {
-  const displayName = author.displayUsername ?? author.name;
+  const displayName = author.name;
   const isRtl = useMemo(() => isRTL(displayName), [displayName]);
 
   return (

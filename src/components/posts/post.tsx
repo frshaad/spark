@@ -46,7 +46,7 @@ export default function Post({ post }: { post: PostView }) {
             <UserAvatar
               user={{
                 image: post.author.image,
-                name: post.author.displayUsername ?? post.author.name,
+                name: post.author.name,
               }}
               className="size-10 transition hover:opacity-80"
             />
@@ -71,7 +71,7 @@ export default function Post({ post }: { post: PostView }) {
 
           <div
             onClick={handleCardClick}
-            aria-label={`Open post by ${post.author.displayUsername}`}
+            aria-label={`Open post by ${post.author.name}`}
             className="cursor-pointer"
           >
             <PostContent content={post.content} />
