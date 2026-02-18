@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import { Camera } from 'lucide-react';
+import Resizer from 'react-image-file-resizer';
 import CropImageDialog from './crop-image-dialog';
 
 type AvatarInputProps = {
@@ -20,6 +21,17 @@ export default function AvatarInput({
 
   function onImageSelected(image: File | undefined) {
     if (!image) return;
+
+    Resizer.imageFileResizer(
+      image,
+      1024,
+      1024,
+      'WEBP',
+      100,
+      0,
+      (uri) => setImageToCrop(uri as File),
+      'file',
+    );
   }
 
   return (
@@ -45,7 +57,7 @@ export default function AvatarInput({
           className="size-32 flex-none rounded-full object-cover"
         />
 
-        <span className="bg-opacity-10 group-hover:bg-opacity-25 absolute inset-0 m-auto flex size-12 items-center justify-center rounded-full bg-black text-white transition-colors duration-200">
+        <span className="bg-opacity-10 group-hover:bg-opacity-25 absolute inset-0 m-auto flex size-12 items-center justify-center rounded-full bg-black/70 text-white transition-colors duration-200">
           <Camera size={24} />
         </span>
       </button>
@@ -54,8 +66,8 @@ export default function AvatarInput({
         <CropImageDialog
           src={URL.createObjectURL(imageToCrop)}
           cropAspectRatio={1}
-          onCropped={onImageCroppedAction}
-          onClose={() => {
+          onCroppedAction={onImageCroppedAction}
+          onCloseAction={() => {
             setImageToCrop(undefined);
             if (fileInputRef.current) {
               fileInputRef.current.value = '';
