@@ -1,7 +1,7 @@
 'use client';
 
-import { useRef } from 'react';
-import Cropper, { ReactCropperElement } from 'react-cropper';
+import { useCallback, useState } from 'react';
+import Cropper, { Area } from 'react-easy-crop';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -10,6 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { getCroppedImg } from '@/lib/image-helper';
 
 type CropImageDialogProps = {
   src: string;
@@ -24,15 +25,24 @@ export default function CropImageDialog({
   onCroppedAction,
   onCloseAction,
 }: CropImageDialogProps) {
-  const cropperRef = useRef<ReactCropperElement>(null);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
 
-  function onCrop() {
-    const cropper = cropperRef.current?.cropper;
-    if (!cropper) return;
-    cropper
-      .getCroppedCanvas()
-      .toBlob((blob) => onCroppedAction(blob), 'image/webp');
-    onCloseAction();
+  const onCropComplete = useCallback((_area: Area, areaPixels: Area) => {
+    setCroppedAreaPixels(areaPixels);
+  }, []);
+
+  async function onCrop() {
+    try {
+      if (!croppedAreaPixels) return;
+
+      const blob = await getCroppedImg(src, croppedAreaPixels);
+      onCroppedAction(blob);
+      onCloseAction();
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   return (
@@ -41,14 +51,19 @@ export default function CropImageDialog({
         <DialogHeader>
           <DialogTitle>Crop image</DialogTitle>
         </DialogHeader>
-        <Cropper
-          src={src}
-          aspectRatio={cropAspectRatio}
-          guides={false}
-          zoomable={false}
-          ref={cropperRef}
-          className="mx-auto size-fit"
-        />
+
+        <div className="bg-secondary relative h-75 w-full">
+          <Cropper
+            image={src}
+            crop={crop}
+            zoom={zoom}
+            aspect={cropAspectRatio}
+            onCropChange={setCrop}
+            onCropComplete={onCropComplete}
+            onZoomChange={setZoom}
+          />
+        </div>
+
         <DialogFooter>
           <Button
             variant="secondary"

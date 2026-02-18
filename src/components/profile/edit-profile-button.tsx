@@ -56,10 +56,15 @@ export default function EditProfileButton({ user }: EditProfileButtonProps) {
   const { mutate, isPending } = useUpdateProfile();
 
   const onSubmit = async (values: UpdateUserProfileValues) => {
+    const avatar = croppedAvatar
+      ? new File([croppedAvatar], `avatar_${user.id}.webp`)
+      : undefined;
+
     mutate(
-      { values },
+      { values, avatar },
       {
         onSuccess() {
+          setCroppedAvatar(null);
           setIsOpen(false);
         },
       },
