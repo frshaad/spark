@@ -4,7 +4,7 @@ import {
   unfollowUser,
 } from '@/lib/dal/follow';
 import { BadRequestError, NotFoundError, handleApiError } from '@/lib/errors';
-import { requireOnboardedUserApi } from '@/lib/session';
+import { requireAuthAPI } from '@/lib/session';
 import { FollowInfo } from '@/lib/types';
 
 type RouteCTX = RouteContext<'/api/users/[targetUserId]/follow'>;
@@ -12,7 +12,7 @@ type RouteCTX = RouteContext<'/api/users/[targetUserId]/follow'>;
 export async function GET(_req: Request, ctx: RouteCTX) {
   try {
     const { targetUserId } = await ctx.params;
-    const { user: authenticatedUser } = await requireOnboardedUserApi();
+    const { user: authenticatedUser } = await requireAuthAPI();
 
     const targetUser = await getFollowRelationship(
       targetUserId,
@@ -35,7 +35,7 @@ export async function GET(_req: Request, ctx: RouteCTX) {
 export async function POST(_req: Request, ctx: RouteCTX) {
   try {
     const { targetUserId } = await ctx.params;
-    const { user: authenticatedUser } = await requireOnboardedUserApi();
+    const { user: authenticatedUser } = await requireAuthAPI();
 
     if (authenticatedUser.id === targetUserId)
       throw new BadRequestError('Cannot follow yourself');
@@ -51,7 +51,7 @@ export async function POST(_req: Request, ctx: RouteCTX) {
 export async function DELETE(_req: Request, ctx: RouteCTX) {
   try {
     const { targetUserId } = await ctx.params;
-    const { user: authenticatedUser } = await requireOnboardedUserApi();
+    const { user: authenticatedUser } = await requireAuthAPI();
 
     if (authenticatedUser.id === targetUserId) throw new BadRequestError();
 

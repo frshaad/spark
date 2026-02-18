@@ -1,7 +1,7 @@
 import { type FileRouter, createUploadthing } from 'uploadthing/next';
 import { UTApi } from 'uploadthing/server';
 import { updateAvatar } from '@/lib/dal/user';
-import { requireOnboardedUserApi } from '@/lib/session';
+import { requireAuthAPI } from '@/lib/session';
 
 const f = createUploadthing();
 
@@ -13,7 +13,7 @@ export const appFileRouter = {
     },
   })
     .middleware(async () => {
-      const { user } = await requireOnboardedUserApi();
+      const { user } = await requireAuthAPI();
 
       return { user };
     })

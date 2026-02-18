@@ -2,10 +2,10 @@ import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { AuthCard } from '@/components/auth/auth-card';
 import SignupForm from '@/components/auth/signup-form';
-import { getServerSession } from '@/lib/session';
+import { getSession } from '@/lib/session';
 
 export default async function SignupPage() {
-  const session = await getServerSession();
+  const session = await getSession();
   if (session) redirect('/');
 
   return (

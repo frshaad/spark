@@ -1,7 +1,7 @@
 'use server';
 
 import { updateUserProfile } from '@/lib/dal/user';
-import { requireOnboardedUserApi } from '@/lib/session';
+import { requireAuthAPI } from '@/lib/session';
 import {
   UpdateUserProfileValues,
   updateUserProfileSchema,
@@ -9,7 +9,7 @@ import {
 
 export async function updateUserProfileData(values: UpdateUserProfileValues) {
   const validatedValues = updateUserProfileSchema.parse(values);
-  const { user } = await requireOnboardedUserApi();
+  const { user } = await requireAuthAPI();
 
   const updatedUser = await updateUserProfile(user.id, validatedValues);
   return updatedUser;

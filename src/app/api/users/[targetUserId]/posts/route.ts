@@ -5,13 +5,13 @@ import {
   buildCursorPaginatedPosts,
   getCursorPaginationParams,
 } from '@/lib/server-api';
-import { requireOnboardedUserApi } from '@/lib/session';
+import { requireAuthAPI } from '@/lib/session';
 
 type RouteCTX = RouteContext<'/api/users/[targetUserId]/posts'>;
 
 export async function GET(req: NextRequest, ctx: RouteCTX) {
   try {
-    await requireOnboardedUserApi();
+    await requireAuthAPI();
     const { targetUserId } = await ctx.params;
 
     const { cursor, pageSize } = getCursorPaginationParams(req);

@@ -10,10 +10,10 @@ import {
 import UserAvatar from '@/components/user-avatar';
 import UserTooltip from '@/components/user-tooltip';
 import { getUsersToFollow } from '@/lib/dal/user';
-import { requireOnboardedUser } from '@/lib/session';
+import { requireAuth } from '@/lib/session';
 
 export default async function SuggestedUsersList() {
-  const { user: authenticatedUser } = await requireOnboardedUser();
+  const { user: authenticatedUser } = await requireAuth();
   const suggestedUsers = await getUsersToFollow(authenticatedUser.id);
 
   return (

@@ -1,8 +1,8 @@
-import { requireOnboardedUser } from '@/lib/session';
+import { requireAuth } from '@/lib/session';
 import UserButton from './user-button';
 
 export default async function ProfileButton() {
-  const { user } = await requireOnboardedUser();
+  const { user } = await requireAuth();
 
   return (
     <UserButton

@@ -2,10 +2,10 @@ import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { AuthCard } from '@/components/auth/auth-card';
 import UsernameForm from '@/components/auth/username-form';
-import { getServerSession } from '@/lib/session';
+import { getSession } from '@/lib/session';
 
 export default async function AddUsernamePage() {
-  const session = await getServerSession();
+  const session = await getSession();
   if (session?.user.username) redirect('/');
 
   return (

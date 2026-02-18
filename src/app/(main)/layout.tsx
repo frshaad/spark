@@ -1,13 +1,13 @@
 import Navbar from '@/components/navbar';
 import { TooltipProvider } from '@/components/ui/tooltip';
-import { requireOnboardedUser } from '@/lib/session';
+import { requireAuth } from '@/lib/session';
 
 export default async function AppLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  await requireOnboardedUser();
+  await requireAuth();
 
   return (
     <TooltipProvider delay={400}>

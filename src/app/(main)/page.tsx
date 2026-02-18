@@ -1,10 +1,10 @@
 import DiscoveryPanel from '@/components/discovery-panel';
 import Feeds from '@/components/feeds';
 import PostEditor from '@/components/posts/editor';
-import { requireOnboardedUser } from '@/lib/session';
+import { requireAuth } from '@/lib/session';
 
 export default async function Home() {
-  const { user } = await requireOnboardedUser();
+  const { user } = await requireAuth();
 
   return (
     <div className="flex w-full gap-6 lg:pr-10 xl:gap-10">

@@ -4,12 +4,12 @@ import ProfileHeader from '@/components/profile/profile-header';
 import UserProfileFeed from '@/components/profile/user-feed';
 import { Separator } from '@/components/ui/separator';
 import { getUserByUsername } from '@/lib/dal/user';
-import { requireOnboardedUser } from '@/lib/session';
+import { requireAuth } from '@/lib/session';
 
 export default async function UserProfile({
   params,
 }: PageProps<'/[username]'>) {
-  const { user: authenticatedUser } = await requireOnboardedUser();
+  const { user: authenticatedUser } = await requireAuth();
   const { username } = await params;
 
   const user = await getUserByUsername(username, authenticatedUser.id);
@@ -27,7 +27,7 @@ export default async function UserProfile({
 export async function generateMetadata({
   params,
 }: PageProps<'/[username]'>): Promise<Metadata> {
-  const { user: authenticatedUser } = await requireOnboardedUser();
+  const { user: authenticatedUser } = await requireAuth();
   const { username } = await params;
 
   const user = await getUserByUsername(username, authenticatedUser.id);
