@@ -36,6 +36,10 @@ export async function updateAvatar(
   });
 }
 
+// export async function deletePreviousAvatar(userId: string) {
+//   return prisma.
+// }
+
 export async function updateUserProfile(
   userId: string,
   data: UpdateUserProfileValues,

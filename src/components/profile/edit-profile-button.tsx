@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { LoaderCircle, UserPen } from 'lucide-react';
+import { CloudUpload, LoaderCircle, UserPen } from 'lucide-react';
 import { Controller, useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import {
@@ -31,7 +31,7 @@ import { Label } from '@/components/ui/label';
 import { useUpdateProfile } from '@/hooks/use-update-profile';
 import type { UserRecord } from '@/lib/types';
 import {
-  UpdateUserProfileValues,
+  type UpdateUserProfileValues,
   updateUserProfileSchema,
 } from '@/lib/validation/user';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -53,7 +53,7 @@ export default function EditProfileButton({ user }: EditProfileButtonProps) {
     },
   });
 
-  const { mutate, isPending } = useUpdateProfile();
+  const { mutate, isPending, isAvatarUploading } = useUpdateProfile();
 
   const onSubmit = async (values: UpdateUserProfileValues) => {
     const avatar = croppedAvatar
@@ -167,9 +167,15 @@ export default function EditProfileButton({ user }: EditProfileButtonProps) {
             />
             <Button className="flex-1" type="submit" disabled={isPending}>
               {isPending ? (
-                <>
-                  <LoaderCircle className="animate-spin" /> Saving...
-                </>
+                isAvatarUploading ? (
+                  <>
+                    <CloudUpload /> Uploading...
+                  </>
+                ) : (
+                  <>
+                    <LoaderCircle className="animate-spin" /> Saving...
+                  </>
+                )
               ) : (
                 'Save Changes'
               )}

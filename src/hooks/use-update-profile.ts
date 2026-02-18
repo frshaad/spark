@@ -14,9 +14,10 @@ type UpdateUserProfileVariables = {
 
 export function useUpdateProfile() {
   const router = useRouter();
-  const { startUpload: startAvatarUpload } = useUploadThing('avatar');
+  const { startUpload: startAvatarUpload, isUploading: isAvatarUploading } =
+    useUploadThing('avatar');
 
-  return useMutation({
+  const mutation = useMutation({
     mutationFn: ({ values, avatar }: UpdateUserProfileVariables) =>
       Promise.all([
         updateUserProfileData(values),
@@ -54,6 +55,8 @@ export function useUpdateProfile() {
       toast.error('Failed to update profile data');
     },
   });
+
+  return { ...mutation, isAvatarUploading };
 }
 
 function updatePostsAuthor(
