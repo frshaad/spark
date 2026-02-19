@@ -7,6 +7,7 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import UserAvatar from '@/components/user-avatar';
 import { usePostEditor } from '@/hooks/use-post-editor';
 import { usePostSubmit } from '@/hooks/use-post-submit';
+import { useUploadMedia } from '@/hooks/use-upload-media';
 import { isRTL } from '@/lib/format';
 import { EditorContent } from '@tiptap/react';
 
@@ -18,18 +19,33 @@ type Props = {
 };
 
 export default function PostEditor({ user }: Props) {
-  const { editor, content, canPost, clear } = usePostEditor();
+  const { editor, content, canPost, clear: clearText } = usePostEditor();
   const { mutate, isPending } = usePostSubmit();
+  const {
+    attachments,
+    isUploading,
+    removeAttachments,
+    startUpload,
+    uploadProgress,
+    reset: resetMediaUpload,
+  } = useUploadMedia();
 
   const isContentRtl = useMemo(() => isRTL(content), [content]);
 
   const submit = (content: string) => {
     if (!content.trim()) return;
-    mutate(content, {
-      onSuccess() {
-        clear();
+    mutate(
+      {
+        content,
+        mediaIds: attachments.map((a) => a.mediaId).filter(Boolean) as string[],
       },
-    });
+      {
+        onSuccess() {
+          clearText();
+          resetMediaUpload();
+        },
+      },
+    );
   };
 
   return (

@@ -8,13 +8,13 @@ import {
 import { ForbiddenError, NotFoundError } from '@/lib/errors';
 import { requireAuthAPI } from '@/lib/session';
 import { PostView } from '@/lib/types';
-import { createPostSchema } from '@/lib/validation/post';
+import { CreatePostInputs, createPostSchema } from '@/lib/validation/post';
 
-export async function submitPost(input: string): Promise<PostView> {
+export async function submitPost(input: CreatePostInputs): Promise<PostView> {
   const session = await requireAuthAPI();
 
-  const { content } = createPostSchema.parse({ content: input });
-  const newPost = await createPost(session.user.id, content);
+  const validatedInputs = createPostSchema.parse(input);
+  const newPost = await createPost(session.user.id, validatedInputs);
   return newPost as PostView;
 }
 

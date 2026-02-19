@@ -1,6 +1,7 @@
 import { cache } from 'react';
 import prisma from '@/lib/prisma';
 import { PostRecord, buildPostInclude } from '@/lib/types';
+import { CreatePostInputs } from '@/lib/validation/post';
 
 export const getPost = cache((id: string) => {
   return prisma.post.findUnique({
@@ -76,9 +77,17 @@ export const getUserPosts = cache(
   },
 );
 
-export async function createPost(authorId: string, content: string) {
+export async function createPost(authorId: string, data: CreatePostInputs) {
+  const { content, mediaIds } = data;
+
   return prisma.post.create({
-    data: { content, authorId },
+    data: {
+      content,
+      authorId,
+      attachments: {
+        connect: mediaIds ? mediaIds.map((id) => ({ id })) : [],
+      },
+    },
     include: buildPostInclude(authorId),
   });
 }
