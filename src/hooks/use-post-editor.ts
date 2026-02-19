@@ -6,8 +6,6 @@ import StarterKit from '@tiptap/starter-kit';
 export function usePostEditor() {
   const [content, setContent] = useState('');
 
-  const canPost = content.trim().length > 0;
-
   const editor = useEditor({
     extensions: [
       StarterKit.configure({ bold: false, italic: false }),
@@ -30,7 +28,6 @@ export function usePostEditor() {
   return {
     editor,
     content,
-    canPost,
     clear: () => editor?.commands.clearContent(),
   };
 }

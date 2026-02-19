@@ -51,6 +51,7 @@ export function buildPostInclude(viewerId: string) {
     author: {
       select: buildUserSelect(viewerId),
     },
+    attachments: true,
   } satisfies PostInclude;
 }
 
@@ -93,6 +94,12 @@ export type FollowInfo = {
   followersCount: number;
   followingCount: number;
   isFollowing: boolean;
+};
+
+export type Attachment = {
+  mediaId?: string;
+  file: File;
+  isUploading: boolean;
 };
 
 //

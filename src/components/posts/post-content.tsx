@@ -3,7 +3,11 @@ import Linkify from '@/components/linkify';
 import { isRTL } from '@/lib/format';
 import { cn } from '@/lib/utils';
 
-export default function PostContent({ content }: { content: string }) {
+type PostContentProps = {
+  content: string;
+};
+
+export default function PostContent({ content }: PostContentProps) {
   const isContentRtl = useMemo(() => isRTL(content), [content]);
 
   return (

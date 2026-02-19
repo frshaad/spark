@@ -1,12 +1,7 @@
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { Attachment } from '@/lib/types';
 import { useUploadThing } from '@/lib/uploadthing';
-
-type Attachment = {
-  mediaId?: string;
-  file: File;
-  isUploading: boolean;
-};
 
 export function useUploadMedia() {
   const [attachments, setAttachments] = useState<Attachment[]>([]);
@@ -68,7 +63,7 @@ export function useUploadMedia() {
     void startUpload(files);
   }
 
-  function removeAttachments(filename: string) {
+  function removeAttachment(filename: string) {
     setAttachments((prev) => prev.filter((a) => a.file.name !== filename));
   }
 
@@ -82,7 +77,7 @@ export function useUploadMedia() {
     attachments,
     isUploading,
     uploadProgress,
-    removeAttachments,
+    removeAttachment,
     reset,
   };
 }

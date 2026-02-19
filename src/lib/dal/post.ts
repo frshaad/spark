@@ -82,7 +82,7 @@ export async function createPost(authorId: string, data: CreatePostInputs) {
 
   return prisma.post.create({
     data: {
-      content,
+      content: content || '',
       authorId,
       attachments: {
         connect: mediaIds ? mediaIds.map((id) => ({ id })) : [],

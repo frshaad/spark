@@ -10,6 +10,7 @@ import UserTooltip from '@/components/user-tooltip';
 import { PostView } from '@/lib/types';
 import PostContent from './post-content';
 import PostHeader from './post-header';
+import PostMediaPreviews from './post-media-previews';
 import PostMenu from './post-menu';
 
 // import PostActions from './post-actions';
@@ -75,6 +76,9 @@ export default function Post({ post }: { post: PostView }) {
             className="cursor-pointer"
           >
             <PostContent content={post.content} />
+            {!!post.attachments.length && (
+              <PostMediaPreviews attachments={post.attachments} />
+            )}
           </div>
 
           {/*<PostActions />*/}

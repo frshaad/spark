@@ -2,6 +2,7 @@
 
 import './tiptap.css';
 import { useMemo } from 'react';
+import { Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import UserAvatar from '@/components/user-avatar';
@@ -10,6 +11,8 @@ import { usePostSubmit } from '@/hooks/use-post-submit';
 import { useUploadMedia } from '@/hooks/use-upload-media';
 import { isRTL } from '@/lib/format';
 import { EditorContent } from '@tiptap/react';
+import AddAttachmentsButton from './add-attachment-button';
+import AttachmentPreviews from './attachment-previews';
 
 type Props = {
   user: {
@@ -19,21 +22,23 @@ type Props = {
 };
 
 export default function PostEditor({ user }: Props) {
-  const { editor, content, canPost, clear: clearText } = usePostEditor();
+  const { editor, content, clear: clearText } = usePostEditor();
   const { mutate, isPending } = usePostSubmit();
   const {
     attachments,
     isUploading,
-    removeAttachments,
+    removeAttachment,
     startUpload,
     uploadProgress,
     reset: resetMediaUpload,
   } = useUploadMedia();
 
+  const isPostEmpty = content.trim().length === 0 && attachments.length === 0;
+
   const isContentRtl = useMemo(() => isRTL(content), [content]);
 
-  const submit = (content: string) => {
-    if (!content.trim()) return;
+  const submit = () => {
+    if (isPostEmpty) return;
     mutate(
       {
         content,
@@ -50,7 +55,7 @@ export default function PostEditor({ user }: Props) {
 
   return (
     <Card>
-      <CardContent>
+      <CardContent className="flex flex-col gap-5">
         <div className="flex gap-3">
           <UserAvatar user={user} className="size-10 shrink-0" />
           <div className="flex-1 pt-1">
@@ -61,12 +66,30 @@ export default function PostEditor({ user }: Props) {
             />
           </div>
         </div>
+        {!!attachments.length && (
+          <AttachmentPreviews
+            attachments={attachments}
+            removeAttachment={removeAttachment}
+          />
+        )}
       </CardContent>
 
-      <CardFooter className="justify-end">
+      <CardFooter className="justify-end gap-2">
+        {isUploading && (
+          <>
+            <span className="text-primary text-sm">{uploadProgress ?? 0}%</span>
+            <Loader2 className="text-primary size-5 animate-spin" />
+          </>
+        )}
+        <AddAttachmentsButton
+          action={startUpload}
+          disabled={isUploading || attachments.length >= 5}
+        />
         <Button
-          onClick={() => submit(content)}
-          disabled={!canPost || isPending}
+          onClick={submit}
+          disabled={
+            isPostEmpty || isPending || isUploading || attachments.length >= 5
+          }
           size="lg"
           className="rounded-full px-10"
         >
