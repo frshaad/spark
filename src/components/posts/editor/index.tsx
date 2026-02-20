@@ -10,7 +10,9 @@ import { usePostEditor } from '@/hooks/use-post-editor';
 import { usePostSubmit } from '@/hooks/use-post-submit';
 import { useUploadMedia } from '@/hooks/use-upload-media';
 import { isRTL } from '@/lib/format';
+import { cn } from '@/lib/utils';
 import { EditorContent } from '@tiptap/react';
+import { useDropzone } from '@uploadthing/react';
 import AddAttachmentsButton from './add-attachment-button';
 import AttachmentPreviews from './attachment-previews';
 
@@ -33,11 +35,16 @@ export default function PostEditor({ user }: Props) {
     reset: resetMediaUpload,
   } = useUploadMedia();
 
-  const isPostEmpty = content.trim().length === 0 && attachments.length === 0;
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop: startUpload,
+  });
 
+  const { onClick: _, ...rootProps } = getRootProps();
+
+  const isPostEmpty = content.trim().length === 0 && attachments.length === 0;
   const isContentRtl = useMemo(() => isRTL(content), [content]);
 
-  const submit = () => {
+  function submit() {
     if (isPostEmpty) return;
     mutate(
       {
@@ -51,19 +58,34 @@ export default function PostEditor({ user }: Props) {
         },
       },
     );
-  };
+  }
+
+  function onPaste(e: React.ClipboardEvent<HTMLInputElement>) {
+    const files = Array.from(e.clipboardData.items)
+      .filter((item) => item.kind === 'file')
+      .map((item) => item.getAsFile()) as File[];
+
+    if (!files.length) return;
+
+    startUpload(files);
+  }
 
   return (
     <Card>
       <CardContent className="flex flex-col gap-5">
         <div className="flex gap-3">
           <UserAvatar user={user} className="size-10 shrink-0" />
-          <div className="flex-1 pt-1">
+          <div className="flex-1 pt-1" {...rootProps}>
             <EditorContent
               editor={editor}
-              className="w-full"
+              className={cn(
+                'w-full',
+                isDragActive && 'rounded-lg outline-dashed',
+              )}
               dir={isContentRtl ? 'rtl' : 'ltr'}
+              onPaste={onPaste}
             />
+            <input {...getInputProps()} />
           </div>
         </div>
         {!!attachments.length && (
