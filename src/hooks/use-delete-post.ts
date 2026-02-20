@@ -32,9 +32,7 @@ export function useDeletePost() {
         };
       });
 
-      if (
-        pathname === `/${deletedPost.author.username}/posts/${deletedPost.id}`
-      ) {
+      if (pathname === `/${deletedPost.author.username}/${deletedPost.id}`) {
         router.push(`/${deletedPost.author.username}` as Route);
       }
 

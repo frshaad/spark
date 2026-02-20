@@ -1,12 +1,24 @@
 import { cache } from 'react';
+import { notFound } from 'next/navigation';
 import prisma from '@/lib/prisma';
-import { PostRecord, buildPostInclude } from '@/lib/types';
+import { PostRecord, PostView, buildPostInclude } from '@/lib/types';
 import { CreatePostInputs } from '@/lib/validation/post';
 
-export const getPost = cache((id: string) => {
+export const findPostById = cache(async (id: string) => {
   return prisma.post.findUnique({
     where: { id },
   });
+});
+
+export const getPostOrThrow = cache(async (id: string, viewerId: string) => {
+  const post = await prisma.post.findUnique({
+    where: { id },
+    include: buildPostInclude(viewerId),
+  });
+
+  if (!post) notFound();
+
+  return post as PostView;
 });
 
 export const getForYouFeedPosts = cache(
