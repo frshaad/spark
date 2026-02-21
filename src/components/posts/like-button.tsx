@@ -9,16 +9,13 @@ import { LikeInfo } from '@/lib/types';
 
 type LikeButtonProps = {
   postId: string;
-  initialLikesState: LikeInfo;
+  initialState: LikeInfo;
 };
 
-export default function LikeButton({
-  postId,
-  initialLikesState,
-}: LikeButtonProps) {
+export default function LikeButton({ postId, initialState }: LikeButtonProps) {
   const {
     data: { isLiked, likesCount },
-  } = useLikesSummary(postId, initialLikesState);
+  } = useLikesSummary(postId, initialState);
 
   const { mutate } = useLikePost();
 

@@ -1,6 +1,11 @@
 import { api } from '@/lib/ky';
 import { QUERY_KEYS } from '@/lib/query-keys';
-import { CursorPaginatedPosts, FollowInfo, LikeInfo } from '@/lib/types';
+import {
+  BookmarkInfo,
+  CursorPaginatedPosts,
+  FollowInfo,
+  LikeInfo,
+} from '@/lib/types';
 import {
   QueryKey,
   infiniteQueryOptions,
@@ -50,5 +55,17 @@ export function getLikesSummaryQuery(postId: string, initialData: LikeInfo) {
     queryFn: () => api.get(`posts/${postId}/likes`).json<LikeInfo>(),
     initialData,
     staleTime: 30_000,
+  });
+}
+
+export function getBookmarkInfoQuery(
+  postId: string,
+  initialData: BookmarkInfo,
+) {
+  return queryOptions({
+    queryKey: QUERY_KEYS.bookmarkInfo(postId),
+    queryFn: () => api.get(`posts/${postId}/bookmark`).json<BookmarkInfo>(),
+    initialData,
+    staleTime: 120_000,
   });
 }
