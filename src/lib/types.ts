@@ -56,6 +56,10 @@ export function buildPostInclude(viewerId: string) {
       where: { userId: viewerId },
       select: { userId: true },
     },
+    bookmarks: {
+      where: { userId: viewerId },
+      select: { userId: true },
+    },
     _count: { select: { likes: true } },
   } satisfies PostInclude;
 }
@@ -104,6 +108,10 @@ export type FollowInfo = {
 export type LikeInfo = {
   likesCount: number;
   isLiked: boolean;
+};
+
+export type BookmarkInfo = {
+  isBookmarked: boolean;
 };
 
 export type Attachment = {
