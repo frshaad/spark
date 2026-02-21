@@ -37,6 +37,11 @@ export const followingFeedQuery = getFeedQuery(
   'posts/following',
 );
 
+export const bookmarksFeedQuery = getFeedQuery(
+  QUERY_KEYS.bookmarksFeed,
+  'posts/bookmarked',
+);
+
 export function getFollowerSummaryQuery(
   targetUserId: string,
   initialData: FollowInfo,

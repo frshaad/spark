@@ -1,6 +1,7 @@
 export const QUERY_KEYS = {
   forYouFeed: ['feed', 'for-you'] as const,
   followingFeed: ['feed', 'following'] as const,
+  bookmarksFeed: ['feed', 'bookmarks'] as const,
 
   post: (id: string) => ['post', id] as const,
 

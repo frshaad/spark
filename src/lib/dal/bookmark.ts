@@ -1,4 +1,6 @@
+import { cache } from 'react';
 import prisma from '@/lib/prisma';
+import { PostRecord, buildPostInclude } from '../types';
 
 export async function getBookmarkInfo(
   postId: string,
@@ -38,5 +40,26 @@ export async function deleteBookmark(
 ) {
   return prisma.bookmark.deleteMany({
     where: { postId, userId: authenticatedUserId },
+  });
+}
+
+export async function getBookmarkedPosts({
+  authenticatedUserId,
+  cursor,
+  pageSize = 10,
+}: {
+  authenticatedUserId: string;
+  cursor: string | undefined;
+  pageSize: number | undefined;
+}) {
+  return prisma.bookmark.findMany({
+    where: { userId: authenticatedUserId },
+    include: {
+      post: { include: buildPostInclude(authenticatedUserId) },
+    },
+    orderBy: { createdAt: 'desc' },
+    take: pageSize + 1,
+    cursor: cursor ? { id: cursor } : undefined,
+    skip: cursor ? 1 : 0,
   });
 }
