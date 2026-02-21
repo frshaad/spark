@@ -1,25 +1,61 @@
 import { cache } from 'react';
 import { notFound } from 'next/navigation';
+import { PostGetPayload, PostSelect } from '@/generated/prisma/models';
+import { NotFoundError } from '@/lib/errors';
 import prisma from '@/lib/prisma';
 import { PostRecord, PostView, buildPostInclude } from '@/lib/types';
 import { CreatePostInputs } from '@/lib/validation/post';
 
-export const findPostById = cache(async (id: string) => {
+export const findPostByIdFull = cache(async (id: string) => {
   return prisma.post.findUnique({
     where: { id },
   });
 });
 
-export const getPostOrThrow = cache(async (id: string, viewerId: string) => {
-  const post = await prisma.post.findUnique({
-    where: { id },
-    include: buildPostInclude(viewerId),
-  });
+export const findPostById = cache(
+  async <T extends PostSelect>(
+    id: string,
+    select: T,
+  ): Promise<PostGetPayload<{ select: T }> | null> => {
+    return prisma.post.findUnique({
+      where: { id },
+      select,
+    });
+  },
+);
+
+export const findPostWithViewer = cache(
+  async (id: string, viewerId: string) => {
+    return prisma.post.findUnique({
+      where: { id },
+      include: buildPostInclude(viewerId),
+    });
+  },
+);
+
+export async function getPostOrFail(
+  id: string,
+  viewerId: string,
+): Promise<PostView> {
+  const post = await findPostWithViewer(id, viewerId);
+
+  if (!post) {
+    throw new NotFoundError('Post not found');
+  }
+
+  return post as PostView;
+}
+
+export async function getPostOrThrow(
+  id: string,
+  viewerId: string,
+): Promise<PostView> {
+  const post = await findPostWithViewer(id, viewerId);
 
   if (!post) notFound();
 
   return post as PostView;
-});
+}
 
 export const getForYouFeedPosts = cache(
   async ({
