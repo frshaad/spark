@@ -1,4 +1,4 @@
-import { likePost, dislikePost } from '@/lib/dal/like';
+import { dislikePost, likePost } from '@/lib/dal/like';
 import { findPostById } from '@/lib/dal/post';
 import { NotFoundError, handleApiError } from '@/lib/errors';
 import { requireAuthAPI } from '@/lib/session';

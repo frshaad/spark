@@ -8,12 +8,11 @@ import { Card, CardContent } from '@/components/ui/card';
 import UserAvatar from '@/components/user-avatar';
 import UserTooltip from '@/components/user-tooltip';
 import { PostView } from '@/lib/types';
+import PostActions from './post-actions';
 import PostContent from './post-content';
 import PostHeader from './post-header';
 import PostMediaPreviews from './post-media-previews';
 import PostMenu from './post-menu';
-
-// import PostActions from './post-actions';
 
 export default function Post({ post }: { post: PostView }) {
   const router = useRouter();
@@ -54,7 +53,7 @@ export default function Post({ post }: { post: PostView }) {
           </Link>
         </UserTooltip>
 
-        <div className="w-full">
+        <div className="w-full space-y-5">
           <div className="flex items-center justify-between">
             <PostHeader
               author={post.author}
@@ -81,7 +80,7 @@ export default function Post({ post }: { post: PostView }) {
             )}
           </div>
 
-          {/*<PostActions />*/}
+          <PostActions post={post} />
         </div>
       </CardContent>
     </Card>

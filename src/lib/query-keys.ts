@@ -8,6 +8,7 @@ export const QUERY_KEYS = {
   userPosts: (userId: string) => ['feed', 'user-posts', userId] as const,
 
   followerInfo: (userId: string) => ['follower-info', userId] as const,
+  likeInfo: (postId: string) => ['like-info', postId] as const,
 };
 
 /**

@@ -1,6 +1,6 @@
 import { api } from '@/lib/ky';
 import { QUERY_KEYS } from '@/lib/query-keys';
-import { CursorPaginatedPosts, FollowInfo } from '@/lib/types';
+import { CursorPaginatedPosts, FollowInfo, LikeInfo } from '@/lib/types';
 import {
   QueryKey,
   infiniteQueryOptions,
@@ -40,6 +40,15 @@ export function getFollowerSummaryQuery(
     queryKey: QUERY_KEYS.followerInfo(targetUserId),
     queryFn: () => api.get(`users/${targetUserId}/follow`).json<FollowInfo>(),
     initialData,
-    staleTime: Infinity, // 60_000
+    staleTime: 60_000,
+  });
+}
+
+export function getLikesSummaryQuery(postId: string, initialData: LikeInfo) {
+  return queryOptions({
+    queryKey: QUERY_KEYS.likeInfo(postId),
+    queryFn: () => api.get(`posts/${postId}/likes`).json<LikeInfo>(),
+    initialData,
+    staleTime: 30_000,
   });
 }
