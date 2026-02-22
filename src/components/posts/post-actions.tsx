@@ -10,10 +10,6 @@ type PostActionsProps = {
 export default function PostActions({ post }: PostActionsProps) {
   const authenticatedUserId = '';
 
-  function stopPropagation(e: React.MouseEvent) {
-    e.stopPropagation();
-  }
-
   const initialLikesState: LikeInfo = {
     likesCount: post._count.likes,
     isLiked: post.likes.some((p) => p.userId === authenticatedUserId),
@@ -24,13 +20,10 @@ export default function PostActions({ post }: PostActionsProps) {
   };
 
   return (
-    <div
-      className="flex items-center justify-between"
-      onClick={stopPropagation}
-    >
+    <div className="flex items-center justify-between">
       <div className="flex items-center gap-6">
         <LikeButton postId={post.id} initialState={initialLikesState} />
-        <CommentButton />
+        <CommentButton post={post} />
       </div>
       <BookmarkButton postId={post.id} initialState={initialBookmarkState} />
     </div>

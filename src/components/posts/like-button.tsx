@@ -19,7 +19,8 @@ export default function LikeButton({ postId, initialState }: LikeButtonProps) {
 
   const { mutate } = useLikePost();
 
-  function handleLike() {
+  function handleLike(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    e.stopPropagation();
     mutate({ postId, isLiked });
   }
 
@@ -33,13 +34,15 @@ export default function LikeButton({ postId, initialState }: LikeButtonProps) {
       <Heart
         className={`size-4 transition-all ${isLiked ? 'fill-red-600 text-red-600' : 'group-hover:fill-red-600/20'}`}
       />
-      <span
-        className={`text-right text-xs tabular-nums ${
-          isLiked ? 'text-red-600' : 'text-muted-foreground'
-        }`}
-      >
-        {likesCount > 0 ? formatCount(likesCount) : ''}
-      </span>
+      {likesCount > 0 && (
+        <span
+          className={`text-right text-xs tabular-nums ${
+            isLiked ? 'text-red-600' : 'text-muted-foreground'
+          }`}
+        >
+          {formatCount(likesCount)}
+        </span>
+      )}
     </Button>
   );
 }

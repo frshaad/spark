@@ -22,8 +22,6 @@ export function usePostSubmit() {
         },
       } satisfies QueryFilters;
 
-      console.log({ queryFilter });
-
       await client.cancelQueries(queryFilter);
 
       client.setQueriesData<InfiniteData<CursorPaginatedPosts, string | null>>(

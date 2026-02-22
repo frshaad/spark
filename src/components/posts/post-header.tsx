@@ -18,7 +18,7 @@ export default function PostHeader({
   const isRtl = useMemo(() => isRTL(displayName), [displayName]);
 
   return (
-    <div className="min-w-0">
+    <div className="min-w-0" onClick={(e) => e.stopPropagation()}>
       <div className="mb-1 flex items-center gap-2 text-sm">
         <UserTooltip user={author}>
           <Link

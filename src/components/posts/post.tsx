@@ -53,7 +53,11 @@ export default function Post({ post }: { post: PostView }) {
           </Link>
         </UserTooltip>
 
-        <div className="w-full space-y-5">
+        <div
+          className="w-full cursor-pointer space-y-5"
+          onClick={handleCardClick}
+          aria-label={`Open post by ${post.author.name}`}
+        >
           <div className="flex items-center justify-between">
             <PostHeader
               author={post.author}
@@ -69,11 +73,7 @@ export default function Post({ post }: { post: PostView }) {
             </div>
           </div>
 
-          <div
-            onClick={handleCardClick}
-            aria-label={`Open post by ${post.author.name}`}
-            className="cursor-pointer"
-          >
+          <div>
             <PostContent content={post.content} />
             {!!post.attachments.length && (
               <PostMediaPreviews attachments={post.attachments} />

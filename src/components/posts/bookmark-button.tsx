@@ -23,7 +23,8 @@ export default function BookmarkButton({
 
   const { mutate } = useBookmarkPost();
 
-  function handleBookmark() {
+  function handleBookmark(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    e.stopPropagation();
     mutate({ postId, isBookmarked });
   }
 
