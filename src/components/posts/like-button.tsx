@@ -34,7 +34,7 @@ export default function LikeButton({ postId, initialState }: LikeButtonProps) {
         className={`size-4 transition-all ${isLiked ? 'fill-red-600 text-red-600' : 'group-hover:fill-red-600/20'}`}
       />
       <span
-        className={`w-[4ch] text-right text-xs tabular-nums ${
+        className={`text-right text-xs tabular-nums ${
           isLiked ? 'text-red-600' : 'text-muted-foreground'
         }`}
       >

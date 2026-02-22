@@ -50,7 +50,6 @@ export function getFollowerSummaryQuery(
     queryKey: QUERY_KEYS.followerInfo(targetUserId),
     queryFn: () => api.get(`users/${targetUserId}/follow`).json<FollowInfo>(),
     initialData,
-    staleTime: 60_000,
   });
 }
 
@@ -59,7 +58,6 @@ export function getLikesSummaryQuery(postId: string, initialData: LikeInfo) {
     queryKey: QUERY_KEYS.likeInfo(postId),
     queryFn: () => api.get(`posts/${postId}/likes`).json<LikeInfo>(),
     initialData,
-    staleTime: 30_000,
   });
 }
 
@@ -71,6 +69,5 @@ export function getBookmarkInfoQuery(
     queryKey: QUERY_KEYS.bookmarkInfo(postId),
     queryFn: () => api.get(`posts/${postId}/bookmark`).json<BookmarkInfo>(),
     initialData,
-    staleTime: 120_000,
   });
 }
