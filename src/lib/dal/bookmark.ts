@@ -1,6 +1,5 @@
-import { cache } from 'react';
 import prisma from '@/lib/prisma';
-import { PostRecord, buildPostInclude } from '../types';
+import { buildPostInclude } from '@/lib/types';
 
 export async function getBookmarkInfo(
   postId: string,
