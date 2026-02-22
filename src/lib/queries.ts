@@ -2,6 +2,7 @@ import { api } from '@/lib/ky';
 import { QUERY_KEYS } from '@/lib/query-keys';
 import {
   BookmarkInfo,
+  CursorPaginatedComments,
   CursorPaginatedPosts,
   FollowInfo,
   LikeInfo,
@@ -24,6 +25,25 @@ export function getFeedQuery(queryKey: QueryKey, apiRoute: string) {
     initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
     maxPages: 15,
+  });
+}
+
+export function getCommentsQuery(postId: string) {
+  return infiniteQueryOptions({
+    queryKey: QUERY_KEYS.comments(postId),
+    queryFn: ({ pageParam }) =>
+      api
+        .get(`posts/${postId}/comment`, {
+          searchParams: pageParam ? { cursor: pageParam } : undefined,
+        })
+        .json<CursorPaginatedComments>(),
+    initialPageParam: undefined as string | undefined,
+    getNextPageParam: (firstPage) => firstPage.previousCursor,
+    select: (data) => ({
+      pageParams: [...data.pageParams].reverse(),
+      pages: [...data.pages].reverse(),
+    }),
+    maxPages: 10,
   });
 }
 
