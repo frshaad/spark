@@ -139,6 +139,7 @@ export async function createPost(authorId: string, data: CreatePostInputs) {
     include: buildPostInclude(authorId),
   });
 }
+
 export async function deletePost(postId: string, authenticatedUserId: string) {
   return prisma.post.delete({
     where: { id: postId },

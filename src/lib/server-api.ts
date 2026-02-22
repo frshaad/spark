@@ -1,5 +1,12 @@
 import { NextRequest } from 'next/server';
-import { CursorPaginatedPosts, PostRecord, isOnboardedPost } from '@/lib/types';
+import {
+  CommentRecord,
+  CursorPaginatedComments,
+  CursorPaginatedPosts,
+  PostRecord,
+  isOnboardedComment,
+  isOnboardedPost,
+} from '@/lib/types';
 
 export function buildCursorPaginatedPosts(
   posts: PostRecord[],
@@ -17,9 +24,28 @@ export function buildCursorPaginatedPosts(
   };
 }
 
-export function getCursorPaginationParams(req: NextRequest) {
+export function buildCursorPaginatedComments(
+  comments: CommentRecord[],
+  pageSize: number,
+): CursorPaginatedComments {
+  // Filter out posts from users without username
+  const validComments = comments.filter(isOnboardedComment);
+
+  const hasNextPage = validComments.length > pageSize;
+  const previousCursor = hasNextPage ? validComments[0].id : null;
+
+  return {
+    comments:
+      validComments.length > pageSize ? validComments.slice(1) : validComments,
+    previousCursor,
+  };
+}
+
+export function getCursorPaginationParams(
+  req: NextRequest,
+  pageSize: number = 5,
+) {
   const cursor = req.nextUrl.searchParams.get('cursor') || undefined;
-  const pageSize = 10;
 
   return { cursor, pageSize };
 }

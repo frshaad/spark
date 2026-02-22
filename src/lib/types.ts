@@ -1,5 +1,7 @@
 import { Route } from 'next';
 import {
+  CommentGetPayload,
+  CommentInclude,
   PostGetPayload,
   PostInclude,
   UserGetPayload,
@@ -60,8 +62,16 @@ export function buildPostInclude(viewerId: string) {
       where: { userId: viewerId },
       select: { userId: true },
     },
-    _count: { select: { likes: true } },
+    _count: { select: { likes: true, comments: true } },
   } satisfies PostInclude;
+}
+
+export function buildCommentInclude(viewerId: string) {
+  return {
+    author: {
+      select: buildUserSelect(viewerId),
+    },
+  } satisfies CommentInclude;
 }
 
 //
@@ -76,6 +86,10 @@ export type UserRecord = UserGetPayload<{
 
 export type PostRecord = PostGetPayload<{
   include: ReturnType<typeof buildPostInclude>;
+}>;
+
+export type CommentRecord = CommentGetPayload<{
+  include: ReturnType<typeof buildCommentInclude>;
 }>;
 
 type AuthorFromPost = PostRecord['author'];
@@ -94,9 +108,18 @@ export type PostView = Omit<PostRecord, 'author'> & {
   author: OnboardedUser;
 };
 
+export type CommentView = Omit<CommentRecord, 'author'> & {
+  author: OnboardedUser;
+};
+
 export type CursorPaginatedPosts = {
   posts: PostView[];
   nextCursor: string | null;
+};
+
+export type CursorPaginatedComments = {
+  comments: CommentRecord[];
+  previousCursor: string | null;
 };
 
 export type FollowInfo = {
@@ -131,4 +154,13 @@ export type Attachment = {
  */
 export function isOnboardedPost(post: PostRecord): post is PostView {
   return post.author.username !== null;
+}
+
+/**
+ * Ensures comment author has completed onboarding
+ */
+export function isOnboardedComment(
+  comment: CommentRecord,
+): comment is CommentView {
+  return comment.author.username !== null;
 }
