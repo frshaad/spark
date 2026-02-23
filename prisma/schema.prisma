@@ -19,14 +19,16 @@ model User {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
-  sessions  Session[]
-  accounts  Account[]
-  posts     Post[]
-  following Follow[]   @relation("UserFollowing")
-  followers Follow[]   @relation("UserFollowers")
-  likes     Like[]
-  bookmarks Bookmark[]
-  comments  Comment[]
+  sessions              Session[]
+  accounts              Account[]
+  posts                 Post[]
+  following             Follow[]       @relation("UserFollowing")
+  followers             Follow[]       @relation("UserFollowers")
+  likes                 Like[]
+  bookmarks             Bookmark[]
+  comments              Comment[]
+  receivedNotifications Notification[] @relation("Recipient")
+  issuedNotifications   Notification[] @relation("Issuer")
 
   @@unique([email])
   @@unique([username])
@@ -101,10 +103,11 @@ model Post {
   author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
 
-  attachments Media[]
-  likes       Like[]
-  bookmarks   Bookmark[]
-  comments    Comment[]
+  attachments         Media[]
+  likes               Like[]
+  bookmarks           Bookmark[]
+  comments            Comment[]
+  linkedNotifications Notification[]
 
   @@map("post")
 }
@@ -157,7 +160,29 @@ model Bookmark {
   @@map("bookmarks")
 }
 
+model Notification {
+  id          String           @id @default(cuid())
+  recipientId String
+  recipient   User             @relation("Recipient", fields: [recipientId], references: [id], onDelete: Cascade)
+  issuerId    String
+  issuer      User             @relation("Issuer", fields: [issuerId], references: [id], onDelete: Cascade)
+  postId      String?
+  post        Post?            @relation(fields: [postId], references: [id], onDelete: Cascade)
+  type        NotificationType
+  isRead      Boolean          @default(false)
+
+  createdAt DateTime @default(now())
+
+  @@map("notifications")
+}
+
 enum MediaType {
   IMAGE
   VIDEO
+}
+
+enum NotificationType {
+  FOLLOW
+  LIKE
+  COMMENT
 }
