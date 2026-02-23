@@ -5,7 +5,6 @@ export const QUERY_KEYS = {
 
   post: (id: string) => ['post', id] as const,
   comments: (postId: string) => ['comments', postId] as const,
-
   user: (username: string) => ['user', username] as const,
   userPosts: (userId: string) => ['feed', 'user-posts', userId] as const,
 

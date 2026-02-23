@@ -27,7 +27,7 @@ export default function Comments({ post }: CommentsProps) {
   }
 
   if (status === 'error') {
-    return <div>Error loading posts</div>;
+    return <div>An error occurred while loading comments.</div>;
   }
 
   const comments = data.pages.flatMap((page) => page.comments);
