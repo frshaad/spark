@@ -1,5 +1,7 @@
 'use client';
 
+import { Loader2 } from 'lucide-react';
+import InfiniteScrollContainer from '@/components/infinite-scroll-container';
 import { getCommentsQuery } from '@/lib/queries';
 import type { PostView } from '@/lib/types';
 import { useInfiniteQuery } from '@tanstack/react-query';
@@ -39,10 +41,18 @@ export default function Comments({ post }: CommentsProps) {
   }
 
   return (
-    <div className="flex flex-col gap-2">
-      {comments.map((comment) => (
-        <Comment key={comment.id} comment={comment} />
-      ))}
-    </div>
+    <InfiniteScrollContainer
+      className="space-y-3"
+      onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
+      hasNextPage={hasNextPage}
+      isFetching={isFetching}
+    >
+      <div className="flex flex-col gap-2">
+        {comments.map((comment) => (
+          <Comment key={comment.id} comment={comment} />
+        ))}
+      </div>
+      {isFetching && <Loader2 className="mx-auto my-3 animate-spin" />}
+    </InfiniteScrollContainer>
   );
 }

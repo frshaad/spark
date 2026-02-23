@@ -38,12 +38,7 @@ export function getCommentsQuery(postId: string) {
         })
         .json<CursorPaginatedComments>(),
     initialPageParam: undefined as string | undefined,
-    getNextPageParam: (firstPage) => firstPage.previousCursor,
-    select: (data) => ({
-      pageParams: [...data.pageParams].reverse(),
-      pages: [...data.pages].reverse(),
-    }),
-    maxPages: 10,
+    getNextPageParam: (lastPage) => lastPage.nextCursor,
   });
 }
 

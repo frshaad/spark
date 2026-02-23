@@ -4,7 +4,6 @@ import {
   CursorPaginatedComments,
   CursorPaginatedPosts,
   PostRecord,
-  isOnboardedComment,
   isOnboardedPost,
 } from '@/lib/types';
 
@@ -12,7 +11,6 @@ export function buildCursorPaginatedPosts(
   posts: PostRecord[],
   pageSize: number,
 ): CursorPaginatedPosts {
-  // Filter out posts from users without username
   const validPosts = posts.filter(isOnboardedPost);
 
   const hasNextPage = validPosts.length > pageSize;
@@ -28,16 +26,19 @@ export function buildCursorPaginatedComments(
   comments: CommentRecord[],
   pageSize: number,
 ): CursorPaginatedComments {
-  // Filter out posts from users without username
-  const validComments = comments.filter(isOnboardedComment);
+  const hasNextPage = comments.length > pageSize;
 
-  const hasNextPage = validComments.length > pageSize;
-  const previousCursor = hasNextPage ? validComments[0].id : null;
+  const paginatedComments = hasNextPage
+    ? comments.slice(0, pageSize)
+    : comments;
+
+  const nextCursor = hasNextPage
+    ? paginatedComments[paginatedComments.length - 1].id
+    : null;
 
   return {
-    comments:
-      validComments.length > pageSize ? validComments.slice(1) : validComments,
-    previousCursor,
+    comments: paginatedComments,
+    nextCursor,
   };
 }
 

@@ -8,7 +8,7 @@ export function useCommentSubmit() {
   return useMutation({
     mutationFn: submitComment,
 
-    async onSuccess(newComment, _variables, _onMutateResult, { client }) {
+    async onSuccess(newComment, _vars, _res, { client }) {
       const queryKey: QueryKey = QUERY_KEYS.comments(newComment.postId);
 
       await client.cancelQueries({ queryKey });
@@ -23,8 +23,8 @@ export function useCommentSubmit() {
             pageParams: oldData.pageParams,
             pages: [
               {
-                previousCursor: firstPage.previousCursor,
-                comments: [...firstPage.comments, newComment],
+                ...firstPage,
+                comments: [newComment, ...firstPage.comments],
               },
               ...oldData.pages.slice(1),
             ],

@@ -119,7 +119,7 @@ export type CursorPaginatedPosts = {
 
 export type CursorPaginatedComments = {
   comments: CommentRecord[];
-  previousCursor: string | null;
+  nextCursor: string | null;
 };
 
 export type FollowInfo = {
@@ -154,13 +154,4 @@ export type Attachment = {
  */
 export function isOnboardedPost(post: PostRecord): post is PostView {
   return post.author.username !== null;
-}
-
-/**
- * Ensures comment author has completed onboarding
- */
-export function isOnboardedComment(
-  comment: CommentRecord,
-): comment is CommentView {
-  return comment.author.username !== null;
 }

@@ -24,10 +24,11 @@ export async function getPaginatedComments({
   pageSize: number;
 }): Promise<CommentRecord[]> {
   return prisma.comment.findMany({
-    where: { postId },
+    where: { postId, author: { username: { not: null } } },
     include: buildCommentInclude(authenticatedUserId),
-    orderBy: { createdAt: 'asc' },
-    take: -pageSize - 1,
+    orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
+    take: pageSize + 1,
     cursor: cursor ? { id: cursor } : undefined,
+    skip: cursor ? 1 : 0,
   });
 }
