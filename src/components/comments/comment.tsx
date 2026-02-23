@@ -25,7 +25,7 @@ export default function Comment({ comment }: CommentProps) {
   const isContentRtl = useMemo(() => isRTL(comment.content), [comment.content]);
 
   return (
-    <Card role="button" className="group/post">
+    <Card role="button" className="group/comment">
       <CardContent className="flex gap-3">
         <UserTooltip user={comment.author}>
           <Link href={authorUrl} onClick={(e) => e.stopPropagation()}>

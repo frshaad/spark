@@ -19,12 +19,12 @@ import {
 import { useDeleteComment } from '@/hooks/use-delete-comment';
 import { authClient } from '@/lib/auth-client';
 
-type PostMenuProps = {
+type CommentMenuProps = {
   authorId: string;
   commentId: string;
 };
 
-export default function CommentMenu({ authorId, commentId }: PostMenuProps) {
+export default function CommentMenu({ authorId, commentId }: CommentMenuProps) {
   const { data } = authClient.useSession();
   const canManage = authorId === data?.user.id;
   const { mutate: deleteComment, isPending: isDeleting } = useDeleteComment();
@@ -44,7 +44,7 @@ export default function CommentMenu({ authorId, commentId }: PostMenuProps) {
     <DropdownMenu>
       <DropdownMenuTrigger
         render={<Button variant="ghost" />}
-        className="opacity-0 transition-opacity group-hover/post:opacity-100"
+        className="opacity-0 transition-opacity group-hover/comment:opacity-100"
         onClick={(e) => e.stopPropagation()}
       >
         <EllipsisVertical />
