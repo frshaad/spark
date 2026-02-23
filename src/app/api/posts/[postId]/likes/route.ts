@@ -1,4 +1,7 @@
-import { dislikePost, likePost } from '@/lib/dal/like';
+import {
+  createLikePostTransaction,
+  removeLikePostTransaction,
+} from '@/lib/dal/like';
 import { findPostById } from '@/lib/dal/post';
 import { NotFoundError, handleApiError } from '@/lib/errors';
 import { requireAuthAPI } from '@/lib/session';
@@ -37,7 +40,16 @@ export async function POST(_req: Request, ctx: RouteCtx) {
     const { postId } = await ctx.params;
     const { user: authenticatedUser } = await requireAuthAPI();
 
-    await likePost(postId, authenticatedUser.id);
+    const post = await findPostById(postId, { authorId: true });
+    if (!post) {
+      throw new NotFoundError('Post not found');
+    }
+
+    await createLikePostTransaction({
+      issuerId: authenticatedUser.id,
+      recipientId: post.authorId,
+      postId,
+    });
 
     return new Response();
   } catch (error) {
@@ -50,7 +62,16 @@ export async function DELETE(_req: Request, ctx: RouteCtx) {
     const { postId } = await ctx.params;
     const { user: authenticatedUser } = await requireAuthAPI();
 
-    await dislikePost(postId, authenticatedUser.id);
+    const post = await findPostById(postId, { authorId: true });
+    if (!post) {
+      throw new NotFoundError('Post not found');
+    }
+
+    await removeLikePostTransaction({
+      issuerId: authenticatedUser.id,
+      recipientId: post.authorId,
+      postId,
+    });
 
     return new Response();
   } catch (error) {
