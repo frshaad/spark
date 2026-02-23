@@ -16,7 +16,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useDeletePost } from '@/hooks/use-delete-post';
+import { useDeleteComment } from '@/hooks/use-delete-comment';
 import { authClient } from '@/lib/auth-client';
 
 type PostMenuProps = {
@@ -27,16 +27,16 @@ type PostMenuProps = {
 export default function CommentMenu({ authorId, commentId }: PostMenuProps) {
   const { data } = authClient.useSession();
   const canManage = authorId === data?.user.id;
-  const { mutate: deletePost, isPending: isDeleting } = useDeletePost();
+  const { mutate: deleteComment, isPending: isDeleting } = useDeleteComment();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const onConfirmDelete = useCallback(() => {
-    deletePost(commentId, {
+    deleteComment(commentId, {
       onSuccess() {
         setIsDialogOpen(false);
       },
     });
-  }, [deletePost, commentId]);
+  }, [deleteComment, commentId]);
 
   if (!canManage) return null;
 
