@@ -1,7 +1,7 @@
 import {
-  followUser,
+  followTransaction,
   getFollowRelationship,
-  unfollowUser,
+  unfollowTransaction,
 } from '@/lib/dal/follow';
 import { BadRequestError, NotFoundError, handleApiError } from '@/lib/errors';
 import { requireAuthAPI } from '@/lib/session';
@@ -40,7 +40,10 @@ export async function POST(_req: Request, ctx: RouteCTX) {
     if (authenticatedUser.id === targetUserId)
       throw new BadRequestError('Cannot follow yourself');
 
-    await followUser(targetUserId, authenticatedUser.id);
+    await followTransaction({
+      issuerId: authenticatedUser.id,
+      recipientId: targetUserId,
+    });
 
     return new Response();
   } catch (error) {
@@ -55,7 +58,10 @@ export async function DELETE(_req: Request, ctx: RouteCTX) {
 
     if (authenticatedUser.id === targetUserId) throw new BadRequestError();
 
-    await unfollowUser(targetUserId, authenticatedUser.id);
+    await unfollowTransaction({
+      issuerId: authenticatedUser.id,
+      recipientId: targetUserId,
+    });
 
     return new Response();
   } catch (error) {

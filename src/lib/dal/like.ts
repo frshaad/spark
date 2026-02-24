@@ -1,6 +1,6 @@
 import { Notification } from '@/generated/prisma/client';
 import prisma from '@/lib/prisma';
-import { createNotification, deleteNotifications } from './notification';
+import { createNotification, deleteNotification } from './notification';
 
 export function likePost(postId: string, authenticatedUserId: string) {
   const likeData = {
@@ -45,6 +45,6 @@ export function removeLikePostTransaction({
 }) {
   return prisma.$transaction([
     dislikePost(postId, issuerId),
-    deleteNotifications({ issuerId, recipientId, postId, type: 'LIKE' }),
+    deleteNotification({ issuerId, recipientId, postId, type: 'LIKE' }),
   ]);
 }

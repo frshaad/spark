@@ -1,5 +1,7 @@
 import { cache } from 'react';
+import { Notification } from '@/generated/prisma/client';
 import prisma from '@/lib/prisma';
+import { createNotification, deleteNotification } from './notification';
 
 export const getFollowRelationship = cache(
   (targetUserId: string, authenticatedUserId: string) => {
@@ -19,10 +21,7 @@ export const getFollowRelationship = cache(
   },
 );
 
-export async function followUser(
-  targetUserId: string,
-  authenticatedUserId: string,
-) {
+export function followUser(targetUserId: string, authenticatedUserId: string) {
   const followData = {
     followerId: authenticatedUserId,
     followingId: targetUserId,
@@ -35,11 +34,31 @@ export async function followUser(
   });
 }
 
-export async function unfollowUser(
+export function unfollowUser(
   targetUserId: string,
   authenticatedUserId: string,
 ) {
   return prisma.follow.deleteMany({
     where: { followerId: authenticatedUserId, followingId: targetUserId },
   });
+}
+
+export function followTransaction({
+  issuerId,
+  recipientId,
+}: Pick<Notification, 'issuerId' | 'recipientId'>) {
+  return prisma.$transaction([
+    followUser(recipientId, issuerId),
+    createNotification({ issuerId, recipientId, type: 'FOLLOW' }),
+  ]);
+}
+
+export function unfollowTransaction({
+  issuerId,
+  recipientId,
+}: Pick<Notification, 'issuerId' | 'recipientId'>) {
+  return prisma.$transaction([
+    unfollowUser(recipientId, issuerId),
+    deleteNotification({ issuerId, recipientId, type: 'FOLLOW' }),
+  ]);
 }
