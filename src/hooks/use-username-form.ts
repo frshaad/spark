@@ -1,14 +1,14 @@
 'use client';
 
-import { useState, useTransition } from 'react';
 import type { Route } from 'next';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
+import { useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { authClient } from '@/lib/auth-client';
 import { usernameFormSchema } from '@/lib/validation/auth';
-import { zodResolver } from '@hookform/resolvers/zod';
 
 export function useUsernameForm() {
   const router = useRouter();
@@ -27,10 +27,9 @@ export function useUsernameForm() {
     setError(null);
     startTransition(async () => {
       try {
-        const { data: response, error: checkError } =
-          await authClient.isUsernameAvailable({
-            username,
-          });
+        const { data: response, error: checkError } = await authClient.isUsernameAvailable({
+          username,
+        });
 
         if (checkError) {
           setError(checkError.message || 'Something went wrong');

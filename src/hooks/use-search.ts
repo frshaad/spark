@@ -13,11 +13,7 @@ type UseSearchOptions = {
   searchFn: (query: string) => Promise<SearchResult[]>;
 };
 
-export function useSearch({
-  searchFn,
-  debounceMs = 300,
-  minLength = 2,
-}: UseSearchOptions) {
+export function useSearch({ searchFn, debounceMs = 300, minLength = 2 }: UseSearchOptions) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);

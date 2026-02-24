@@ -1,8 +1,8 @@
 'use client';
 
-import { useCallback } from 'react';
-import { useTheme } from 'next-themes';
 import { ChevronRight, MonitorCog, Moon, Sun, SunMoon } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -20,22 +20,20 @@ export function ModeToggle() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger
-        render={<Button variant="ghost" className="w-full justify-between" />}
-      >
-        <span className="flex items-center gap-2">
+      <DropdownMenuTrigger render={<Button variant='ghost' className='w-full justify-between' />}>
+        <span className='flex items-center gap-2'>
           <SunMoon /> Update Mode
         </span>
         <ChevronRight />
       </DropdownMenuTrigger>
-      <DropdownMenuContent side="right" className="w-fit">
+      <DropdownMenuContent side='right' className='w-fit'>
         <DropdownMenuItem
           onClick={setLight}
           nativeButton={true}
           render={
             <Button
               variant={theme === 'light' ? 'secondary' : 'ghost'}
-              className="w-full justify-start"
+              className='w-full justify-start'
             />
           }
         >
@@ -48,7 +46,7 @@ export function ModeToggle() {
           render={
             <Button
               variant={theme === 'dark' ? 'secondary' : 'ghost'}
-              className="w-full justify-start"
+              className='w-full justify-start'
             />
           }
         >
@@ -60,7 +58,7 @@ export function ModeToggle() {
           render={
             <Button
               variant={theme === 'system' ? 'secondary' : 'ghost'}
-              className="w-full justify-start"
+              className='w-full justify-start'
             />
           }
         >

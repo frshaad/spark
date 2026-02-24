@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useState, useTransition } from 'react';
 import { Route } from 'next';
 import { useSearchParams } from 'next/navigation';
+import { useEffect, useState, useTransition } from 'react';
 import { toast } from 'sonner';
 import { Provider } from '@/lib/auth';
 import { authClient } from '@/lib/auth-client';

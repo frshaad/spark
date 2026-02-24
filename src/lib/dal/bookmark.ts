@@ -1,10 +1,7 @@
 import prisma from '@/lib/prisma';
 import { buildPostInclude } from '@/lib/types';
 
-export async function getBookmarkInfo(
-  postId: string,
-  authenticatedUserId: string,
-) {
+export async function getBookmarkInfo(postId: string, authenticatedUserId: string) {
   return prisma.bookmark.findUnique({
     where: {
       userId_postId: {
@@ -15,10 +12,7 @@ export async function getBookmarkInfo(
   });
 }
 
-export async function bookmarkPost(
-  postId: string,
-  authenticatedUserId: string,
-) {
+export async function bookmarkPost(postId: string, authenticatedUserId: string) {
   const bookmarkData = {
     postId,
     userId: authenticatedUserId,
@@ -33,10 +27,7 @@ export async function bookmarkPost(
   });
 }
 
-export async function deleteBookmark(
-  postId: string,
-  authenticatedUserId: string,
-) {
+export async function deleteBookmark(postId: string, authenticatedUserId: string) {
   return prisma.bookmark.deleteMany({
     where: { postId, userId: authenticatedUserId },
   });

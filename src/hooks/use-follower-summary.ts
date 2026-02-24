@@ -1,6 +1,6 @@
+import { useQuery } from '@tanstack/react-query';
 import { getFollowerSummaryQuery } from '@/lib/queries';
 import { FollowInfo } from '@/lib/types';
-import { useQuery } from '@tanstack/react-query';
 
 /**
  * Fetches and subscribes to a user's follower summary.
@@ -26,9 +26,6 @@ import { useQuery } from '@tanstack/react-query';
  *   isFollowing: false,
  * });
  */
-export function useFollowerSummary(
-  targetUserId: string,
-  initialState: FollowInfo,
-) {
+export function useFollowerSummary(targetUserId: string, initialState: FollowInfo) {
   return useQuery(getFollowerSummaryQuery(targetUserId, initialState));
 }

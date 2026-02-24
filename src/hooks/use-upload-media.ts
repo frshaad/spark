@@ -11,11 +11,9 @@ export function useUploadMedia() {
     onBeforeUploadBegin(files) {
       const renamedFiles = files.map((file) => {
         const fileExtension = file.name.split('.').pop();
-        return new File(
-          [file],
-          `attachment_${crypto.randomUUID()}.${fileExtension}`,
-          { type: file.type },
-        );
+        return new File([file], `attachment_${crypto.randomUUID()}.${fileExtension}`, {
+          type: file.type,
+        });
       });
 
       setAttachments((prev) => [

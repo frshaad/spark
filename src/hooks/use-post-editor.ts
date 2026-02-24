@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import Placeholder from '@tiptap/extension-placeholder';
 import { useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import { useState } from 'react';
 
 export function usePostEditor() {
   const [content, setContent] = useState('');

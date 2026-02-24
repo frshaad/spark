@@ -27,16 +27,13 @@ export default function FollowButton({
     <Button
       variant={isFollowing ? 'secondary' : 'default'}
       onClick={() => mutate({ targetUserId, isFollowing })}
-      className={cn(
-        'gap-1.5 rounded-full px-4 text-xs font-medium tracking-wide',
-        className,
-      )}
+      className={cn('gap-1.5 rounded-full px-4 text-xs font-medium tracking-wide', className)}
     >
       {isFollowing ? (
         'Following'
       ) : (
         <>
-          <UserPlus className="size-3.5" />
+          <UserPlus className='size-3.5' />
           Follow
         </>
       )}

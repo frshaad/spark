@@ -1,7 +1,7 @@
 'use client';
 
-import { useRef } from 'react';
 import { Image } from 'lucide-react';
+import { useRef } from 'react';
 import { Button } from '@/components/ui/button';
 
 type AddAttachmentsButtonProps = {
@@ -26,21 +26,21 @@ export default function AddAttachmentsButton({
   return (
     <>
       <Button
-        variant="ghost"
-        size="icon-lg"
+        variant='ghost'
+        size='icon-lg'
         onClick={() => fileInputRef.current?.click()}
         disabled={disabled}
-        className="text-primary hover:text-primary rounded-full"
+        className='text-primary hover:text-primary rounded-full'
       >
         <Image size={24} />
       </Button>
 
       <input
-        type="file"
-        accept="image/*, video/*"
+        type='file'
+        accept='image/*, video/*'
         ref={fileInputRef}
         multiple
-        className="sr-only hidden"
+        className='sr-only hidden'
         onChange={handleFileInputChange}
       />
     </>

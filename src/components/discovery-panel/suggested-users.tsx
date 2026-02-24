@@ -1,12 +1,7 @@
 import { Route } from 'next';
 import Link from 'next/link';
 import FollowButton from '@/components/follow-button';
-import {
-  Item,
-  ItemActions,
-  ItemContent,
-  ItemTitle,
-} from '@/components/ui/item';
+import { Item, ItemActions, ItemContent, ItemTitle } from '@/components/ui/item';
 import UserAvatar from '@/components/user-avatar';
 import UserTooltip from '@/components/user-tooltip';
 import { getUsersToFollow } from '@/lib/dal/user';
@@ -31,10 +26,8 @@ export default async function SuggestedUsersList() {
                     }}
                   />
                   <div>
-                    <p className="text-sm font-semibold">{user.name}</p>
-                    <p className="text-muted-foreground text-left text-xs">
-                      @{user.username}
-                    </p>
+                    <p className='text-sm font-semibold'>{user.name}</p>
+                    <p className='text-muted-foreground text-left text-xs'>@{user.username}</p>
                   </div>
                 </ItemTitle>
               </Link>

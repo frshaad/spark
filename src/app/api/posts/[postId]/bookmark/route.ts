@@ -1,8 +1,4 @@
-import {
-  bookmarkPost,
-  deleteBookmark,
-  getBookmarkInfo,
-} from '@/lib/dal/bookmark';
+import { bookmarkPost, deleteBookmark, getBookmarkInfo } from '@/lib/dal/bookmark';
 import { handleApiError } from '@/lib/errors';
 import { requireAuthAPI } from '@/lib/session';
 import { BookmarkInfo } from '@/lib/types';

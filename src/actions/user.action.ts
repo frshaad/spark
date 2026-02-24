@@ -2,10 +2,7 @@
 
 import { updateUserProfile } from '@/lib/dal/user';
 import { requireAuthAPI } from '@/lib/session';
-import {
-  UpdateUserProfileValues,
-  updateUserProfileSchema,
-} from '@/lib/validation/user';
+import { UpdateUserProfileValues, updateUserProfileSchema } from '@/lib/validation/user';
 
 export async function updateUserProfileData(values: UpdateUserProfileValues) {
   const validatedValues = updateUserProfileSchema.parse(values);

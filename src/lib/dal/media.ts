@@ -20,9 +20,7 @@ export async function getUnusedMediaUploads() {
   });
 }
 
-export async function deleteUnusedMediaRecords(
-  mediaRecords: Pick<Media, 'url' | 'id'>[],
-) {
+export async function deleteUnusedMediaRecords(mediaRecords: Pick<Media, 'url' | 'id'>[]) {
   return prisma.media.deleteMany({
     where: {
       id: { in: mediaRecords.map((m) => m.id) },

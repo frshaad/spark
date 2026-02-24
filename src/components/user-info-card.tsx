@@ -1,7 +1,7 @@
 import Link from 'next/link';
+import type { UserRecord } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { requireAuth } from '@/lib/session';
-import type { UserRecord } from '@/lib/types';
 import FollowButton from './follow-button';
 import Linkify from './linkify';
 import UserAvatar from './user-avatar';
@@ -19,18 +19,15 @@ export default async function UserInfoCard({ user }: UserInfoCardProps) {
       <CardHeader>
         <CardTitle>About the author</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-5">
+      <CardContent className='space-y-5'>
         <UserTooltip user={user}>
-          <Link href={`/${user.username}`} className="flex items-center gap-3">
-            <UserAvatar
-              user={{ name: user.name, image: user.image }}
-              className="size-16"
-            />
+          <Link href={`/${user.username}`} className='flex items-center gap-3'>
+            <UserAvatar user={{ name: user.name, image: user.image }} className='size-16' />
             <div>
-              <p className="line-clamp-1 text-lg font-semibold break-all hover:underline">
+              <p className='line-clamp-1 text-lg font-semibold break-all hover:underline'>
                 {user.name}
               </p>
-              <p className="text-muted-foreground line-clamp-1 text-base break-all hover:underline">
+              <p className='text-muted-foreground line-clamp-1 text-base break-all hover:underline'>
                 @{user.username}
               </p>
             </div>
@@ -38,7 +35,7 @@ export default async function UserInfoCard({ user }: UserInfoCardProps) {
         </UserTooltip>
 
         <Linkify>
-          <p className="text-muted-foreground line-clamp-6 wrap-break-word whitespace-pre-line">
+          <p className='text-muted-foreground line-clamp-6 wrap-break-word whitespace-pre-line'>
             {user.bio}
           </p>
         </Linkify>

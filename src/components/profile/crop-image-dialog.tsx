@@ -52,7 +52,7 @@ export default function CropImageDialog({
           <DialogTitle>Crop image</DialogTitle>
         </DialogHeader>
 
-        <div className="bg-secondary relative h-75 w-full">
+        <div className='bg-secondary relative h-75 w-full'>
           <Cropper
             image={src}
             crop={crop}
@@ -65,14 +65,10 @@ export default function CropImageDialog({
         </div>
 
         <DialogFooter>
-          <Button
-            variant="secondary"
-            onClick={onCloseAction}
-            className="flex-1"
-          >
+          <Button variant='secondary' onClick={onCloseAction} className='flex-1'>
             Cancel
           </Button>
-          <Button onClick={onCrop} className="flex-1">
+          <Button onClick={onCrop} className='flex-1'>
             Crop
           </Button>
         </DialogFooter>

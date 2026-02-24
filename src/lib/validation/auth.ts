@@ -1,10 +1,5 @@
 import * as z from 'zod';
-import {
-  emailSchema,
-  nameSchema,
-  passwordSchema,
-  usernameSchema,
-} from './base';
+import { emailSchema, nameSchema, passwordSchema, usernameSchema } from './base';
 
 export const loginIdentifierSchema = z
   .string()

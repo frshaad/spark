@@ -5,11 +5,11 @@ import { SuggestedUsersSkeleton } from './suggested-users.skeleton';
 
 export default function WhoToFollow() {
   return (
-    <Card className="gap-1">
+    <Card className='gap-1'>
       <CardHeader>
-        <CardTitle className="text-lg">Who to follow</CardTitle>
+        <CardTitle className='text-lg'>Who to follow</CardTitle>
       </CardHeader>
-      <CardContent className="p-0">
+      <CardContent className='p-0'>
         <Suspense fallback={<SuggestedUsersSkeleton />}>
           <SuggestedUsersList />
         </Suspense>

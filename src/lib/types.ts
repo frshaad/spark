@@ -138,15 +138,9 @@ export type CursorPaginated<T, K extends string> = {
 
 export type CursorPaginatedPosts = CursorPaginated<PostView, 'posts'>;
 
-export type CursorPaginatedComments = CursorPaginated<
-  CommentRecord,
-  'comments'
->;
+export type CursorPaginatedComments = CursorPaginated<CommentRecord, 'comments'>;
 
-export type CursorPaginatedNotifications = CursorPaginated<
-  NotificationRecord,
-  'notifications'
->;
+export type CursorPaginatedNotifications = CursorPaginated<NotificationRecord, 'notifications'>;
 
 export type FollowInfo = {
   followersCount: number;

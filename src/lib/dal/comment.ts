@@ -3,11 +3,7 @@ import prisma from '@/lib/prisma';
 import { type CommentRecord, buildCommentInclude } from '@/lib/types';
 import { createNotification } from './notification';
 
-export function createComment(data: {
-  authorId: string;
-  postId: string;
-  content: string;
-}) {
+export function createComment(data: { authorId: string; postId: string; content: string }) {
   return prisma.comment.create({
     data,
     include: buildCommentInclude(data.authorId),

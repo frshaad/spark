@@ -5,9 +5,9 @@ import { TopicsSkeleton } from './topics-list.skeleton';
 
 export default function TrendingTopics() {
   return (
-    <Card className="gap-1">
+    <Card className='gap-1'>
       <CardHeader>
-        <CardTitle className="text-lg">Trending Topics</CardTitle>
+        <CardTitle className='text-lg'>Trending Topics</CardTitle>
       </CardHeader>
       <CardContent>
         <Suspense fallback={<TopicsSkeleton />}>

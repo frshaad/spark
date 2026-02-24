@@ -1,13 +1,9 @@
 'use server';
 
-import {
-  commentTransaction,
-  deleteCommentById,
-  findCommentById,
-} from '@/lib/dal/comment';
+import type { CommentRecord, CommentView, PostRecord } from '@/lib/types';
+import { commentTransaction, deleteCommentById, findCommentById } from '@/lib/dal/comment';
 import { ForbiddenError, NotFoundError } from '@/lib/errors';
 import { requireAuthAPI } from '@/lib/session';
-import type { CommentRecord, CommentView, PostRecord } from '@/lib/types';
 import { commentSchema } from '@/lib/validation/comment';
 
 export async function submitComment({

@@ -1,8 +1,8 @@
+import { InfiniteData, QueryFilters, useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { submitPost } from '@/actions/post.action';
 import { QUERY_KEYS } from '@/lib/query-keys';
 import { CursorPaginatedPosts } from '@/lib/types';
-import { InfiniteData, QueryFilters, useMutation } from '@tanstack/react-query';
 
 export function usePostSubmit() {
   return useMutation({
@@ -24,9 +24,8 @@ export function usePostSubmit() {
 
       await client.cancelQueries(queryFilter);
 
-      client.setQueriesData<InfiniteData<CursorPaginatedPosts, string | null>>(
-        queryFilter,
-        (old) => prependPostToInfiniteCache(old, newPost),
+      client.setQueriesData<InfiniteData<CursorPaginatedPosts, string | null>>(queryFilter, (old) =>
+        prependPostToInfiniteCache(old, newPost),
       );
 
       await client.invalidateQueries({

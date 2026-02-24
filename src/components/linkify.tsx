@@ -21,7 +21,7 @@ function LinkifyURL({ children }: React.PropsWithChildren) {
         <Link
           key={key}
           href={new URL(match)}
-          className="text-primary hover:underline"
+          className='text-primary hover:underline'
           onClick={(e) => e.stopPropagation()}
         >
           {match.replace(/^(https?:\/\/)?(www\.)?/, (_, protocol) =>
@@ -43,7 +43,7 @@ function LinkifyMention({ children }: React.PropsWithChildren) {
         <Link
           key={key}
           href={`/${match.replace('@', '')}`}
-          className="text-primary hover:underline"
+          className='text-primary hover:underline'
           onClick={(e) => e.stopPropagation()}
         >
           {match}
@@ -63,7 +63,7 @@ function LinkifyHashtag({ children }: React.PropsWithChildren) {
         <Link
           key={key}
           href={`/topics/${match.replace('#', '')}`}
-          className="text-primary hover:underline"
+          className='text-primary hover:underline'
           onClick={(e) => e.stopPropagation()}
         >
           {match}

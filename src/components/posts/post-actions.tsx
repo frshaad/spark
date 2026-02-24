@@ -20,8 +20,8 @@ export default function PostActions({ post }: PostActionsProps) {
   };
 
   return (
-    <div className="flex items-center justify-between">
-      <div className="flex items-center gap-6">
+    <div className='flex items-center justify-between'>
+      <div className='flex items-center gap-6'>
         <LikeButton postId={post.id} initialState={initialLikesState} />
         <CommentButton post={post} />
       </div>

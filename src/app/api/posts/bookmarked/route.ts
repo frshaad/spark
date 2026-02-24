@@ -1,10 +1,7 @@
 import { NextRequest } from 'next/server';
 import { getBookmarkedPosts } from '@/lib/dal/bookmark';
 import { handleApiError } from '@/lib/errors';
-import {
-  buildCursorPaginatedByKey,
-  getCursorPaginationParams,
-} from '@/lib/server-api';
+import { buildCursorPaginatedByKey, getCursorPaginationParams } from '@/lib/server-api';
 import { requireAuthAPI } from '@/lib/session';
 import { isOnboardedPost } from '@/lib/types';
 

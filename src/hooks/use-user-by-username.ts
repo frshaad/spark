@@ -1,8 +1,8 @@
+import { useQuery } from '@tanstack/react-query';
 import { NotFoundError } from '@/lib/errors';
 import { api } from '@/lib/ky';
 import { QUERY_KEYS } from '@/lib/query-keys';
 import { UserRecord } from '@/lib/types';
-import { useQuery } from '@tanstack/react-query';
 
 export function UseGetUserByUsername(username: string) {
   return useQuery({

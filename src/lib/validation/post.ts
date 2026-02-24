@@ -3,10 +3,7 @@ import * as z from 'zod';
 export const createPostSchema = z
   .object({
     content: z.string().optional(),
-    mediaIds: z
-      .array(z.string())
-      .max(5, 'Cannot upload more than 5 media files')
-      .optional(),
+    mediaIds: z.array(z.string()).max(5, 'Cannot upload more than 5 media files').optional(),
   })
   .refine(
     (data) => {

@@ -10,16 +10,13 @@ type FollowStatsProps = {
   initialState: FollowInfo;
 };
 
-export default function FollowStats({
-  targetUserId,
-  initialState,
-}: FollowStatsProps) {
+export default function FollowStats({ targetUserId, initialState }: FollowStatsProps) {
   const { data } = useFollowerSummary(targetUserId, initialState);
 
   return (
     <>
-      <StatBlock value={formatCount(data.followersCount)} label="Followers" />
-      <StatBlock value={formatCount(data.followingCount)} label="Following" />
+      <StatBlock value={formatCount(data.followersCount)} label='Followers' />
+      <StatBlock value={formatCount(data.followingCount)} label='Following' />
     </>
   );
 }

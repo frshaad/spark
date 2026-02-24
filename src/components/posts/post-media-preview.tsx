@@ -6,10 +6,10 @@ export default function PostMediaPreview({ media }: { media: Media }) {
     return (
       <Image
         src={media.url}
-        alt="Attachment"
+        alt='Attachment'
         width={500}
         height={500}
-        className="mx-auto size-fit max-h-120 rounded-2xl"
+        className='mx-auto size-fit max-h-120 rounded-2xl'
       />
     );
   }
@@ -17,14 +17,10 @@ export default function PostMediaPreview({ media }: { media: Media }) {
   if (media.type === 'VIDEO') {
     return (
       <div>
-        <video
-          src={media.url}
-          controls
-          className="mx-auto size-fit max-h-120 rounded-2xl"
-        />
+        <video src={media.url} controls className='mx-auto size-fit max-h-120 rounded-2xl' />
       </div>
     );
   }
 
-  return <p className="text-destructive">Unsupported media type</p>;
+  return <p className='text-destructive'>Unsupported media type</p>;
 }

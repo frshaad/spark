@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
+import { useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { authClient } from '@/lib/auth-client';
 import { signupSchema } from '@/lib/validation/auth';
-import { zodResolver } from '@hookform/resolvers/zod';
 
 export function useSignupForm() {
   const router = useRouter();

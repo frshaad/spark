@@ -1,9 +1,9 @@
 'use client';
 
-import { useCallback, useMemo } from 'react';
 import { Route } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useCallback, useMemo } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import UserAvatar from '@/components/user-avatar';
 import UserTooltip from '@/components/user-tooltip';
@@ -21,10 +21,7 @@ export default function Post({ post }: { post: PostView }) {
     () => `/${post.author.username}/${post.id}` as Route,
     [post.id, post.author.username],
   );
-  const authorUrl = useMemo(
-    () => `/${post.author.username}` as Route,
-    [post.author.username],
-  );
+  const authorUrl = useMemo(() => `/${post.author.username}` as Route, [post.author.username]);
 
   const navigateToPost = useCallback(() => {
     router.push(postUrl);
@@ -39,8 +36,8 @@ export default function Post({ post }: { post: PostView }) {
   }, [navigateToPost]);
 
   return (
-    <Card role="button" className="group/post">
-      <CardContent className="flex gap-3">
+    <Card role='button' className='group/post'>
+      <CardContent className='flex gap-3'>
         <UserTooltip user={post.author}>
           <Link href={authorUrl} onClick={(e) => e.stopPropagation()}>
             <UserAvatar
@@ -48,26 +45,22 @@ export default function Post({ post }: { post: PostView }) {
                 image: post.author.image,
                 name: post.author.name,
               }}
-              className="size-10 transition hover:opacity-80"
+              className='size-10 transition hover:opacity-80'
             />
           </Link>
         </UserTooltip>
 
         <div
-          className="w-full cursor-pointer space-y-5"
+          className='w-full cursor-pointer space-y-5'
           onClick={handleCardClick}
           aria-label={`Open post by ${post.author.name}`}
         >
-          <div className="flex items-center justify-between">
-            <PostHeader
-              author={post.author}
-              authorUrl={authorUrl}
-              createdAt={post.createdAt}
-            />
+          <div className='flex items-center justify-between'>
+            <PostHeader author={post.author} authorUrl={authorUrl} createdAt={post.createdAt} />
 
-            <div className="min-w-0 flex-1">
-              <div className="mb-1 flex items-center justify-between gap-2">
-                <div className="flex-1" />
+            <div className='min-w-0 flex-1'>
+              <div className='mb-1 flex items-center justify-between gap-2'>
+                <div className='flex-1' />
                 <PostMenu authorId={post.authorId} postId={post.id} />
               </div>
             </div>
@@ -75,9 +68,7 @@ export default function Post({ post }: { post: PostView }) {
 
           <div>
             <PostContent content={post.content} />
-            {!!post.attachments.length && (
-              <PostMediaPreviews attachments={post.attachments} />
-            )}
+            {!!post.attachments.length && <PostMediaPreviews attachments={post.attachments} />}
           </div>
 
           <PostActions post={post} />

@@ -1,10 +1,7 @@
 import { NextRequest } from 'next/server';
 import { getPaginatedComments } from '@/lib/dal/comment';
 import { handleApiError } from '@/lib/errors';
-import {
-  buildCursorPaginatedComments,
-  getCursorPaginationParams,
-} from '@/lib/server-api';
+import { buildCursorPaginatedComments, getCursorPaginationParams } from '@/lib/server-api';
 import { requireAuthAPI } from '@/lib/session';
 
 type RouteCtx = RouteContext<'/api/posts/[postId]/comment'>;

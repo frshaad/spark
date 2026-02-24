@@ -1,10 +1,10 @@
 'use client';
 
 import type React from 'react';
-import { useRef } from 'react';
+import { Search } from 'lucide-react';
 import { Route } from 'next';
 import { useRouter } from 'next/navigation';
-import { Search } from 'lucide-react';
+import { useRef } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
 import { Input } from '@/components/ui/input';
 import { useSearch } from '@/hooks/use-search';
@@ -39,8 +39,9 @@ export default function SearchField() {
   const router = useRouter();
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const { query, setQuery, results, open, close, isOpen, isLoading } =
-    useSearch({ searchFn: searchResults });
+  const { query, setQuery, results, open, close, isOpen, isLoading } = useSearch({
+    searchFn: searchResults,
+  });
 
   useOnClickOutside(wrapperRef as React.RefObject<HTMLDivElement>, close);
 
@@ -58,28 +59,26 @@ export default function SearchField() {
   };
 
   return (
-    <div ref={wrapperRef} className="relative w-full max-w-md">
-      <div className="relative">
-        <Search className="text-muted-foreground absolute top-1/2 left-3 size-4 -translate-y-1/2" />
+    <div ref={wrapperRef} className='relative w-full max-w-md'>
+      <div className='relative'>
+        <Search className='text-muted-foreground absolute top-1/2 left-3 size-4 -translate-y-1/2' />
         <Input
-          type="text"
-          placeholder="Search..."
+          type='text'
+          placeholder='Search...'
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
           onFocus={() => query.trim() && results.length > 0 && open()}
-          className="pl-9"
+          className='pl-9'
         />
       </div>
 
       {isOpen && (
-        <div className="bg-popover absolute top-full z-50 mt-2 w-full rounded-lg border shadow-lg">
+        <div className='bg-popover absolute top-full z-50 mt-2 w-full rounded-lg border shadow-lg'>
           {isLoading ? (
-            <div className="text-muted-foreground p-4 text-center text-sm">
-              Searching...
-            </div>
+            <div className='text-muted-foreground p-4 text-center text-sm'>Searching...</div>
           ) : results.length > 0 ? (
-            <ul className="py-2">
+            <ul className='py-2'>
               {results.map((result) => (
                 <li key={result.id}>
                   <button
@@ -89,16 +88,14 @@ export default function SearchField() {
                       'hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none',
                     )}
                   >
-                    <Search className="text-muted-foreground mr-3 size-4" />
+                    <Search className='text-muted-foreground mr-3 size-4' />
                     <span>{result.title}</span>
                   </button>
                 </li>
               ))}
             </ul>
           ) : (
-            <div className="text-muted-foreground p-4 text-center text-sm">
-              No results found
-            </div>
+            <div className='text-muted-foreground p-4 text-center text-sm'>No results found</div>
           )}
         </div>
       )}

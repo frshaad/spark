@@ -1,8 +1,8 @@
+import { QueryKey, useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { api } from '@/lib/ky';
 import { QUERY_KEYS } from '@/lib/query-keys';
 import { LikeInfo } from '@/lib/types';
-import { QueryKey, useMutation } from '@tanstack/react-query';
 
 type LikeVariables = {
   postId: string;
@@ -12,9 +12,7 @@ type LikeVariables = {
 export function useLikePost() {
   return useMutation({
     mutationFn: ({ postId, isLiked }: LikeVariables) =>
-      isLiked
-        ? api.delete(`posts/${postId}/likes`)
-        : api.post(`posts/${postId}/likes`),
+      isLiked ? api.delete(`posts/${postId}/likes`) : api.post(`posts/${postId}/likes`),
 
     async onMutate({ postId }, ctx) {
       const queryKey: QueryKey = QUERY_KEYS.likeInfo(postId);
@@ -25,8 +23,7 @@ export function useLikePost() {
 
       ctx.client.setQueryData<LikeInfo>(queryKey, () => ({
         isLiked: !previousData?.isLiked,
-        likesCount:
-          (previousData?.likesCount || 0) + (previousData?.isLiked ? -1 : 1),
+        likesCount: (previousData?.likesCount || 0) + (previousData?.isLiked ? -1 : 1),
       }));
 
       return previousData;

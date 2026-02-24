@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
 import { LoaderCircle, SendHorizonalIcon } from 'lucide-react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useCommentSubmit } from '@/hooks/use-comment-submit';
@@ -23,31 +23,31 @@ export default function CommentInput({ post }: CommentInputProps) {
   }
 
   return (
-    <form className="w-full space-y-2" onSubmit={onSubmit}>
-      <div className="relative">
+    <form className='w-full space-y-2' onSubmit={onSubmit}>
+      <div className='relative'>
         <Input
-          type="text"
-          placeholder="Write a comment..."
-          className="pr-9"
+          type='text'
+          placeholder='Write a comment...'
+          className='pr-9'
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
         <Button
-          type="submit"
-          variant="ghost"
-          size="icon"
+          type='submit'
+          variant='ghost'
+          size='icon'
           disabled={!content.trim() || isPending}
-          className="text-muted-foreground focus-visible:ring-ring/50 absolute inset-y-0 right-0 rounded-l-none hover:bg-transparent"
+          className='text-muted-foreground focus-visible:ring-ring/50 absolute inset-y-0 right-0 rounded-l-none hover:bg-transparent'
         >
           {isPending ? (
             <>
-              <LoaderCircle className="animate-spin" />
-              <span className="sr-only">Sending</span>
+              <LoaderCircle className='animate-spin' />
+              <span className='sr-only'>Sending</span>
             </>
           ) : (
             <>
               <SendHorizonalIcon />
-              <span className="sr-only">Send</span>
+              <span className='sr-only'>Send</span>
             </>
           )}
         </Button>

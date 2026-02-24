@@ -26,9 +26,9 @@ export default function LikeButton({ postId, initialState }: LikeButtonProps) {
 
   return (
     <Button
-      variant="ghost"
-      size="sm"
-      className="group ml-2 hover:bg-red-500/10 hover:text-red-600"
+      variant='ghost'
+      size='sm'
+      className='group ml-2 hover:bg-red-500/10 hover:text-red-600'
       onClick={handleLike}
     >
       <Heart

@@ -42,20 +42,14 @@ export class BadRequestError extends HttpError {
 export function handleApiError(error: unknown) {
   // Expected, controlled errors
   if (error instanceof HttpError) {
-    return NextResponse.json(
-      { error: error.message },
-      { status: error.status },
-    );
+    return NextResponse.json({ error: error.message }, { status: error.status });
   }
 
   // Prisma error
   if (error instanceof Prisma.PrismaClientKnownRequestError) {
     console.error('Prisma error:', error);
 
-    return NextResponse.json(
-      { error: 'Database operation failed' },
-      { status: 400 },
-    );
+    return NextResponse.json({ error: 'Database operation failed' }, { status: 400 });
   }
 
   // Log unexpected errors (important)

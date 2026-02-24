@@ -9,10 +9,7 @@ export default async function AddUsernamePage() {
   if (session?.user.username) redirect('/');
 
   return (
-    <AuthCard
-      title="Add Username"
-      description="Enter a unique username for your account"
-    >
+    <AuthCard title='Add Username' description='Enter a unique username for your account'>
       <UsernameForm />
     </AuthCard>
   );

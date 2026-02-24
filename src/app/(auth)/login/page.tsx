@@ -9,7 +9,7 @@ export default async function SigninPage() {
   if (session) redirect('/');
 
   return (
-    <AuthCard title="Login" description="Enter your information below to login">
+    <AuthCard title='Login' description='Enter your information below to login'>
       <LoginForm />
     </AuthCard>
   );
@@ -17,6 +17,5 @@ export default async function SigninPage() {
 
 export const metadata: Metadata = {
   title: 'Login | Spark',
-  description:
-    'Log in to your Spark account to access your dashboard and manage your projects.',
+  description: 'Log in to your Spark account to access your dashboard and manage your projects.',
 };

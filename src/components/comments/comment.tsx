@@ -1,8 +1,8 @@
 'use client';
 
-import { useMemo } from 'react';
 import { Route } from 'next';
 import Link from 'next/link';
+import { useMemo } from 'react';
 import PostHeader from '@/components/posts/post-header';
 import { Card, CardContent } from '@/components/ui/card';
 import UserAvatar from '@/components/user-avatar';
@@ -25,8 +25,8 @@ export default function Comment({ comment }: CommentProps) {
   const isContentRtl = useMemo(() => isRTL(comment.content), [comment.content]);
 
   return (
-    <Card role="button" className="group/comment">
-      <CardContent className="flex gap-3">
+    <Card role='button' className='group/comment'>
+      <CardContent className='flex gap-3'>
         <UserTooltip user={comment.author}>
           <Link href={authorUrl} onClick={(e) => e.stopPropagation()}>
             <UserAvatar
@@ -34,26 +34,23 @@ export default function Comment({ comment }: CommentProps) {
                 image: comment.author.image,
                 name: comment.author.name,
               }}
-              className="size-8 transition hover:opacity-80"
+              className='size-8 transition hover:opacity-80'
             />
           </Link>
         </UserTooltip>
 
-        <div className="w-full">
-          <div className="flex justify-between">
+        <div className='w-full'>
+          <div className='flex justify-between'>
             <PostHeader
               author={comment.author as OnboardedUser}
               authorUrl={authorUrl}
               createdAt={comment.createdAt}
             />
 
-            <div className="min-w-0 flex-1">
-              <div className="mb-1 flex items-center justify-between gap-2">
-                <div className="flex-1" />
-                <CommentMenu
-                  authorId={comment.authorId}
-                  commentId={comment.id}
-                />
+            <div className='min-w-0 flex-1'>
+              <div className='mb-1 flex items-center justify-between gap-2'>
+                <div className='flex-1' />
+                <CommentMenu authorId={comment.authorId} commentId={comment.id} />
               </div>
             </div>
           </div>

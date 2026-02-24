@@ -1,8 +1,8 @@
 'use client';
 
+import { CircleUser, LogOut } from 'lucide-react';
 import { Route } from 'next';
 import Link from 'next/link';
-import { CircleUser, LogOut } from 'lucide-react';
 import SignOutButton from '@/components/auth/signout-button';
 import { ModeToggle } from '@/components/mode-toggle';
 import { Button } from '@/components/ui/button';
@@ -39,19 +39,17 @@ export default function UserButton({ user }: UserButtonProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        render={<Button variant="ghost" size="sm" />}
-        className="flex h-14 cursor-pointer items-center justify-start gap-3 rounded-full text-lg"
+        render={<Button variant='ghost' size='sm' />}
+        className='flex h-14 cursor-pointer items-center justify-start gap-3 rounded-full text-lg'
       >
         <UserAvatar user={user} />
-        <span className="max-lg:hidden">{name}</span>
+        <span className='max-lg:hidden'>{name}</span>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="start">
+      <DropdownMenuContent className='w-56' align='start'>
         <DropdownMenuGroup>
           <Link href={`/${username}` as Route}>
             <DropdownMenuItem
-              render={
-                <Button variant="ghost" className="w-full justify-start" />
-              }
+              render={<Button variant='ghost' className='w-full justify-start' />}
               nativeButton={true}
             >
               <CircleUser />
@@ -66,7 +64,7 @@ export default function UserButton({ user }: UserButtonProps) {
 
         <Dialog>
           <DialogTrigger
-            data-variant="destructive"
+            data-variant='destructive'
             className="focus:bg-accent hover:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground group/dropdown-menu-item relative flex w-full cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
           >
             <LogOut />

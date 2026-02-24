@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import { EyeIcon, EyeOffIcon, LoaderCircle } from 'lucide-react';
+import Link from 'next/link';
 import { Controller } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import {
@@ -18,161 +18,142 @@ import { AuthError } from './auth-error';
 import SocialProvidersGroup from './social-providers-group';
 
 export default function SignupForm() {
-  const {
-    control,
-    handleSubmit,
-    isPending,
-    error,
-    passwordVisible,
-    togglePasswordVisibility,
-  } = useSignupForm();
+  const { control, handleSubmit, isPending, error, passwordVisible, togglePasswordVisibility } =
+    useSignupForm();
 
   return (
-    <div className="flex flex-col gap-7">
+    <div className='flex flex-col gap-7'>
       <AuthError message={error} />
 
       <form onSubmit={handleSubmit}>
-        <FieldGroup className="gap-4">
+        <FieldGroup className='gap-4'>
           <Controller
-            name="name"
+            name='name'
             control={control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="signup-form-name">Name</FieldLabel>
+                <FieldLabel htmlFor='signup-form-name'>Name</FieldLabel>
                 <Input
                   {...field}
-                  id="signup-form-name"
+                  id='signup-form-name'
                   aria-invalid={fieldState.invalid}
-                  placeholder="John Doe"
-                  autoComplete="name"
+                  placeholder='John Doe'
+                  autoComplete='name'
                 />
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
+                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
               </Field>
             )}
           />
 
           <Controller
-            name="username"
+            name='username'
             control={control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="signup-form-username">Username</FieldLabel>
+                <FieldLabel htmlFor='signup-form-username'>Username</FieldLabel>
                 <Input
                   {...field}
-                  id="signup-form-username"
+                  id='signup-form-username'
                   aria-invalid={fieldState.invalid}
-                  placeholder="johndoe"
-                  autoComplete="username"
+                  placeholder='johndoe'
+                  autoComplete='username'
                 />
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
+                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
               </Field>
             )}
           />
 
           <Controller
-            name="email"
+            name='email'
             control={control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="signup-form-email">Email</FieldLabel>
+                <FieldLabel htmlFor='signup-form-email'>Email</FieldLabel>
                 <Input
                   {...field}
-                  id="signup-form-email"
+                  id='signup-form-email'
                   aria-invalid={fieldState.invalid}
-                  placeholder="m@example.com"
-                  autoComplete="email"
+                  placeholder='m@example.com'
+                  autoComplete='email'
                 />
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
+                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
               </Field>
             )}
           />
 
           <Controller
-            name="password"
+            name='password'
             control={control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="signup-form-password">Password</FieldLabel>
-                <div className="relative">
+                <FieldLabel htmlFor='signup-form-password'>Password</FieldLabel>
+                <div className='relative'>
                   <Input
                     {...field}
-                    id="signup-form-password"
+                    id='signup-form-password'
                     type={passwordVisible ? 'text' : 'password'}
                     aria-invalid={fieldState.invalid}
-                    autoComplete="off"
-                    className="pr-9"
+                    autoComplete='off'
+                    className='pr-9'
                   />
                   <Button
-                    size="icon"
-                    variant="ghost"
-                    type="button"
-                    className="absolute top-0 right-0 hover:bg-transparent dark:hover:bg-transparent"
+                    size='icon'
+                    variant='ghost'
+                    type='button'
+                    className='absolute top-0 right-0 hover:bg-transparent dark:hover:bg-transparent'
                     onClick={togglePasswordVisibility}
                   >
                     {passwordVisible ? (
-                      <EyeOffIcon className="size-4" />
+                      <EyeOffIcon className='size-4' />
                     ) : (
-                      <EyeIcon className="size-4" />
+                      <EyeIcon className='size-4' />
                     )}
                   </Button>
                 </div>
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
+                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
               </Field>
             )}
           />
 
           <Controller
-            name="confirmPassword"
+            name='confirmPassword'
             control={control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="signup-form-confirm-password">
-                  Confirm Password
-                </FieldLabel>
-                <div className="relative">
+                <FieldLabel htmlFor='signup-form-confirm-password'>Confirm Password</FieldLabel>
+                <div className='relative'>
                   <Input
                     {...field}
-                    id="signup-form-confirm-password"
+                    id='signup-form-confirm-password'
                     type={passwordVisible ? 'text' : 'password'}
                     aria-invalid={fieldState.invalid}
-                    autoComplete="off"
-                    className="pr-9"
+                    autoComplete='off'
+                    className='pr-9'
                   />
                   <Button
-                    size="icon"
-                    variant="ghost"
-                    type="button"
-                    className="absolute top-0 right-0 hover:bg-transparent dark:hover:bg-transparent"
+                    size='icon'
+                    variant='ghost'
+                    type='button'
+                    className='absolute top-0 right-0 hover:bg-transparent dark:hover:bg-transparent'
                     onClick={togglePasswordVisibility}
                   >
                     {passwordVisible ? (
-                      <EyeOffIcon className="size-4" />
+                      <EyeOffIcon className='size-4' />
                     ) : (
-                      <EyeIcon className="size-4" />
+                      <EyeIcon className='size-4' />
                     )}
                   </Button>
                 </div>
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
+                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
               </Field>
             )}
           />
 
-          <Field className="mt-3">
-            <Button type="submit" disabled={isPending}>
+          <Field className='mt-3'>
+            <Button type='submit' disabled={isPending}>
               {isPending ? (
-                <div className="flex items-center gap-2">
-                  <LoaderCircle className="animate-spin" />{' '}
-                  <span>Creating Account...</span>
+                <div className='flex items-center gap-2'>
+                  <LoaderCircle className='animate-spin' /> <span>Creating Account...</span>
                 </div>
               ) : (
                 'Create Account'
@@ -182,14 +163,14 @@ export default function SignupForm() {
         </FieldGroup>
       </form>
 
-      <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
+      <FieldSeparator className='*:data-[slot=field-separator-content]:bg-card'>
         Or continue with
       </FieldSeparator>
 
       <SocialProvidersGroup />
 
-      <FieldDescription className="px-6 text-center">
-        Already have an account? <Link href="/login">Sign in</Link>
+      <FieldDescription className='px-6 text-center'>
+        Already have an account? <Link href='/login'>Sign in</Link>
       </FieldDescription>
     </div>
   );

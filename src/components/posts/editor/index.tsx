@@ -1,8 +1,10 @@
 'use client';
 
 import './tiptap.css';
-import { useMemo } from 'react';
+import { EditorContent } from '@tiptap/react';
+import { useDropzone } from '@uploadthing/react';
 import { Loader2 } from 'lucide-react';
+import { useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import UserAvatar from '@/components/user-avatar';
@@ -11,8 +13,6 @@ import { usePostSubmit } from '@/hooks/use-post-submit';
 import { useUploadMedia } from '@/hooks/use-upload-media';
 import { isRTL } from '@/lib/format';
 import { cn } from '@/lib/utils';
-import { EditorContent } from '@tiptap/react';
-import { useDropzone } from '@uploadthing/react';
 import AddAttachmentsButton from './add-attachment-button';
 import AttachmentPreviews from './attachment-previews';
 
@@ -72,16 +72,13 @@ export default function PostEditor({ user }: Props) {
 
   return (
     <Card>
-      <CardContent className="flex flex-col gap-5">
-        <div className="flex gap-3">
-          <UserAvatar user={user} className="size-10 shrink-0" />
-          <div className="flex-1 pt-1" {...rootProps}>
+      <CardContent className='flex flex-col gap-5'>
+        <div className='flex gap-3'>
+          <UserAvatar user={user} className='size-10 shrink-0' />
+          <div className='flex-1 pt-1' {...rootProps}>
             <EditorContent
               editor={editor}
-              className={cn(
-                'w-full',
-                isDragActive && 'rounded-lg outline-dashed',
-              )}
+              className={cn('w-full', isDragActive && 'rounded-lg outline-dashed')}
               dir={isContentRtl ? 'rtl' : 'ltr'}
               onPaste={onPaste}
             />
@@ -89,18 +86,15 @@ export default function PostEditor({ user }: Props) {
           </div>
         </div>
         {!!attachments.length && (
-          <AttachmentPreviews
-            attachments={attachments}
-            removeAttachment={removeAttachment}
-          />
+          <AttachmentPreviews attachments={attachments} removeAttachment={removeAttachment} />
         )}
       </CardContent>
 
-      <CardFooter className="justify-end gap-2">
+      <CardFooter className='justify-end gap-2'>
         {isUploading && (
           <>
-            <span className="text-primary text-sm">{uploadProgress ?? 0}%</span>
-            <Loader2 className="text-primary size-5 animate-spin" />
+            <span className='text-primary text-sm'>{uploadProgress ?? 0}%</span>
+            <Loader2 className='text-primary size-5 animate-spin' />
           </>
         )}
         <AddAttachmentsButton
@@ -109,11 +103,9 @@ export default function PostEditor({ user }: Props) {
         />
         <Button
           onClick={submit}
-          disabled={
-            isPostEmpty || isPending || isUploading || attachments.length >= 5
-          }
-          size="lg"
-          className="rounded-full px-10"
+          disabled={isPostEmpty || isPending || isUploading || attachments.length >= 5}
+          size='lg'
+          className='rounded-full px-10'
         >
           {isPending ? 'Posting...' : 'Post'}
         </Button>

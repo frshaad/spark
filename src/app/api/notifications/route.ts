@@ -1,10 +1,7 @@
 import { NextRequest } from 'next/server';
 import { getNotificationsForUser } from '@/lib/dal/notification';
 import { handleApiError } from '@/lib/errors';
-import {
-  buildCursorPaginatedByKey,
-  getCursorPaginationParams,
-} from '@/lib/server-api';
+import { buildCursorPaginatedByKey, getCursorPaginationParams } from '@/lib/server-api';
 import { requireAuthAPI } from '@/lib/session';
 
 export async function GET(req: NextRequest) {

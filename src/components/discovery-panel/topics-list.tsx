@@ -13,19 +13,14 @@ export default async function TopicsList() {
         const title = hashtag.split('#')[1];
 
         return (
-          <Item key={title} size="xs">
+          <Item key={title} size='xs'>
             <ItemContent>
               <Link href={`/hashtag/${title}` as Route}>
                 <ItemTitle>
-                  <p
-                    className="line-clamp-1 text-sm font-semibold break-all"
-                    title={hashtag}
-                  >
+                  <p className='line-clamp-1 text-sm font-semibold break-all' title={hashtag}>
                     {hashtag}
                   </p>
-                  <p className="text-muted-foreground text-xs">
-                    {formatCount(count)}
-                  </p>
+                  <p className='text-muted-foreground text-xs'>{formatCount(count)}</p>
                 </ItemTitle>
               </Link>
             </ItemContent>

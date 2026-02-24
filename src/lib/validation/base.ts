@@ -44,10 +44,7 @@ export const usernameSchema = z
     baseSchemaConfig.MAX_USERNAME_LENGTH,
     `Username must be ${baseSchemaConfig.MAX_USERNAME_LENGTH} characters or fewer`,
   )
-  .regex(
-    USERNAME_REGEX,
-    'Username may contain lowercase letters, numbers, dots, or underscores',
-  )
+  .regex(USERNAME_REGEX, 'Username may contain lowercase letters, numbers, dots, or underscores')
   .transform((val) => val.toLowerCase());
 
 export const emailSchema = z

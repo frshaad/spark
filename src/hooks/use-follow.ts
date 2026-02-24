@@ -1,8 +1,8 @@
+import { QueryKey, useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { api } from '@/lib/ky';
 import { QUERY_KEYS } from '@/lib/query-keys';
 import { FollowInfo } from '@/lib/types';
-import { QueryKey, useMutation } from '@tanstack/react-query';
 
 type FollowVariables = {
   targetUserId: string;
@@ -24,9 +24,7 @@ export function useFollow() {
       const previousData = ctx.client.getQueryData<FollowInfo>(queryKey);
 
       ctx.client.setQueryData<FollowInfo>(queryKey, () => ({
-        followersCount:
-          (previousData?.followersCount || 0) +
-          (previousData?.isFollowing ? -1 : 1),
+        followersCount: (previousData?.followersCount || 0) + (previousData?.isFollowing ? -1 : 1),
         followingCount: previousData?.followingCount || 0,
         isFollowing: !previousData?.isFollowing,
       }));

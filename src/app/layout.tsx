@@ -1,6 +1,6 @@
 import './globals.css';
-import { Suspense } from 'react';
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { inter, vazirMatn } from '@/lib/fonts';
 import Providers from '@/providers';
 import UploadthingSSRProvider from '@/providers/uploadthing-ssr-provider';
@@ -11,7 +11,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang='en' suppressHydrationWarning>
       <body className={`${inter.variable} ${vazirMatn.variable} antialiased`}>
         <Suspense>
           <UploadthingSSRProvider />
@@ -27,6 +27,5 @@ export const metadata: Metadata = {
     default: 'Spark',
     template: '%s',
   },
-  description:
-    'Spark is a social media platform to connect with friends and family.',
+  description: 'Spark is a social media platform to connect with friends and family.',
 };

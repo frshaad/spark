@@ -1,5 +1,5 @@
-import { cache } from 'react';
 import { notFound } from 'next/navigation';
+import { cache } from 'react';
 import { PostGetPayload, PostSelect } from '@/generated/prisma/models';
 import { NotFoundError } from '@/lib/errors';
 import prisma from '@/lib/prisma';
@@ -24,19 +24,14 @@ export const findPostById = cache(
   },
 );
 
-export const findPostWithViewer = cache(
-  async (id: string, viewerId: string) => {
-    return prisma.post.findUnique({
-      where: { id },
-      include: buildPostInclude(viewerId),
-    });
-  },
-);
+export const findPostWithViewer = cache(async (id: string, viewerId: string) => {
+  return prisma.post.findUnique({
+    where: { id },
+    include: buildPostInclude(viewerId),
+  });
+});
 
-export async function getPostOrFail(
-  id: string,
-  viewerId: string,
-): Promise<PostView> {
+export async function getPostOrFail(id: string, viewerId: string): Promise<PostView> {
   const post = await findPostWithViewer(id, viewerId);
 
   if (!post) {
@@ -46,10 +41,7 @@ export async function getPostOrFail(
   return post as PostView;
 }
 
-export async function getPostOrThrow(
-  id: string,
-  viewerId: string,
-): Promise<PostView> {
+export async function getPostOrThrow(id: string, viewerId: string): Promise<PostView> {
   const post = await findPostWithViewer(id, viewerId);
 
   if (!post) notFound();

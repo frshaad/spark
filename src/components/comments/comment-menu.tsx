@@ -1,5 +1,5 @@
-import { useCallback, useState } from 'react';
 import { EllipsisVertical, Trash } from 'lucide-react';
+import { useCallback, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -43,8 +43,8 @@ export default function CommentMenu({ authorId, commentId }: CommentMenuProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        render={<Button variant="ghost" />}
-        className="opacity-0 transition-opacity group-hover/comment:opacity-100"
+        render={<Button variant='ghost' />}
+        className='opacity-0 transition-opacity group-hover/comment:opacity-100'
         onClick={(e) => e.stopPropagation()}
       >
         <EllipsisVertical />
@@ -52,10 +52,7 @@ export default function CommentMenu({ authorId, commentId }: CommentMenuProps) {
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DropdownMenuContent onClick={(e) => e.stopPropagation()}>
-          <DropdownMenuItem
-            variant="destructive"
-            onClick={() => setIsDialogOpen(true)}
-          >
+          <DropdownMenuItem variant='destructive' onClick={() => setIsDialogOpen(true)}>
             <Trash /> Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
@@ -64,24 +61,19 @@ export default function CommentMenu({ authorId, commentId }: CommentMenuProps) {
           <DialogHeader>
             <DialogTitle>Delete comment?</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete this comment? This action cannot
-              be undone.
+              Are you sure you want to delete this comment? This action cannot be undone.
             </DialogDescription>
           </DialogHeader>
 
           <DialogFooter>
             <DialogClose
               render={
-                <Button variant="outline" disabled={isDeleting}>
+                <Button variant='outline' disabled={isDeleting}>
                   Cancel
                 </Button>
               }
             />
-            <Button
-              variant="destructive"
-              onClick={onConfirmDelete}
-              disabled={isDeleting}
-            >
+            <Button variant='destructive' onClick={onConfirmDelete} disabled={isDeleting}>
               {isDeleting ? 'Deleting...' : 'Delete'}
             </Button>
           </DialogFooter>

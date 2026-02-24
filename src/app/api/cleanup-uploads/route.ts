@@ -1,7 +1,4 @@
-import {
-  deleteUnusedMediaRecords,
-  getUnusedMediaUploads,
-} from '@/lib/dal/media';
+import { deleteUnusedMediaRecords, getUnusedMediaUploads } from '@/lib/dal/media';
 import { deleteUnusedMediaFromStorage } from '@/lib/dal/uploadthing';
 import { handleApiError } from '@/lib/errors';
 

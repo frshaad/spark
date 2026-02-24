@@ -1,8 +1,8 @@
 'use client';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { useSignOut } from '@/hooks/use-sign-out';
-import { useQueryClient } from '@tanstack/react-query';
 
 export default function SignOutButton() {
   const { signOut, isPending } = useSignOut();
@@ -10,7 +10,7 @@ export default function SignOutButton() {
 
   return (
     <Button
-      variant="destructive"
+      variant='destructive'
       onClick={() => {
         queryClient.clear();
         signOut();

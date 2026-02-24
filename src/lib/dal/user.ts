@@ -15,10 +15,7 @@ export const getUsersToFollow = cache(async (userId: string) => {
 });
 
 export const getUserByUsername = cache(
-  async (
-    username: string,
-    authenticatedUserId: string,
-  ): Promise<UserRecord | null> => {
+  async (username: string, authenticatedUserId: string): Promise<UserRecord | null> => {
     return prisma.user.findFirst({
       where: { username: { equals: username, mode: 'insensitive' } },
       select: buildUserSelect(authenticatedUserId),
@@ -26,10 +23,7 @@ export const getUserByUsername = cache(
   },
 );
 
-export async function updateAvatar(
-  authenticatedUserId: string,
-  imageUrl: string,
-) {
+export async function updateAvatar(authenticatedUserId: string, imageUrl: string) {
   return prisma.user.update({
     where: { id: authenticatedUserId },
     data: { image: imageUrl },
@@ -40,10 +34,7 @@ export async function updateAvatar(
 //   return prisma.
 // }
 
-export async function updateUserProfile(
-  userId: string,
-  data: UpdateUserProfileValues,
-) {
+export async function updateUserProfile(userId: string, data: UpdateUserProfileValues) {
   return prisma.user.update({
     where: { id: userId },
     data,

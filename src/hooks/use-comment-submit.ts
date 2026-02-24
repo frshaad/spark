@@ -1,8 +1,8 @@
+import { InfiniteData, QueryKey, useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { submitComment } from '@/actions/comment.action';
 import { QUERY_KEYS } from '@/lib/query-keys';
 import { CursorPaginatedComments } from '@/lib/types';
-import { InfiniteData, QueryKey, useMutation } from '@tanstack/react-query';
 
 export function useCommentSubmit() {
   return useMutation({

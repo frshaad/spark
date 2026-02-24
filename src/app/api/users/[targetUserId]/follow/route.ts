@@ -1,8 +1,4 @@
-import {
-  followTransaction,
-  getFollowRelationship,
-  unfollowTransaction,
-} from '@/lib/dal/follow';
+import { followTransaction, getFollowRelationship, unfollowTransaction } from '@/lib/dal/follow';
 import { BadRequestError, NotFoundError, handleApiError } from '@/lib/errors';
 import { requireAuthAPI } from '@/lib/session';
 import { FollowInfo } from '@/lib/types';
@@ -14,10 +10,7 @@ export async function GET(_req: Request, ctx: RouteCTX) {
     const { targetUserId } = await ctx.params;
     const { user: authenticatedUser } = await requireAuthAPI();
 
-    const targetUser = await getFollowRelationship(
-      targetUserId,
-      authenticatedUser.id,
-    );
+    const targetUser = await getFollowRelationship(targetUserId, authenticatedUser.id);
     if (!targetUser) throw new NotFoundError('User not found');
 
     const followersSummary: FollowInfo = {
@@ -37,8 +30,7 @@ export async function POST(_req: Request, ctx: RouteCTX) {
     const { targetUserId } = await ctx.params;
     const { user: authenticatedUser } = await requireAuthAPI();
 
-    if (authenticatedUser.id === targetUserId)
-      throw new BadRequestError('Cannot follow yourself');
+    if (authenticatedUser.id === targetUserId) throw new BadRequestError('Cannot follow yourself');
 
     await followTransaction({
       issuerId: authenticatedUser.id,

@@ -1,8 +1,8 @@
+import { QueryKey, useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { api } from '@/lib/ky';
 import { QUERY_KEYS } from '@/lib/query-keys';
 import { BookmarkInfo } from '@/lib/types';
-import { QueryKey, useMutation } from '@tanstack/react-query';
 
 type BookmarkVariables = {
   postId: string;
@@ -12,9 +12,7 @@ type BookmarkVariables = {
 export function useBookmarkPost() {
   return useMutation({
     mutationFn: ({ postId, isBookmarked }: BookmarkVariables) =>
-      isBookmarked
-        ? api.delete(`posts/${postId}/bookmark`)
-        : api.post(`posts/${postId}/bookmark`),
+      isBookmarked ? api.delete(`posts/${postId}/bookmark`) : api.post(`posts/${postId}/bookmark`),
 
     async onMutate({ postId }, ctx) {
       const queryKey: QueryKey = QUERY_KEYS.bookmarkInfo(postId);

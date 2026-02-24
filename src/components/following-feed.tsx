@@ -1,9 +1,9 @@
 'use client';
 
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { Loader2 } from 'lucide-react';
 import PostsList from '@/components/posts/posts-list';
 import { followingFeedQuery } from '@/lib/queries';
-import { useInfiniteQuery } from '@tanstack/react-query';
 import FeedSkeleton from './feed.skeleton';
 import InfiniteScrollContainer from './infinite-scroll-container';
 
@@ -23,7 +23,7 @@ export default function FollowingFeed() {
 
   if (status === 'success' && !posts.length && !hasNextPage) {
     return (
-      <p className="text-muted-foreground text-center">
+      <p className='text-muted-foreground text-center'>
         No posts found. Start following people to see their posts.
       </p>
     );
@@ -31,13 +31,13 @@ export default function FollowingFeed() {
 
   return (
     <InfiniteScrollContainer
-      className="space-y-3"
+      className='space-y-3'
       onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
       hasNextPage={hasNextPage}
       isFetching={isFetching}
     >
       <PostsList posts={posts} />
-      {isFetching && <Loader2 className="mx-auto my-3 animate-spin" />}
+      {isFetching && <Loader2 className='mx-auto my-3 animate-spin' />}
     </InfiniteScrollContainer>
   );
 }

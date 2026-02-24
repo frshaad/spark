@@ -1,6 +1,6 @@
-import { cache } from 'react';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { cache } from 'react';
 import { OnboardedUser, Session, auth } from './auth';
 import { ForbiddenError, UnauthorizedError } from './errors';
 
@@ -19,8 +19,7 @@ import { ForbiddenError, UnauthorizedError } from './errors';
  * - Uses Next.js `headers()` to forward request context to the auth API.
  */
 export const getSession = cache(
-  async (): Promise<Session | null> =>
-    auth.api.getSession({ headers: await headers() }),
+  async (): Promise<Session | null> => auth.api.getSession({ headers: await headers() }),
 );
 
 /**

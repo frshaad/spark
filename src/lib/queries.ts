@@ -1,3 +1,4 @@
+import { QueryKey, infiniteQueryOptions, queryOptions } from '@tanstack/react-query';
 import { api } from '@/lib/ky';
 import { QUERY_KEYS } from '@/lib/query-keys';
 import {
@@ -8,11 +9,6 @@ import {
   FollowInfo,
   LikeInfo,
 } from '@/lib/types';
-import {
-  QueryKey,
-  infiniteQueryOptions,
-  queryOptions,
-} from '@tanstack/react-query';
 
 export function getFeedQuery(queryKey: QueryKey, apiRoute: string) {
   return infiniteQueryOptions({
@@ -58,25 +54,13 @@ export function getNotificationsQuery() {
   });
 }
 
-export const forYouFeedQuery = getFeedQuery(
-  QUERY_KEYS.forYouFeed,
-  'posts/for-you',
-);
+export const forYouFeedQuery = getFeedQuery(QUERY_KEYS.forYouFeed, 'posts/for-you');
 
-export const followingFeedQuery = getFeedQuery(
-  QUERY_KEYS.followingFeed,
-  'posts/following',
-);
+export const followingFeedQuery = getFeedQuery(QUERY_KEYS.followingFeed, 'posts/following');
 
-export const bookmarksFeedQuery = getFeedQuery(
-  QUERY_KEYS.bookmarksFeed,
-  'posts/bookmarked',
-);
+export const bookmarksFeedQuery = getFeedQuery(QUERY_KEYS.bookmarksFeed, 'posts/bookmarked');
 
-export function getFollowerSummaryQuery(
-  targetUserId: string,
-  initialData: FollowInfo,
-) {
+export function getFollowerSummaryQuery(targetUserId: string, initialData: FollowInfo) {
   return queryOptions({
     queryKey: QUERY_KEYS.followerInfo(targetUserId),
     queryFn: () => api.get(`users/${targetUserId}/follow`).json<FollowInfo>(),
@@ -92,10 +76,7 @@ export function getLikesSummaryQuery(postId: string, initialData: LikeInfo) {
   });
 }
 
-export function getBookmarkInfoQuery(
-  postId: string,
-  initialData: BookmarkInfo,
-) {
+export function getBookmarkInfoQuery(postId: string, initialData: BookmarkInfo) {
   return queryOptions({
     queryKey: QUERY_KEYS.bookmarkInfo(postId),
     queryFn: () => api.get(`posts/${postId}/bookmark`).json<BookmarkInfo>(),

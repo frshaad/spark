@@ -1,3 +1,4 @@
+import { InfiniteData, QueryFilters, useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { updateUserProfileData } from '@/actions/user.action';
@@ -5,7 +6,6 @@ import { QUERY_KEYS } from '@/lib/query-keys';
 import { CursorPaginatedPosts, UserRecord } from '@/lib/types';
 import { useUploadThing } from '@/lib/uploadthing';
 import { UpdateUserProfileValues } from '@/lib/validation/user';
-import { InfiniteData, QueryFilters, useMutation } from '@tanstack/react-query';
 
 type UpdateUserProfileVariables = {
   values: UpdateUserProfileValues;
@@ -19,17 +19,9 @@ export function useUpdateProfile() {
 
   const mutation = useMutation({
     mutationFn: ({ values, avatar }: UpdateUserProfileVariables) =>
-      Promise.all([
-        updateUserProfileData(values),
-        avatar && startAvatarUpload([avatar]),
-      ]),
+      Promise.all([updateUserProfileData(values), avatar && startAvatarUpload([avatar])]),
 
-    async onSuccess(
-      [updatedUser, uploadResult],
-      _variables,
-      _onMutateResult,
-      ctx,
-    ) {
+    async onSuccess([updatedUser, uploadResult], _variables, _onMutateResult, ctx) {
       const newAvatarUrl = uploadResult?.[0].serverData.avatarUrl;
 
       const feedsToUpdate: QueryFilters[] = [
@@ -39,10 +31,9 @@ export function useUpdateProfile() {
       ];
 
       feedsToUpdate.forEach((filter) => {
-        ctx.client.setQueriesData<
-          InfiniteData<CursorPaginatedPosts, string | null>
-        >(filter, (oldData) =>
-          updatePostsAuthor(oldData, updatedUser, newAvatarUrl),
+        ctx.client.setQueriesData<InfiniteData<CursorPaginatedPosts, string | null>>(
+          filter,
+          (oldData) => updatePostsAuthor(oldData, updatedUser, newAvatarUrl),
         );
       });
 

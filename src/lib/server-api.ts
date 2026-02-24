@@ -1,14 +1,7 @@
 import { NextRequest } from 'next/server';
-import {
-  CommentRecord,
-  CursorPaginated,
-  CursorPaginatedComments,
-} from '@/lib/types';
+import { CommentRecord, CursorPaginated, CursorPaginatedComments } from '@/lib/types';
 
-export function buildCursorPaginatedByKey<
-  T extends { id: string },
-  K extends string,
->({
+export function buildCursorPaginatedByKey<T extends { id: string }, K extends string>({
   key,
   items,
   pageSize,
@@ -36,13 +29,9 @@ export function buildCursorPaginatedComments(
 ): CursorPaginatedComments {
   const hasNextPage = comments.length > pageSize;
 
-  const paginatedComments = hasNextPage
-    ? comments.slice(0, pageSize)
-    : comments;
+  const paginatedComments = hasNextPage ? comments.slice(0, pageSize) : comments;
 
-  const nextCursor = hasNextPage
-    ? paginatedComments[paginatedComments.length - 1].id
-    : null;
+  const nextCursor = hasNextPage ? paginatedComments[paginatedComments.length - 1].id : null;
 
   return {
     comments: paginatedComments,
@@ -50,10 +39,7 @@ export function buildCursorPaginatedComments(
   };
 }
 
-export function getCursorPaginationParams(
-  req: NextRequest,
-  pageSize: number = 5,
-) {
+export function getCursorPaginationParams(req: NextRequest, pageSize: number = 5) {
   const cursor = req.nextUrl.searchParams.get('cursor') || undefined;
 
   return { cursor, pageSize };
