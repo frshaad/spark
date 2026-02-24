@@ -1,10 +1,10 @@
-import { betterAuth } from 'better-auth';
-import { prismaAdapter } from 'better-auth/adapters/prisma';
-import { nextCookies } from 'better-auth/next-js';
-import { haveIBeenPwned, lastLoginMethod, username } from 'better-auth/plugins';
-import { baseSchemaConfig } from '@/lib/validation/base';
-import { hashPassword as hash, verifyPassword as verify } from './argon2';
-import prisma from './prisma';
+import { betterAuth } from 'better-auth'
+import { prismaAdapter } from 'better-auth/adapters/prisma'
+import { nextCookies } from 'better-auth/next-js'
+import { haveIBeenPwned, lastLoginMethod, username } from 'better-auth/plugins'
+import { baseSchemaConfig } from '@/lib/validation/base'
+import { hashPassword as hash, verifyPassword as verify } from './argon2'
+import prisma from './prisma'
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -33,11 +33,11 @@ export const auth = betterAuth({
     }),
     nextCookies(),
   ],
-});
+})
 
-export type Provider = keyof typeof auth.options.socialProviders;
-export type Session = typeof auth.$Infer.Session;
-export type RawUser = Session['user'];
+export type Provider = keyof typeof auth.options.socialProviders
+export type Session = typeof auth.$Infer.Session
+export type RawUser = Session['user']
 export type OnboardedUser = Omit<RawUser, 'username'> & {
-  username: string;
-};
+  username: string
+}

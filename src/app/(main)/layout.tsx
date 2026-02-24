@@ -1,13 +1,13 @@
-import Navbar from '@/components/navbar';
-import { TooltipProvider } from '@/components/ui/tooltip';
-import { requireAuth } from '@/lib/session';
+import Navbar from '@/components/navbar'
+import { TooltipProvider } from '@/components/ui/tooltip'
+import { requireAuth } from '@/lib/session'
 
 export default async function AppLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
-  await requireAuth();
+  await requireAuth()
 
   return (
     <TooltipProvider delay={400}>
@@ -16,5 +16,5 @@ export default async function AppLayout({
         {children}
       </div>
     </TooltipProvider>
-  );
+  )
 }

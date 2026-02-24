@@ -1,16 +1,16 @@
-import { notFound } from 'next/navigation';
-import { cache } from 'react';
-import { PostGetPayload, PostSelect } from '@/generated/prisma/models';
-import { NotFoundError } from '@/lib/errors';
-import prisma from '@/lib/prisma';
-import { PostRecord, PostView, buildPostInclude } from '@/lib/types';
-import { CreatePostInputs } from '@/lib/validation/post';
+import { notFound } from 'next/navigation'
+import { cache } from 'react'
+import { PostGetPayload, PostSelect } from '@/generated/prisma/models'
+import { NotFoundError } from '@/lib/errors'
+import prisma from '@/lib/prisma'
+import { PostRecord, PostView, buildPostInclude } from '@/lib/types'
+import { CreatePostInputs } from '@/lib/validation/post'
 
 export const findPostByIdFull = cache(async (id: string) => {
   return prisma.post.findUnique({
     where: { id },
-  });
-});
+  })
+})
 
 export const findPostById = cache(
   async <T extends PostSelect>(
@@ -20,33 +20,33 @@ export const findPostById = cache(
     return prisma.post.findUnique({
       where: { id },
       select,
-    });
+    })
   },
-);
+)
 
 export const findPostWithViewer = cache(async (id: string, viewerId: string) => {
   return prisma.post.findUnique({
     where: { id },
     include: buildPostInclude(viewerId),
-  });
-});
+  })
+})
 
 export async function getPostOrFail(id: string, viewerId: string): Promise<PostView> {
-  const post = await findPostWithViewer(id, viewerId);
+  const post = await findPostWithViewer(id, viewerId)
 
   if (!post) {
-    throw new NotFoundError('Post not found');
+    throw new NotFoundError('Post not found')
   }
 
-  return post as PostView;
+  return post as PostView
 }
 
 export async function getPostOrThrow(id: string, viewerId: string): Promise<PostView> {
-  const post = await findPostWithViewer(id, viewerId);
+  const post = await findPostWithViewer(id, viewerId)
 
-  if (!post) notFound();
+  if (!post) notFound()
 
-  return post as PostView;
+  return post as PostView
 }
 
 export const getForYouFeedPosts = cache(
@@ -55,9 +55,9 @@ export const getForYouFeedPosts = cache(
     cursor,
     pageSize = 10,
   }: {
-    authenticatedUserId: string;
-    cursor: string | undefined;
-    pageSize: number | undefined;
+    authenticatedUserId: string
+    cursor: string | undefined
+    pageSize: number | undefined
   }): Promise<PostRecord[]> => {
     return prisma.post.findMany({
       include: buildPostInclude(authenticatedUserId),
@@ -65,9 +65,9 @@ export const getForYouFeedPosts = cache(
       take: pageSize + 1,
       cursor: cursor ? { id: cursor } : undefined,
       skip: cursor ? 1 : 0,
-    });
+    })
   },
-);
+)
 
 export const getFollowingFeedPosts = cache(
   ({
@@ -75,9 +75,9 @@ export const getFollowingFeedPosts = cache(
     cursor,
     pageSize = 10,
   }: {
-    authenticatedUserId: string;
-    cursor: string | undefined;
-    pageSize: number | undefined;
+    authenticatedUserId: string
+    cursor: string | undefined
+    pageSize: number | undefined
   }) => {
     return prisma.post.findMany({
       where: {
@@ -92,9 +92,9 @@ export const getFollowingFeedPosts = cache(
       take: pageSize + 1,
       cursor: cursor ? { id: cursor } : undefined,
       skip: cursor ? 1 : 0,
-    });
+    })
   },
-);
+)
 
 export const getUserPosts = cache(
   async ({
@@ -102,9 +102,9 @@ export const getUserPosts = cache(
     cursor,
     pageSize = 10,
   }: {
-    userId: string;
-    cursor: string | undefined;
-    pageSize: number | undefined;
+    userId: string
+    cursor: string | undefined
+    pageSize: number | undefined
   }): Promise<PostRecord[]> => {
     return prisma.post.findMany({
       where: { authorId: userId },
@@ -113,12 +113,12 @@ export const getUserPosts = cache(
       take: pageSize + 1,
       cursor: cursor ? { id: cursor } : undefined,
       skip: cursor ? 1 : 0,
-    });
+    })
   },
-);
+)
 
 export async function createPost(authorId: string, data: CreatePostInputs) {
-  const { content, mediaIds } = data;
+  const { content, mediaIds } = data
 
   return prisma.post.create({
     data: {
@@ -129,12 +129,12 @@ export async function createPost(authorId: string, data: CreatePostInputs) {
       },
     },
     include: buildPostInclude(authorId),
-  });
+  })
 }
 
 export async function deletePost(postId: string, authenticatedUserId: string) {
   return prisma.post.delete({
     where: { id: postId },
     include: buildPostInclude(authenticatedUserId),
-  });
+  })
 }

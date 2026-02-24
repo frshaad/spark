@@ -12,7 +12,7 @@ export const QUERY_KEYS = {
   followerInfo: (userId: string) => ['follower-info', userId] as const,
   likeInfo: (postId: string) => ['like-info', postId] as const,
   bookmarkInfo: (postId: string) => ['bookmark-info', postId] as const,
-};
+}
 
 /**
  * Helper to get all affected queries when a post changes
@@ -21,5 +21,5 @@ export const getPostQueryFilters = (postId: string) => {
   return {
     feed: { queryKey: QUERY_KEYS.forYouFeed },
     post: { queryKey: QUERY_KEYS.post(postId) },
-  };
-};
+  }
+}

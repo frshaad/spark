@@ -1,7 +1,7 @@
-import { Suspense } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import SuggestedUsersList from './suggested-users';
-import { SuggestedUsersSkeleton } from './suggested-users.skeleton';
+import { Suspense } from 'react'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import SuggestedUsersList from './suggested-users'
+import { SuggestedUsersSkeleton } from './suggested-users.skeleton'
 
 export default function WhoToFollow() {
   return (
@@ -15,5 +15,5 @@ export default function WhoToFollow() {
         </Suspense>
       </CardContent>
     </Card>
-  );
+  )
 }

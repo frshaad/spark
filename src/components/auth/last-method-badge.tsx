@@ -1,5 +1,5 @@
-import { History } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
+import { History } from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
 
 export default function LastUsedMethodBadge() {
   return (
@@ -7,5 +7,5 @@ export default function LastUsedMethodBadge() {
       <History className='size-3' />
       Last used
     </Badge>
-  );
+  )
 }

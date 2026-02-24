@@ -1,13 +1,13 @@
-'use client';
+'use client'
 
-import { useRouter } from 'next/navigation';
-import { useTransition } from 'react';
-import { toast } from 'sonner';
-import { authClient } from '@/lib/auth-client';
+import { useRouter } from 'next/navigation'
+import { useTransition } from 'react'
+import { toast } from 'sonner'
+import { authClient } from '@/lib/auth-client'
 
 export function useSignOut() {
-  const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+  const router = useRouter()
+  const [isPending, startTransition] = useTransition()
 
   function clientSignOut() {
     startTransition(async () => {
@@ -15,18 +15,18 @@ export function useSignOut() {
         await authClient.signOut({
           fetchOptions: {
             onSuccess: () => {
-              router.push('/login');
+              router.push('/login')
             },
             onError: ({ error }) => {
-              toast.error(error.message || 'An error occurred');
+              toast.error(error.message || 'An error occurred')
             },
           },
-        });
+        })
       } catch {
-        toast.error('An error occurred');
+        toast.error('An error occurred')
       }
-    });
+    })
   }
 
-  return { signOut: clientSignOut, isPending };
+  return { signOut: clientSignOut, isPending }
 }

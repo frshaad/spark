@@ -1,15 +1,15 @@
-import { Route } from 'next';
-import Link from 'next/link';
-import FollowButton from '@/components/follow-button';
-import { Item, ItemActions, ItemContent, ItemTitle } from '@/components/ui/item';
-import UserAvatar from '@/components/user-avatar';
-import UserTooltip from '@/components/user-tooltip';
-import { getUsersToFollow } from '@/lib/dal/user';
-import { requireAuth } from '@/lib/session';
+import { Route } from 'next'
+import Link from 'next/link'
+import FollowButton from '@/components/follow-button'
+import { Item, ItemActions, ItemContent, ItemTitle } from '@/components/ui/item'
+import UserAvatar from '@/components/user-avatar'
+import UserTooltip from '@/components/user-tooltip'
+import { getUsersToFollow } from '@/lib/dal/user'
+import { requireAuth } from '@/lib/session'
 
 export default async function SuggestedUsersList() {
-  const { user: authenticatedUser } = await requireAuth();
-  const suggestedUsers = await getUsersToFollow(authenticatedUser.id);
+  const { user: authenticatedUser } = await requireAuth()
+  const suggestedUsers = await getUsersToFollow(authenticatedUser.id)
 
   return (
     <>
@@ -48,5 +48,5 @@ export default async function SuggestedUsersList() {
         </Item>
       ))}
     </>
-  );
+  )
 }

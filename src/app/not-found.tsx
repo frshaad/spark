@@ -1,13 +1,13 @@
-'use client';
+'use client'
 
-import { ArrowLeft, FileQuestion, Home } from 'lucide-react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { ArrowLeft, FileQuestion, Home } from 'lucide-react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
 
 export default function NotFound() {
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <div className='bg-background flex min-h-screen w-full items-center justify-center p-4'>
@@ -65,5 +65,5 @@ export default function NotFound() {
         </p>
       </div>
     </div>
-  );
+  )
 }

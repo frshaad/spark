@@ -1,39 +1,39 @@
-'use client';
+'use client'
 
-import { Route } from 'next';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useCallback, useMemo } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import UserAvatar from '@/components/user-avatar';
-import UserTooltip from '@/components/user-tooltip';
-import { PostView } from '@/lib/types';
-import PostActions from './post-actions';
-import PostContent from './post-content';
-import PostHeader from './post-header';
-import PostMediaPreviews from './post-media-previews';
-import PostMenu from './post-menu';
+import { Route } from 'next'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useCallback, useMemo } from 'react'
+import { Card, CardContent } from '@/components/ui/card'
+import UserAvatar from '@/components/user-avatar'
+import UserTooltip from '@/components/user-tooltip'
+import { PostView } from '@/lib/types'
+import PostActions from './post-actions'
+import PostContent from './post-content'
+import PostHeader from './post-header'
+import PostMediaPreviews from './post-media-previews'
+import PostMenu from './post-menu'
 
 export default function Post({ post }: { post: PostView }) {
-  const router = useRouter();
+  const router = useRouter()
 
   const postUrl = useMemo(
     () => `/${post.author.username}/${post.id}` as Route,
     [post.id, post.author.username],
-  );
-  const authorUrl = useMemo(() => `/${post.author.username}` as Route, [post.author.username]);
+  )
+  const authorUrl = useMemo(() => `/${post.author.username}` as Route, [post.author.username])
 
   const navigateToPost = useCallback(() => {
-    router.push(postUrl);
-  }, [router, postUrl]);
+    router.push(postUrl)
+  }, [router, postUrl])
 
   const handleCardClick = useCallback(() => {
     if (typeof window !== 'undefined') {
-      const selection = window.getSelection();
-      if (selection && selection.toString().length > 0) return;
+      const selection = window.getSelection()
+      if (selection && selection.toString().length > 0) return
     }
-    navigateToPost();
-  }, [navigateToPost]);
+    navigateToPost()
+  }, [navigateToPost])
 
   return (
     <Card role='button' className='group/post'>
@@ -75,5 +75,5 @@ export default function Post({ post }: { post: PostView }) {
         </div>
       </CardContent>
     </Card>
-  );
+  )
 }

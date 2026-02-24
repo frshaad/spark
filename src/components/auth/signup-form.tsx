@@ -1,9 +1,9 @@
-'use client';
+'use client'
 
-import { EyeIcon, EyeOffIcon, LoaderCircle } from 'lucide-react';
-import Link from 'next/link';
-import { Controller } from 'react-hook-form';
-import { Button } from '@/components/ui/button';
+import { EyeIcon, EyeOffIcon, LoaderCircle } from 'lucide-react'
+import Link from 'next/link'
+import { Controller } from 'react-hook-form'
+import { Button } from '@/components/ui/button'
 import {
   Field,
   FieldDescription,
@@ -11,15 +11,15 @@ import {
   FieldGroup,
   FieldLabel,
   FieldSeparator,
-} from '@/components/ui/field';
-import { Input } from '@/components/ui/input';
-import { useSignupForm } from '@/hooks/use-signup-form';
-import { AuthError } from './auth-error';
-import SocialProvidersGroup from './social-providers-group';
+} from '@/components/ui/field'
+import { Input } from '@/components/ui/input'
+import { useSignupForm } from '@/hooks/use-signup-form'
+import { AuthError } from './auth-error'
+import SocialProvidersGroup from './social-providers-group'
 
 export default function SignupForm() {
   const { control, handleSubmit, isPending, error, passwordVisible, togglePasswordVisibility } =
-    useSignupForm();
+    useSignupForm()
 
   return (
     <div className='flex flex-col gap-7'>
@@ -173,5 +173,5 @@ export default function SignupForm() {
         Already have an account? <Link href='/login'>Sign in</Link>
       </FieldDescription>
     </div>
-  );
+  )
 }

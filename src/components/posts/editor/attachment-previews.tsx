@@ -1,11 +1,11 @@
-import { Attachment } from '@/lib/types';
-import { cn } from '@/lib/utils';
-import AttachmentPreview from './attachment-preview';
+import { Attachment } from '@/lib/types'
+import { cn } from '@/lib/utils'
+import AttachmentPreview from './attachment-preview'
 
 type AttachmentPreviewsProps = {
-  attachments: Attachment[];
-  removeAttachment: (fileName: string) => void;
-};
+  attachments: Attachment[]
+  removeAttachment: (fileName: string) => void
+}
 
 export default function AttachmentPreviews({
   attachments,
@@ -21,5 +21,5 @@ export default function AttachmentPreviews({
         />
       ))}
     </div>
-  );
+  )
 }

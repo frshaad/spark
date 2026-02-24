@@ -1,8 +1,8 @@
-import { headers } from 'next/headers';
-import { redirect } from 'next/navigation';
-import { cache } from 'react';
-import { OnboardedUser, Session, auth } from './auth';
-import { ForbiddenError, UnauthorizedError } from './errors';
+import { headers } from 'next/headers'
+import { redirect } from 'next/navigation'
+import { cache } from 'react'
+import { OnboardedUser, Session, auth } from './auth'
+import { ForbiddenError, UnauthorizedError } from './errors'
 
 /**
  * Retrieves the current authenticated session using request headers.
@@ -20,7 +20,7 @@ import { ForbiddenError, UnauthorizedError } from './errors';
  */
 export const getSession = cache(
   async (): Promise<Session | null> => auth.api.getSession({ headers: await headers() }),
-);
+)
 
 /**
  * Ensures the user is authenticated **and onboarded**.
@@ -41,12 +41,12 @@ export const getSession = cache(
  * - Prevents rendering protected UI for incomplete users.
  */
 export async function requireAuth() {
-  const session = await getSession();
+  const session = await getSession()
 
-  if (!session) redirect('/login');
-  if (!session.user.username) redirect('/add-username');
+  if (!session) redirect('/login')
+  if (!session.user.username) redirect('/add-username')
 
-  return session as Session & { user: OnboardedUser };
+  return session as Session & { user: OnboardedUser }
 }
 
 /**
@@ -71,10 +71,10 @@ export async function requireAuth() {
  * - Guarantees downstream logic receives a valid user state.
  */
 export async function requireAuthAPI() {
-  const session = await getSession();
+  const session = await getSession()
 
-  if (!session) throw new UnauthorizedError();
-  if (!session.user.username) throw new ForbiddenError();
+  if (!session) throw new UnauthorizedError()
+  if (!session.user.username) throw new ForbiddenError()
 
-  return session as Session & { user: OnboardedUser };
+  return session as Session & { user: OnboardedUser }
 }

@@ -1,27 +1,27 @@
-'use client';
+'use client'
 
-import { UserPlus } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useFollow } from '@/hooks/use-follow';
-import { useFollowerSummary } from '@/hooks/use-follower-summary';
-import { FollowInfo } from '@/lib/types';
-import { cn } from '@/lib/utils';
+import { UserPlus } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { useFollow } from '@/hooks/use-follow'
+import { useFollowerSummary } from '@/hooks/use-follower-summary'
+import { FollowInfo } from '@/lib/types'
+import { cn } from '@/lib/utils'
 
 type FollowButtonProps = {
-  targetUserId: string;
-  initialState: FollowInfo;
-  className?: string;
-};
+  targetUserId: string
+  initialState: FollowInfo
+  className?: string
+}
 
 export default function FollowButton({
   targetUserId,
   initialState,
   className = '',
 }: FollowButtonProps) {
-  const { data } = useFollowerSummary(targetUserId, initialState);
-  const { isFollowing } = data;
+  const { data } = useFollowerSummary(targetUserId, initialState)
+  const { isFollowing } = data
 
-  const { mutate } = useFollow();
+  const { mutate } = useFollow()
 
   return (
     <Button
@@ -38,5 +38,5 @@ export default function FollowButton({
         </>
       )}
     </Button>
-  );
+  )
 }

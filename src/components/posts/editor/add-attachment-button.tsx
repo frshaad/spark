@@ -1,25 +1,25 @@
-'use client';
+'use client'
 
-import { Image } from 'lucide-react';
-import { useRef } from 'react';
-import { Button } from '@/components/ui/button';
+import { Image } from 'lucide-react'
+import { useRef } from 'react'
+import { Button } from '@/components/ui/button'
 
 type AddAttachmentsButtonProps = {
-  action: (files: File[]) => void;
-  disabled?: boolean;
-};
+  action: (files: File[]) => void
+  disabled?: boolean
+}
 
 export default function AddAttachmentsButton({
   action,
   disabled = false,
 }: AddAttachmentsButtonProps) {
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   function handleFileInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const files = Array.from(e.target.files || []);
+    const files = Array.from(e.target.files || [])
     if (files.length) {
-      action(files);
-      e.target.value = '';
+      action(files)
+      e.target.value = ''
     }
   }
 
@@ -44,5 +44,5 @@ export default function AddAttachmentsButton({
         onChange={handleFileInputChange}
       />
     </>
-  );
+  )
 }

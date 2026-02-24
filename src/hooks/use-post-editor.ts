@@ -1,10 +1,10 @@
-import Placeholder from '@tiptap/extension-placeholder';
-import { useEditor } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
-import { useState } from 'react';
+import Placeholder from '@tiptap/extension-placeholder'
+import { useEditor } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
+import { useState } from 'react'
 
 export function usePostEditor() {
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState('')
 
   const editor = useEditor({
     extensions: [
@@ -20,14 +20,14 @@ export function usePostEditor() {
       },
     },
     onUpdate: ({ editor }) => {
-      setContent(editor.getText({ blockSeparator: '\n' }));
+      setContent(editor.getText({ blockSeparator: '\n' }))
     },
     immediatelyRender: false,
-  });
+  })
 
   return {
     editor,
     content,
     clear: () => editor?.commands.clearContent(),
-  };
+  }
 }

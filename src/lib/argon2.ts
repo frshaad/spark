@@ -1,10 +1,10 @@
-import { type Options, hash, verify } from '@node-rs/argon2';
+import { type Options, hash, verify } from '@node-rs/argon2'
 
 const options: Options = {
   memoryCost: 65_536, // 64 MB
   timeCost: 3,
   parallelism: 1,
-};
+}
 
 /**
  * Hashes a plaintext password using Argon2id.
@@ -15,7 +15,7 @@ const options: Options = {
  * @returns Argon2id hash including salt and parameters
  */
 export async function hashPassword(password: string): Promise<string> {
-  return hash(password, options);
+  return hash(password, options)
 }
 
 /**
@@ -29,5 +29,5 @@ export async function hashPassword(password: string): Promise<string> {
  * @returns Whether the password matches the hash
  */
 export async function verifyPassword(data: { hash: string; password: string }): Promise<boolean> {
-  return verify(data.hash, data.password);
+  return verify(data.hash, data.password)
 }

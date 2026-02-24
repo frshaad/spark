@@ -1,11 +1,11 @@
-import { Heart, MessageCircle, UserPlus } from 'lucide-react';
-import { Route } from 'next';
-import Link from 'next/link';
-import { Card, CardContent } from '@/components/ui/card';
-import { NotificationType } from '@/generated/prisma/enums';
-import { NotificationRecord } from '@/lib/types';
-import { cn } from '@/lib/utils';
-import UserAvatar from '../user-avatar';
+import { Heart, MessageCircle, UserPlus } from 'lucide-react'
+import { Route } from 'next'
+import Link from 'next/link'
+import { Card, CardContent } from '@/components/ui/card'
+import { NotificationType } from '@/generated/prisma/enums'
+import { NotificationRecord } from '@/lib/types'
+import { cn } from '@/lib/utils'
+import UserAvatar from '../user-avatar'
 
 export default function Notification({ notification }: { notification: NotificationRecord }) {
   const notificationTypeMap: Record<
@@ -39,9 +39,9 @@ export default function Notification({ notification }: { notification: Notificat
       icon: <Heart className='size-5 fill-red-500 text-red-500' />,
       href: `/${notification.recipient.username}/${notification.postId}`,
     },
-  };
+  }
 
-  const { message, href, icon } = notificationTypeMap[notification.type];
+  const { message, href, icon } = notificationTypeMap[notification.type]
 
   return (
     <Link href={href as Route} className='block'>
@@ -68,5 +68,5 @@ export default function Notification({ notification }: { notification: Notificat
         </CardContent>
       </Card>
     </Link>
-  );
+  )
 }

@@ -1,5 +1,5 @@
-import { Bell, Bookmark, House, Send } from 'lucide-react';
-import { NavigationButton } from '@/lib/types';
+import { Bell, Bookmark, House, Send } from 'lucide-react'
+import { NavigationButton } from '@/lib/types'
 
 export const NAV_LINKS: NavigationButton[] = [
   {
@@ -22,4 +22,4 @@ export const NAV_LINKS: NavigationButton[] = [
     label: 'Bookmarks',
     Icon: <Bookmark className='size-6' />,
   },
-];
+]

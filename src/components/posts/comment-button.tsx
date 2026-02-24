@@ -1,14 +1,14 @@
-import { MessageCircle } from 'lucide-react';
-import Link from 'next/link';
-import type { PostRecord } from '@/lib/types';
-import { Button } from '@/components/ui/button';
+import { MessageCircle } from 'lucide-react'
+import Link from 'next/link'
+import type { PostRecord } from '@/lib/types'
+import { Button } from '@/components/ui/button'
 
 type CommentButtonProps = {
-  post: PostRecord;
-};
+  post: PostRecord
+}
 
 export default function CommentButton({ post }: CommentButtonProps) {
-  const commentCount = post._count.comments;
+  const commentCount = post._count.comments
 
   return (
     <Link href={`/${post.author.username}/${post.id}`}>
@@ -23,5 +23,5 @@ export default function CommentButton({ post }: CommentButtonProps) {
         )}
       </Button>
     </Link>
-  );
+  )
 }

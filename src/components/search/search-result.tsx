@@ -1,15 +1,15 @@
 export default async function SearchResultsContent({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string }>;
+  searchParams: Promise<{ q?: string }>
 }) {
-  const params = await searchParams;
-  const query = params.q;
+  const params = await searchParams
+  const query = params.q
 
   if (!query) {
     return (
       <div className='text-muted-foreground text-center'>Enter a search query to see results</div>
-    );
+    )
   }
 
   return (
@@ -22,5 +22,5 @@ export default async function SearchResultsContent({
         Search results for "{query}" would appear here
       </div>
     </div>
-  );
+  )
 }

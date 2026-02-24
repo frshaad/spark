@@ -6,5 +6,5 @@ export default function StatBlock({ value, label }: { value: string; label: stri
         {label}
       </p>
     </button>
-  );
+  )
 }

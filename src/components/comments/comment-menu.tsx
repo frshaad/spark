@@ -1,6 +1,6 @@
-import { EllipsisVertical, Trash } from 'lucide-react';
-import { useCallback, useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { EllipsisVertical, Trash } from 'lucide-react'
+import { useCallback, useState } from 'react'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogClose,
@@ -9,36 +9,36 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
+} from '@/components/ui/dialog'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { useDeleteComment } from '@/hooks/use-delete-comment';
-import { authClient } from '@/lib/auth-client';
+} from '@/components/ui/dropdown-menu'
+import { useDeleteComment } from '@/hooks/use-delete-comment'
+import { authClient } from '@/lib/auth-client'
 
 type CommentMenuProps = {
-  authorId: string;
-  commentId: string;
-};
+  authorId: string
+  commentId: string
+}
 
 export default function CommentMenu({ authorId, commentId }: CommentMenuProps) {
-  const { data } = authClient.useSession();
-  const canManage = authorId === data?.user.id;
-  const { mutate: deleteComment, isPending: isDeleting } = useDeleteComment();
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { data } = authClient.useSession()
+  const canManage = authorId === data?.user.id
+  const { mutate: deleteComment, isPending: isDeleting } = useDeleteComment()
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   const onConfirmDelete = useCallback(() => {
     deleteComment(commentId, {
       onSuccess() {
-        setIsDialogOpen(false);
+        setIsDialogOpen(false)
       },
-    });
-  }, [deleteComment, commentId]);
+    })
+  }, [deleteComment, commentId])
 
-  if (!canManage) return null;
+  if (!canManage) return null
 
   return (
     <DropdownMenu>
@@ -80,5 +80,5 @@ export default function CommentMenu({ authorId, commentId }: CommentMenuProps) {
         </DialogContent>
       </Dialog>
     </DropdownMenu>
-  );
+  )
 }

@@ -1,6 +1,6 @@
-import FollowingFeed from '@/components/following-feed';
-import ForYouFeed from '@/components/for-you-feed';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import FollowingFeed from '@/components/following-feed'
+import ForYouFeed from '@/components/for-you-feed'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 export default function Feeds() {
   return (
@@ -21,5 +21,5 @@ export default function Feeds() {
         <FollowingFeed />
       </TabsContent>
     </Tabs>
-  );
+  )
 }

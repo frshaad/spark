@@ -1,8 +1,8 @@
-import { Media } from '@/generated/prisma/client';
-import prisma from '@/lib/prisma';
+import { Media } from '@/generated/prisma/client'
+import prisma from '@/lib/prisma'
 
 export async function createMediaRecord(data: Pick<Media, 'url' | 'type'>) {
-  return prisma.media.create({ data });
+  return prisma.media.create({ data })
 }
 
 export async function getUnusedMediaUploads() {
@@ -17,7 +17,7 @@ export async function getUnusedMediaUploads() {
       id: true,
       url: true,
     },
-  });
+  })
 }
 
 export async function deleteUnusedMediaRecords(mediaRecords: Pick<Media, 'url' | 'id'>[]) {
@@ -25,5 +25,5 @@ export async function deleteUnusedMediaRecords(mediaRecords: Pick<Media, 'url' |
     where: {
       id: { in: mediaRecords.map((m) => m.id) },
     },
-  });
+  })
 }

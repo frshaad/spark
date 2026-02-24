@@ -1,23 +1,23 @@
-'use client';
+'use client'
 
-import { Camera } from 'lucide-react';
-import Image, { StaticImageData } from 'next/image';
-import { useRef, useState } from 'react';
-import Resizer from 'react-image-file-resizer';
-import CropImageDialog from './crop-image-dialog';
+import { Camera } from 'lucide-react'
+import Image, { StaticImageData } from 'next/image'
+import { useRef, useState } from 'react'
+import Resizer from 'react-image-file-resizer'
+import CropImageDialog from './crop-image-dialog'
 
 type AvatarInputProps = {
-  src: string | StaticImageData;
-  onImageCroppedAction: (blob: Blob | null) => void;
-};
+  src: string | StaticImageData
+  onImageCroppedAction: (blob: Blob | null) => void
+}
 
 export default function AvatarInput({ onImageCroppedAction, src }: AvatarInputProps) {
-  const [imageToCrop, setImageToCrop] = useState<File>();
+  const [imageToCrop, setImageToCrop] = useState<File>()
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   function onImageSelected(image: File | undefined) {
-    if (!image) return;
+    if (!image) return
 
     Resizer.imageFileResizer(
       image,
@@ -28,7 +28,7 @@ export default function AvatarInput({ onImageCroppedAction, src }: AvatarInputPr
       0,
       (uri) => setImageToCrop(uri as File),
       'file',
-    );
+    )
   }
 
   return (
@@ -65,13 +65,13 @@ export default function AvatarInput({ onImageCroppedAction, src }: AvatarInputPr
           cropAspectRatio={1}
           onCroppedAction={onImageCroppedAction}
           onCloseAction={() => {
-            setImageToCrop(undefined);
+            setImageToCrop(undefined)
             if (fileInputRef.current) {
-              fileInputRef.current.value = '';
+              fileInputRef.current.value = ''
             }
           }}
         />
       )}
     </>
-  );
+  )
 }

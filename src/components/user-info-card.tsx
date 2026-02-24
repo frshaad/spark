@@ -1,18 +1,18 @@
-import Link from 'next/link';
-import type { UserRecord } from '@/lib/types';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { requireAuth } from '@/lib/session';
-import FollowButton from './follow-button';
-import Linkify from './linkify';
-import UserAvatar from './user-avatar';
-import UserTooltip from './user-tooltip';
+import Link from 'next/link'
+import type { UserRecord } from '@/lib/types'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { requireAuth } from '@/lib/session'
+import FollowButton from './follow-button'
+import Linkify from './linkify'
+import UserAvatar from './user-avatar'
+import UserTooltip from './user-tooltip'
 
 type UserInfoCardProps = {
-  user: UserRecord;
-};
+  user: UserRecord
+}
 
 export default async function UserInfoCard({ user }: UserInfoCardProps) {
-  const { user: authenticatedUser } = await requireAuth();
+  const { user: authenticatedUser } = await requireAuth()
 
   return (
     <Card>
@@ -54,5 +54,5 @@ export default async function UserInfoCard({ user }: UserInfoCardProps) {
         )}
       </CardContent>
     </Card>
-  );
+  )
 }

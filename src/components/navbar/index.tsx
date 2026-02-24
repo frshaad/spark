@@ -1,10 +1,10 @@
-import { Search } from 'lucide-react';
-import Link from 'next/link';
-import Logo from '@/components/logo';
-import { Button } from '@/components/ui/button';
-import NavButton from './nav-button';
-import { NAV_LINKS } from './navbar.constants';
-import ProfileButton from './profile-button';
+import { Search } from 'lucide-react'
+import Link from 'next/link'
+import Logo from '@/components/logo'
+import { Button } from '@/components/ui/button'
+import NavButton from './nav-button'
+import { NAV_LINKS } from './navbar.constants'
+import ProfileButton from './profile-button'
 
 export default function Navbar() {
   return (
@@ -45,5 +45,5 @@ export default function Navbar() {
         ))}
       </nav>
     </>
-  );
+  )
 }

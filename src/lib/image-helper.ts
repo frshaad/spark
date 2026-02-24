@@ -2,19 +2,19 @@ export async function getCroppedImg(
   imageSrc: string,
   pixelCrop: { x: number; y: number; width: number; height: number },
 ): Promise<Blob | null> {
-  const image = new Image();
-  image.src = imageSrc;
-  image.crossOrigin = 'anonymous'; // Prevent CORS issues
+  const image = new Image()
+  image.src = imageSrc
+  image.crossOrigin = 'anonymous' // Prevent CORS issues
 
-  await new Promise((resolve) => (image.onload = resolve));
+  await new Promise((resolve) => (image.onload = resolve))
 
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
+  const canvas = document.createElement('canvas')
+  const ctx = canvas.getContext('2d')
 
-  if (!ctx) return null;
+  if (!ctx) return null
 
-  canvas.width = pixelCrop.width;
-  canvas.height = pixelCrop.height;
+  canvas.width = pixelCrop.width
+  canvas.height = pixelCrop.height
 
   ctx.drawImage(
     image,
@@ -26,9 +26,9 @@ export async function getCroppedImg(
     0,
     pixelCrop.width,
     pixelCrop.height,
-  );
+  )
 
   return new Promise((resolve) => {
-    canvas.toBlob((blob) => resolve(blob), 'image/webp');
-  });
+    canvas.toBlob((blob) => resolve(blob), 'image/webp')
+  })
 }

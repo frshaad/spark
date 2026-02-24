@@ -1,5 +1,5 @@
-import { PostView } from '@/lib/types';
-import Post from './post';
+import { PostView } from '@/lib/types'
+import Post from './post'
 
 export default function PostsList({ posts }: { posts: PostView[]; className?: string }) {
   return (
@@ -8,5 +8,5 @@ export default function PostsList({ posts }: { posts: PostView[]; className?: st
         <Post key={post.id} post={post} />
       ))}
     </>
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import { Route } from 'next';
+import { Route } from 'next'
 import {
   CommentGetPayload,
   CommentInclude,
@@ -8,7 +8,7 @@ import {
   PostInclude,
   UserGetPayload,
   UserSelect,
-} from '@/generated/prisma/models';
+} from '@/generated/prisma/models'
 
 //
 // ─────────────────────────────────────────────
@@ -17,11 +17,11 @@ import {
 //
 
 export type NavigationButton = {
-  href: Route;
-  label: string;
-  Icon: React.ReactNode;
-  className?: string;
-};
+  href: Route
+  label: string
+  Icon: React.ReactNode
+  className?: string
+}
 
 //
 // ─────────────────────────────────────────────
@@ -47,7 +47,7 @@ export function buildUserSelect(viewerId: string) {
     _count: {
       select: { followers: true, posts: true, following: true },
     },
-  } satisfies UserSelect;
+  } satisfies UserSelect
 }
 
 export function buildPostInclude(viewerId: string) {
@@ -65,7 +65,7 @@ export function buildPostInclude(viewerId: string) {
       select: { userId: true },
     },
     _count: { select: { likes: true, comments: true } },
-  } satisfies PostInclude;
+  } satisfies PostInclude
 }
 
 export function buildCommentInclude(viewerId: string) {
@@ -73,7 +73,7 @@ export function buildCommentInclude(viewerId: string) {
     author: {
       select: buildUserSelect(viewerId),
     },
-  } satisfies CommentInclude;
+  } satisfies CommentInclude
 }
 
 export const notificationInclude = {
@@ -86,7 +86,7 @@ export const notificationInclude = {
   post: {
     select: { content: true },
   },
-} satisfies NotificationInclude;
+} satisfies NotificationInclude
 
 //
 // ─────────────────────────────────────────────
@@ -95,22 +95,22 @@ export const notificationInclude = {
 //
 
 export type UserRecord = UserGetPayload<{
-  select: ReturnType<typeof buildUserSelect>;
-}>;
+  select: ReturnType<typeof buildUserSelect>
+}>
 
 export type PostRecord = PostGetPayload<{
-  include: ReturnType<typeof buildPostInclude>;
-}>;
+  include: ReturnType<typeof buildPostInclude>
+}>
 
 export type CommentRecord = CommentGetPayload<{
-  include: ReturnType<typeof buildCommentInclude>;
-}>;
+  include: ReturnType<typeof buildCommentInclude>
+}>
 
 export type NotificationRecord = NotificationGetPayload<{
-  include: typeof notificationInclude;
-}>;
+  include: typeof notificationInclude
+}>
 
-type AuthorFromPost = PostRecord['author'];
+type AuthorFromPost = PostRecord['author']
 
 //
 // ─────────────────────────────────────────────
@@ -119,49 +119,49 @@ type AuthorFromPost = PostRecord['author'];
 //
 
 export type OnboardedUser = AuthorFromPost & {
-  username: string; // ensures non-null
-};
+  username: string // ensures non-null
+}
 
 export type PostView = Omit<PostRecord, 'author'> & {
-  author: OnboardedUser;
-};
+  author: OnboardedUser
+}
 
 export type CommentView = Omit<CommentRecord, 'author'> & {
-  author: OnboardedUser;
-};
+  author: OnboardedUser
+}
 
 export type CursorPaginated<T, K extends string> = {
-  [P in K]: T[];
+  [P in K]: T[]
 } & {
-  nextCursor: string | null;
-};
+  nextCursor: string | null
+}
 
-export type CursorPaginatedPosts = CursorPaginated<PostView, 'posts'>;
+export type CursorPaginatedPosts = CursorPaginated<PostView, 'posts'>
 
-export type CursorPaginatedComments = CursorPaginated<CommentRecord, 'comments'>;
+export type CursorPaginatedComments = CursorPaginated<CommentRecord, 'comments'>
 
-export type CursorPaginatedNotifications = CursorPaginated<NotificationRecord, 'notifications'>;
+export type CursorPaginatedNotifications = CursorPaginated<NotificationRecord, 'notifications'>
 
 export type FollowInfo = {
-  followersCount: number;
-  followingCount: number;
-  isFollowing: boolean;
-};
+  followersCount: number
+  followingCount: number
+  isFollowing: boolean
+}
 
 export type LikeInfo = {
-  likesCount: number;
-  isLiked: boolean;
-};
+  likesCount: number
+  isLiked: boolean
+}
 
 export type BookmarkInfo = {
-  isBookmarked: boolean;
-};
+  isBookmarked: boolean
+}
 
 export type Attachment = {
-  mediaId?: string;
-  file: File;
-  isUploading: boolean;
-};
+  mediaId?: string
+  file: File
+  isUploading: boolean
+}
 
 //
 // ─────────────────────────────────────────────
@@ -173,5 +173,5 @@ export type Attachment = {
  * Ensures post author has completed onboarding
  */
 export function isOnboardedPost(post: PostRecord): post is PostView {
-  return post.author.username !== null;
+  return post.author.username !== null
 }

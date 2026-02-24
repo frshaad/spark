@@ -1,17 +1,17 @@
-'use client';
+'use client'
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useMediaQuery } from 'usehooks-ts';
-import { Button } from '@/components/ui/button';
-import { NavigationButton } from '@/lib/types';
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { useMediaQuery } from 'usehooks-ts'
+import { Button } from '@/components/ui/button'
+import { NavigationButton } from '@/lib/types'
 
 export default function NavButton({ href, label, Icon }: NavigationButton) {
-  const pathname = usePathname();
-  const matches = useMediaQuery('(max-width: 1024px)');
+  const pathname = usePathname()
+  const matches = useMediaQuery('(max-width: 1024px)')
 
   const isActive =
-    href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
+    href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`)
 
   return (
     <Link href={href} className='relative max-lg:w-full'>
@@ -27,5 +27,5 @@ export default function NavButton({ href, label, Icon }: NavigationButton) {
         <span className='bg-primary absolute top-1/2 -left-4 size-2 -translate-y-1/2 rounded-full max-lg:hidden' />
       )}
     </Link>
-  );
+  )
 }

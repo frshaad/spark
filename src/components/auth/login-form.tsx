@@ -1,10 +1,10 @@
-'use client';
+'use client'
 
-import { EyeIcon, EyeOffIcon, LoaderCircle } from 'lucide-react';
-import Link from 'next/link';
-import { Controller } from 'react-hook-form';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
+import { EyeIcon, EyeOffIcon, LoaderCircle } from 'lucide-react'
+import Link from 'next/link'
+import { Controller } from 'react-hook-form'
+import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
 import {
   Field,
   FieldDescription,
@@ -12,12 +12,12 @@ import {
   FieldGroup,
   FieldLabel,
   FieldSeparator,
-} from '@/components/ui/field';
-import { Input } from '@/components/ui/input';
-import { useLoginForm } from '@/hooks/use-login-form';
-import { AuthError } from './auth-error';
-import LastUsedMethodBadge from './last-method-badge';
-import SocialProvidersGroup from './social-providers-group';
+} from '@/components/ui/field'
+import { Input } from '@/components/ui/input'
+import { useLoginForm } from '@/hooks/use-login-form'
+import { AuthError } from './auth-error'
+import LastUsedMethodBadge from './last-method-badge'
+import SocialProvidersGroup from './social-providers-group'
 
 export default function LoginForm() {
   const {
@@ -28,7 +28,7 @@ export default function LoginForm() {
     lastMethod,
     passwordVisible,
     togglePasswordVisibility,
-  } = useLoginForm();
+  } = useLoginForm()
 
   return (
     <div className='flex flex-col gap-7'>
@@ -124,5 +124,5 @@ export default function LoginForm() {
         Don&apos;t have an account? <Link href='/signup'>Sign up</Link>
       </FieldDescription>
     </div>
-  );
+  )
 }

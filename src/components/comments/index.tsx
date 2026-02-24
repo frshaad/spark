@@ -1,21 +1,21 @@
-'use client';
+'use client'
 
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { Loader2 } from 'lucide-react';
-import type { PostView } from '@/lib/types';
-import InfiniteScrollContainer from '@/components/infinite-scroll-container';
-import { getCommentsQuery } from '@/lib/queries';
-import Comment from './comment';
-import CommentSkeleton from './comment.skeleton';
+import { useInfiniteQuery } from '@tanstack/react-query'
+import { Loader2 } from 'lucide-react'
+import type { PostView } from '@/lib/types'
+import InfiniteScrollContainer from '@/components/infinite-scroll-container'
+import { getCommentsQuery } from '@/lib/queries'
+import Comment from './comment'
+import CommentSkeleton from './comment.skeleton'
 
 type CommentsProps = {
-  post: PostView;
-};
+  post: PostView
+}
 
 export default function Comments({ post }: CommentsProps) {
   const { data, status, hasNextPage, isFetching, fetchNextPage } = useInfiniteQuery(
     getCommentsQuery(post.id),
-  );
+  )
 
   if (status === 'pending') {
     return (
@@ -24,17 +24,17 @@ export default function Comments({ post }: CommentsProps) {
           <CommentSkeleton key={i} />
         ))}
       </div>
-    );
+    )
   }
 
   if (status === 'error') {
-    return <div>An error occurred while loading comments.</div>;
+    return <div>An error occurred while loading comments.</div>
   }
 
-  const comments = data.pages.flatMap((page) => page.comments);
+  const comments = data.pages.flatMap((page) => page.comments)
 
   if (status === 'success' && !comments.length && !hasNextPage) {
-    return <p className='text-muted-foreground text-center'>No one has commented yet.</p>;
+    return <p className='text-muted-foreground text-center'>No one has commented yet.</p>
   }
 
   return (
@@ -51,5 +51,5 @@ export default function Comments({ post }: CommentsProps) {
       </div>
       {isFetching && <Loader2 className='mx-auto my-3 animate-spin' />}
     </InfiniteScrollContainer>
-  );
+  )
 }

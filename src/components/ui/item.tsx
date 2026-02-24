@@ -1,9 +1,9 @@
-import { mergeProps } from '@base-ui/react/merge-props';
-import { useRender } from '@base-ui/react/use-render';
-import { type VariantProps, cva } from 'class-variance-authority';
-import * as React from 'react';
-import { Separator } from '@/components/ui/separator';
-import { cn } from '@/lib/utils';
+import { mergeProps } from '@base-ui/react/merge-props'
+import { useRender } from '@base-ui/react/use-render'
+import { type VariantProps, cva } from 'class-variance-authority'
+import * as React from 'react'
+import { Separator } from '@/components/ui/separator'
+import { cn } from '@/lib/utils'
 
 function ItemGroup({ className, ...props }: React.ComponentProps<'div'>) {
   return (
@@ -16,7 +16,7 @@ function ItemGroup({ className, ...props }: React.ComponentProps<'div'>) {
       )}
       {...props}
     />
-  );
+  )
 }
 
 function ItemSeparator({ className, ...props }: React.ComponentProps<typeof Separator>) {
@@ -27,7 +27,7 @@ function ItemSeparator({ className, ...props }: React.ComponentProps<typeof Sepa
       className={cn('my-2', className)}
       {...props}
     />
-  );
+  )
 }
 
 const itemVariants = cva(
@@ -50,7 +50,7 @@ const itemVariants = cva(
       size: 'default',
     },
   },
-);
+)
 
 function Item({
   className,
@@ -73,7 +73,7 @@ function Item({
       variant,
       size,
     },
-  });
+  })
 }
 
 const itemMediaVariants = cva(
@@ -91,7 +91,7 @@ const itemMediaVariants = cva(
       variant: 'default',
     },
   },
-);
+)
 
 function ItemMedia({
   className,
@@ -105,7 +105,7 @@ function ItemMedia({
       className={cn(itemMediaVariants({ variant, className }))}
       {...props}
     />
-  );
+  )
 }
 
 function ItemContent({ className, ...props }: React.ComponentProps<'div'>) {
@@ -118,7 +118,7 @@ function ItemContent({ className, ...props }: React.ComponentProps<'div'>) {
       )}
       {...props}
     />
-  );
+  )
 }
 
 function ItemTitle({ className, ...props }: React.ComponentProps<'div'>) {
@@ -131,7 +131,7 @@ function ItemTitle({ className, ...props }: React.ComponentProps<'div'>) {
       )}
       {...props}
     />
-  );
+  )
 }
 
 function ItemDescription({ className, ...props }: React.ComponentProps<'p'>) {
@@ -144,13 +144,13 @@ function ItemDescription({ className, ...props }: React.ComponentProps<'p'>) {
       )}
       {...props}
     />
-  );
+  )
 }
 
 function ItemActions({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div data-slot='item-actions' className={cn('flex items-center gap-2', className)} {...props} />
-  );
+  )
 }
 
 function ItemHeader({ className, ...props }: React.ComponentProps<'div'>) {
@@ -160,7 +160,7 @@ function ItemHeader({ className, ...props }: React.ComponentProps<'div'>) {
       className={cn('flex basis-full items-center justify-between gap-2', className)}
       {...props}
     />
-  );
+  )
 }
 
 function ItemFooter({ className, ...props }: React.ComponentProps<'div'>) {
@@ -170,7 +170,7 @@ function ItemFooter({ className, ...props }: React.ComponentProps<'div'>) {
       className={cn('flex basis-full items-center justify-between gap-2', className)}
       {...props}
     />
-  );
+  )
 }
 
 export {
@@ -184,4 +184,4 @@ export {
   ItemDescription,
   ItemHeader,
   ItemFooter,
-};
+}

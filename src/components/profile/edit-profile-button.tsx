@@ -1,11 +1,11 @@
-'use client';
+'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { CloudUpload, LoaderCircle, UserPen } from 'lucide-react';
-import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import type { UserRecord } from '@/lib/types';
-import { Button } from '@/components/ui/button';
+import { zodResolver } from '@hookform/resolvers/zod'
+import { CloudUpload, LoaderCircle, UserPen } from 'lucide-react'
+import { useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import type { UserRecord } from '@/lib/types'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogClose,
@@ -15,27 +15,27 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
-import { Input } from '@/components/ui/input';
+} from '@/components/ui/dialog'
+import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field'
+import { Input } from '@/components/ui/input'
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupText,
   InputGroupTextarea,
-} from '@/components/ui/input-group';
-import { Label } from '@/components/ui/label';
-import { useUpdateProfile } from '@/hooks/use-update-profile';
-import { type UpdateUserProfileValues, updateUserProfileSchema } from '@/lib/validation/user';
-import AvatarInput from './avatar-input';
+} from '@/components/ui/input-group'
+import { Label } from '@/components/ui/label'
+import { useUpdateProfile } from '@/hooks/use-update-profile'
+import { type UpdateUserProfileValues, updateUserProfileSchema } from '@/lib/validation/user'
+import AvatarInput from './avatar-input'
 
 type EditProfileButtonProps = {
-  user: UserRecord;
-};
+  user: UserRecord
+}
 
 export default function EditProfileButton({ user }: EditProfileButtonProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [croppedAvatar, setCroppedAvatar] = useState<Blob | null>(null);
+  const [isOpen, setIsOpen] = useState(false)
+  const [croppedAvatar, setCroppedAvatar] = useState<Blob | null>(null)
 
   const form = useForm<UpdateUserProfileValues>({
     resolver: zodResolver(updateUserProfileSchema),
@@ -43,23 +43,23 @@ export default function EditProfileButton({ user }: EditProfileButtonProps) {
       name: user.name,
       bio: user.bio || '',
     },
-  });
+  })
 
-  const { mutate, isPending, isAvatarUploading } = useUpdateProfile();
+  const { mutate, isPending, isAvatarUploading } = useUpdateProfile()
 
   const onSubmit = async (values: UpdateUserProfileValues) => {
-    const avatar = croppedAvatar ? new File([croppedAvatar], `avatar_${user.id}.webp`) : undefined;
+    const avatar = croppedAvatar ? new File([croppedAvatar], `avatar_${user.id}.webp`) : undefined
 
     mutate(
       { values, avatar },
       {
         onSuccess() {
-          setCroppedAvatar(null);
-          setIsOpen(false);
+          setCroppedAvatar(null)
+          setIsOpen(false)
         },
       },
-    );
-  };
+    )
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -166,5 +166,5 @@ export default function EditProfileButton({ user }: EditProfileButtonProps) {
         </form>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

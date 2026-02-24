@@ -1,28 +1,27 @@
-'use client';
+'use client'
 
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { Loader2 } from 'lucide-react';
-import PostsList from '@/components/posts/posts-list';
-import { forYouFeedQuery } from '@/lib/queries';
-import FeedSkeleton from './feed.skeleton';
-import InfiniteScrollContainer from './infinite-scroll-container';
+import { useInfiniteQuery } from '@tanstack/react-query'
+import { Loader2 } from 'lucide-react'
+import PostsList from '@/components/posts/posts-list'
+import { forYouFeedQuery } from '@/lib/queries'
+import FeedSkeleton from './feed.skeleton'
+import InfiniteScrollContainer from './infinite-scroll-container'
 
 export default function ForYouFeed() {
-  const { data, status, hasNextPage, isFetching, fetchNextPage } =
-    useInfiniteQuery(forYouFeedQuery);
+  const { data, status, hasNextPage, isFetching, fetchNextPage } = useInfiniteQuery(forYouFeedQuery)
 
   if (status === 'pending') {
-    return <FeedSkeleton count={5} />;
+    return <FeedSkeleton count={5} />
   }
 
   if (status === 'error') {
-    return <div>Error loading posts</div>;
+    return <div>Error loading posts</div>
   }
 
-  const posts = data.pages.flatMap((page) => page.posts);
+  const posts = data.pages.flatMap((page) => page.posts)
 
   if (status === 'success' && !posts.length && !hasNextPage) {
-    return <p className='text-muted-foreground text-center'>No one has posted anything yet.</p>;
+    return <p className='text-muted-foreground text-center'>No one has posted anything yet.</p>
   }
 
   return (
@@ -35,5 +34,5 @@ export default function ForYouFeed() {
       <PostsList posts={posts} />
       {isFetching && <Loader2 className='mx-auto my-3 animate-spin' />}
     </InfiniteScrollContainer>
-  );
+  )
 }

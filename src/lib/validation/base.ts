@@ -1,4 +1,4 @@
-import * as z from 'zod';
+import * as z from 'zod'
 
 export const baseSchemaConfig = {
   // Display Name
@@ -17,9 +17,9 @@ export const baseSchemaConfig = {
 
   // Email
   MAX_EMAIL_LENGTH: 254,
-};
+}
 
-const USERNAME_REGEX = new RegExp(`^${baseSchemaConfig.USERNAME_PATTERN}$`);
+const USERNAME_REGEX = new RegExp(`^${baseSchemaConfig.USERNAME_PATTERN}$`)
 
 export const nameSchema = z
   .string()
@@ -31,7 +31,7 @@ export const nameSchema = z
   .max(
     baseSchemaConfig.MAX_NAME_LENGTH,
     `Name must be ${baseSchemaConfig.MAX_NAME_LENGTH} characters or fewer`,
-  );
+  )
 
 export const usernameSchema = z
   .string()
@@ -45,13 +45,13 @@ export const usernameSchema = z
     `Username must be ${baseSchemaConfig.MAX_USERNAME_LENGTH} characters or fewer`,
   )
   .regex(USERNAME_REGEX, 'Username may contain lowercase letters, numbers, dots, or underscores')
-  .transform((val) => val.toLowerCase());
+  .transform((val) => val.toLowerCase())
 
 export const emailSchema = z
   .email({ error: 'Invalid email address' })
   .trim()
   .max(baseSchemaConfig.MAX_EMAIL_LENGTH, 'Email is too long')
-  .transform((s) => s.toLowerCase());
+  .transform((s) => s.toLowerCase())
 
 export const passwordSchema = z
   .string()
@@ -66,4 +66,4 @@ export const passwordSchema = z
   .regex(
     baseSchemaConfig.PASSWORD_PATTERN,
     'Password must include an uppercase letter, a lowercase letter, a number, and a symbol',
-  );
+  )

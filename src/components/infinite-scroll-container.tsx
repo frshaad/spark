@@ -1,13 +1,13 @@
-'use client';
+'use client'
 
-import { useInView } from 'react-intersection-observer';
+import { useInView } from 'react-intersection-observer'
 
 type InfiniteScrollContainerProps = {
-  onBottomReached: () => void;
-  hasNextPage?: boolean;
-  isFetching?: boolean;
-  className?: string;
-} & React.PropsWithChildren;
+  onBottomReached: () => void
+  hasNextPage?: boolean
+  isFetching?: boolean
+  className?: string
+} & React.PropsWithChildren
 
 export default function InfiniteScrollContainer({
   children,
@@ -21,15 +21,15 @@ export default function InfiniteScrollContainer({
     triggerOnce: false,
     onChange: (inView) => {
       if (inView && hasNextPage && !isFetching) {
-        onBottomReached();
+        onBottomReached()
       }
     },
-  });
+  })
 
   return (
     <div className={className}>
       {children}
       <div ref={ref} />
     </div>
-  );
+  )
 }

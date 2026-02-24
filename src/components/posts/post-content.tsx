@@ -1,14 +1,14 @@
-import { useMemo } from 'react';
-import Linkify from '@/components/linkify';
-import { isRTL } from '@/lib/format';
-import { cn } from '@/lib/utils';
+import { useMemo } from 'react'
+import Linkify from '@/components/linkify'
+import { isRTL } from '@/lib/format'
+import { cn } from '@/lib/utils'
 
 type PostContentProps = {
-  content: string;
-};
+  content: string
+}
 
 export default function PostContent({ content }: PostContentProps) {
-  const isContentRtl = useMemo(() => isRTL(content), [content]);
+  const isContentRtl = useMemo(() => isRTL(content), [content])
 
   return (
     <Linkify>
@@ -22,5 +22,5 @@ export default function PostContent({ content }: PostContentProps) {
         {content}
       </p>
     </Linkify>
-  );
+  )
 }

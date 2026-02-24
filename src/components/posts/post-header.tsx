@@ -1,21 +1,21 @@
-import type { Route } from 'next';
-import Link from 'next/link';
-import { useMemo } from 'react';
-import type { PostView } from '@/lib/types';
-import UserTooltip from '@/components/user-tooltip';
-import { formatPostDate, isRTL } from '@/lib/format';
+import type { Route } from 'next'
+import Link from 'next/link'
+import { useMemo } from 'react'
+import type { PostView } from '@/lib/types'
+import UserTooltip from '@/components/user-tooltip'
+import { formatPostDate, isRTL } from '@/lib/format'
 
 export default function PostHeader({
   author,
   authorUrl,
   createdAt,
 }: {
-  author: PostView['author'];
-  authorUrl: Route;
-  createdAt: Date | string;
+  author: PostView['author']
+  authorUrl: Route
+  createdAt: Date | string
 }) {
-  const displayName = author.name;
-  const isRtl = useMemo(() => isRTL(displayName), [displayName]);
+  const displayName = author.name
+  const isRtl = useMemo(() => isRTL(displayName), [displayName])
 
   return (
     <div className='min-w-0' onClick={(e) => e.stopPropagation()}>
@@ -43,5 +43,5 @@ export default function PostHeader({
         <span className='text-muted-foreground'>{formatPostDate(new Date(createdAt))}</span>
       </div>
     </div>
-  );
+  )
 }

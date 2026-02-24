@@ -1,27 +1,27 @@
-import { useState } from 'react';
-import { toast } from 'sonner';
-import { Attachment } from '@/lib/types';
-import { useUploadThing } from '@/lib/uploadthing';
+import { useState } from 'react'
+import { toast } from 'sonner'
+import { Attachment } from '@/lib/types'
+import { useUploadThing } from '@/lib/uploadthing'
 
 export function useUploadMedia() {
-  const [attachments, setAttachments] = useState<Attachment[]>([]);
-  const [uploadProgress, setUploadProgress] = useState<number>();
+  const [attachments, setAttachments] = useState<Attachment[]>([])
+  const [uploadProgress, setUploadProgress] = useState<number>()
 
   const { startUpload, isUploading } = useUploadThing('attachment', {
     onBeforeUploadBegin(files) {
       const renamedFiles = files.map((file) => {
-        const fileExtension = file.name.split('.').pop();
+        const fileExtension = file.name.split('.').pop()
         return new File([file], `attachment_${crypto.randomUUID()}.${fileExtension}`, {
           type: file.type,
-        });
-      });
+        })
+      })
 
       setAttachments((prev) => [
         ...prev,
         ...renamedFiles.map((file) => ({ file, isUploading: true })),
-      ]);
+      ])
 
-      return renamedFiles;
+      return renamedFiles
     },
 
     onUploadProgress: setUploadProgress,
@@ -29,45 +29,45 @@ export function useUploadMedia() {
     onClientUploadComplete(res) {
       setAttachments((prev) =>
         prev.map((a) => {
-          const uploadResult = res.find((r) => r.name === a.file.name);
-          if (!uploadResult) return a;
+          const uploadResult = res.find((r) => r.name === a.file.name)
+          if (!uploadResult) return a
 
           return {
             ...a,
             mediaId: uploadResult.serverData.mediaId,
             isUploading: false,
-          };
+          }
         }),
-      );
+      )
     },
 
     onUploadError(error) {
-      setAttachments((prev) => prev.filter((a) => !a.isUploading));
-      toast.error(error.message);
+      setAttachments((prev) => prev.filter((a) => !a.isUploading))
+      toast.error(error.message)
     },
-  });
+  })
 
   function handleStartUpload(files: File[]) {
     if (isUploading) {
-      toast.info('Please wait for the current upload to complete.');
-      return;
+      toast.info('Please wait for the current upload to complete.')
+      return
     }
 
     if (attachments.length + files.length > 5) {
-      toast.error('You can only upload up to 5 attachments per post.');
-      return;
+      toast.error('You can only upload up to 5 attachments per post.')
+      return
     }
 
-    void startUpload(files);
+    void startUpload(files)
   }
 
   function removeAttachment(filename: string) {
-    setAttachments((prev) => prev.filter((a) => a.file.name !== filename));
+    setAttachments((prev) => prev.filter((a) => a.file.name !== filename))
   }
 
   function reset() {
-    setAttachments([]);
-    setUploadProgress(undefined);
+    setAttachments([])
+    setUploadProgress(undefined)
   }
 
   return {
@@ -77,5 +77,5 @@ export function useUploadMedia() {
     uploadProgress,
     removeAttachment,
     reset,
-  };
+  }
 }

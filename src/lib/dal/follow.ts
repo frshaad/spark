@@ -1,7 +1,7 @@
-import { cache } from 'react';
-import { Notification } from '@/generated/prisma/client';
-import prisma from '@/lib/prisma';
-import { createNotification, deleteNotification } from './notification';
+import { cache } from 'react'
+import { Notification } from '@/generated/prisma/client'
+import prisma from '@/lib/prisma'
+import { createNotification, deleteNotification } from './notification'
 
 export const getFollowRelationship = cache((targetUserId: string, authenticatedUserId: string) => {
   return prisma.user.findUnique({
@@ -16,26 +16,26 @@ export const getFollowRelationship = cache((targetUserId: string, authenticatedU
         select: { followers: true, following: true },
       },
     },
-  });
-});
+  })
+})
 
 export function followUser(targetUserId: string, authenticatedUserId: string) {
   const followData = {
     followerId: authenticatedUserId,
     followingId: targetUserId,
-  };
+  }
 
   return prisma.follow.upsert({
     where: { followerId_followingId: followData },
     create: followData,
     update: {},
-  });
+  })
 }
 
 export function unfollowUser(targetUserId: string, authenticatedUserId: string) {
   return prisma.follow.deleteMany({
     where: { followerId: authenticatedUserId, followingId: targetUserId },
-  });
+  })
 }
 
 export function followTransaction({
@@ -45,7 +45,7 @@ export function followTransaction({
   return prisma.$transaction([
     followUser(recipientId, issuerId),
     createNotification({ issuerId, recipientId, type: 'FOLLOW' }),
-  ]);
+  ])
 }
 
 export function unfollowTransaction({
@@ -55,5 +55,5 @@ export function unfollowTransaction({
   return prisma.$transaction([
     unfollowUser(recipientId, issuerId),
     deleteNotification({ issuerId, recipientId, type: 'FOLLOW' }),
-  ]);
+  ])
 }

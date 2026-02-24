@@ -1,8 +1,8 @@
-import { requireAuth } from '@/lib/session';
-import UserButton from './user-button';
+import { requireAuth } from '@/lib/session'
+import UserButton from './user-button'
 
 export default async function ProfileButton() {
-  const { user } = await requireAuth();
+  const { user } = await requireAuth()
 
   return (
     <UserButton
@@ -12,5 +12,5 @@ export default async function ProfileButton() {
         image: user.image ?? null,
       }}
     />
-  );
+  )
 }

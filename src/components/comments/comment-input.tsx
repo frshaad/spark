@@ -1,25 +1,25 @@
-'use client';
+'use client'
 
-import { LoaderCircle, SendHorizonalIcon } from 'lucide-react';
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { useCommentSubmit } from '@/hooks/use-comment-submit';
-import { PostView } from '@/lib/types';
+import { LoaderCircle, SendHorizonalIcon } from 'lucide-react'
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { useCommentSubmit } from '@/hooks/use-comment-submit'
+import { PostView } from '@/lib/types'
 
 type CommentInputProps = {
-  post: PostView;
-};
+  post: PostView
+}
 
 export default function CommentInput({ post }: CommentInputProps) {
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState('')
 
-  const { mutate, isPending } = useCommentSubmit();
+  const { mutate, isPending } = useCommentSubmit()
 
   function onSubmit(e: React.SubmitEvent<HTMLFormElement>) {
-    e.preventDefault();
-    if (content.length === 0) return;
-    mutate({ content, post }, { onSuccess: () => setContent('') });
+    e.preventDefault()
+    if (content.length === 0) return
+    mutate({ content, post }, { onSuccess: () => setContent('') })
   }
 
   return (
@@ -53,5 +53,5 @@ export default function CommentInput({ post }: CommentInputProps) {
         </Button>
       </div>
     </form>
-  );
+  )
 }

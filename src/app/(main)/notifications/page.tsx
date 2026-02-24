@@ -1,10 +1,10 @@
-import type { Metadata } from 'next';
-import DiscoveryPanel from '@/components/discovery-panel';
-import Notifications from '@/components/notifications';
-import { requireAuth } from '@/lib/session';
+import type { Metadata } from 'next'
+import DiscoveryPanel from '@/components/discovery-panel'
+import Notifications from '@/components/notifications'
+import { requireAuth } from '@/lib/session'
 
 export default async function NotificationsPage() {
-  await requireAuth();
+  await requireAuth()
 
   return (
     <div className='flex w-full gap-6 lg:pr-10 xl:gap-10'>
@@ -13,9 +13,9 @@ export default async function NotificationsPage() {
       </main>
       <DiscoveryPanel />
     </div>
-  );
+  )
 }
 
 export const metadata: Metadata = {
   title: 'Notifications',
-};
+}

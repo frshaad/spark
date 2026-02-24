@@ -1,10 +1,10 @@
-import type { Metadata } from 'next';
-import BookmarksFeed from '@/components/bookmarks-feed';
-import DiscoveryPanel from '@/components/discovery-panel';
-import { requireAuth } from '@/lib/session';
+import type { Metadata } from 'next'
+import BookmarksFeed from '@/components/bookmarks-feed'
+import DiscoveryPanel from '@/components/discovery-panel'
+import { requireAuth } from '@/lib/session'
 
 export default async function BookmarksPage() {
-  await requireAuth();
+  await requireAuth()
 
   return (
     <div className='flex w-full gap-6 lg:pr-10 xl:gap-10'>
@@ -13,9 +13,9 @@ export default async function BookmarksPage() {
       </main>
       <DiscoveryPanel />
     </div>
-  );
+  )
 }
 
 export const metadata: Metadata = {
   title: 'Bookmarks',
-};
+}

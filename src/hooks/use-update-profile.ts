@@ -1,53 +1,53 @@
-import { InfiniteData, QueryFilters, useMutation } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
-import { updateUserProfileData } from '@/actions/user.action';
-import { QUERY_KEYS } from '@/lib/query-keys';
-import { CursorPaginatedPosts, UserRecord } from '@/lib/types';
-import { useUploadThing } from '@/lib/uploadthing';
-import { UpdateUserProfileValues } from '@/lib/validation/user';
+import { InfiniteData, QueryFilters, useMutation } from '@tanstack/react-query'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
+import { updateUserProfileData } from '@/actions/user.action'
+import { QUERY_KEYS } from '@/lib/query-keys'
+import { CursorPaginatedPosts, UserRecord } from '@/lib/types'
+import { useUploadThing } from '@/lib/uploadthing'
+import { UpdateUserProfileValues } from '@/lib/validation/user'
 
 type UpdateUserProfileVariables = {
-  values: UpdateUserProfileValues;
-  avatar?: File;
-};
+  values: UpdateUserProfileValues
+  avatar?: File
+}
 
 export function useUpdateProfile() {
-  const router = useRouter();
+  const router = useRouter()
   const { startUpload: startAvatarUpload, isUploading: isAvatarUploading } =
-    useUploadThing('avatar');
+    useUploadThing('avatar')
 
   const mutation = useMutation({
     mutationFn: ({ values, avatar }: UpdateUserProfileVariables) =>
       Promise.all([updateUserProfileData(values), avatar && startAvatarUpload([avatar])]),
 
     async onSuccess([updatedUser, uploadResult], _variables, _onMutateResult, ctx) {
-      const newAvatarUrl = uploadResult?.[0].serverData.avatarUrl;
+      const newAvatarUrl = uploadResult?.[0].serverData.avatarUrl
 
       const feedsToUpdate: QueryFilters[] = [
         { queryKey: QUERY_KEYS.forYouFeed },
         { queryKey: QUERY_KEYS.followingFeed },
         { queryKey: QUERY_KEYS.userPosts(updatedUser.id) },
-      ];
+      ]
 
       feedsToUpdate.forEach((filter) => {
         ctx.client.setQueriesData<InfiniteData<CursorPaginatedPosts, string | null>>(
           filter,
           (oldData) => updatePostsAuthor(oldData, updatedUser, newAvatarUrl),
-        );
-      });
+        )
+      })
 
-      router.refresh();
-      toast.success('Profile updated successfully');
+      router.refresh()
+      toast.success('Profile updated successfully')
     },
 
     onError(error) {
-      console.error(error);
-      toast.error('Failed to update profile data');
+      console.error(error)
+      toast.error('Failed to update profile data')
     },
-  });
+  })
 
-  return { ...mutation, isAvatarUploading };
+  return { ...mutation, isAvatarUploading }
 }
 
 function updatePostsAuthor(
@@ -55,7 +55,7 @@ function updatePostsAuthor(
   updatedUser: UserRecord,
   newAvatarUrl?: string,
 ) {
-  if (!oldData) return oldData;
+  if (!oldData) return oldData
 
   return {
     pageParams: oldData.pageParams,
@@ -76,5 +76,5 @@ function updatePostsAuthor(
           : post,
       ),
     })),
-  };
+  }
 }

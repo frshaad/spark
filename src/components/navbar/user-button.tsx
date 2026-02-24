@@ -1,11 +1,11 @@
-'use client';
+'use client'
 
-import { CircleUser, LogOut } from 'lucide-react';
-import { Route } from 'next';
-import Link from 'next/link';
-import SignOutButton from '@/components/auth/signout-button';
-import { ModeToggle } from '@/components/mode-toggle';
-import { Button } from '@/components/ui/button';
+import { CircleUser, LogOut } from 'lucide-react'
+import { Route } from 'next'
+import Link from 'next/link'
+import SignOutButton from '@/components/auth/signout-button'
+import { ModeToggle } from '@/components/mode-toggle'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogClose,
@@ -14,7 +14,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
+} from '@/components/ui/dialog'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,19 +22,19 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import UserAvatar from '@/components/user-avatar';
+} from '@/components/ui/dropdown-menu'
+import UserAvatar from '@/components/user-avatar'
 
 type UserButtonProps = {
   user: {
-    name: string;
-    username: string;
-    image: string | null;
-  };
-};
+    name: string
+    username: string
+    image: string | null
+  }
+}
 
 export default function UserButton({ user }: UserButtonProps) {
-  const { name, username } = user;
+  const { name, username } = user
 
   return (
     <DropdownMenu>
@@ -84,5 +84,5 @@ export default function UserButton({ user }: UserButtonProps) {
         </Dialog>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
+  )
 }

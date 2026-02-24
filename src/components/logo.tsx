@@ -1,5 +1,5 @@
-import { Sparkle } from 'lucide-react';
-import Link from 'next/link';
+import { Sparkle } from 'lucide-react'
+import Link from 'next/link'
 
 export default function Logo() {
   return (
@@ -7,5 +7,5 @@ export default function Logo() {
       <Sparkle className='size-7' />
       <span>Spark</span>
     </Link>
-  );
+  )
 }

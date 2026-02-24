@@ -1,6 +1,6 @@
-import { Button } from '@/components/ui/button';
-import { Item, ItemActions, ItemContent, ItemTitle } from '@/components/ui/item';
-import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button'
+import { Item, ItemActions, ItemContent, ItemTitle } from '@/components/ui/item'
+import { Skeleton } from '@/components/ui/skeleton'
 
 export function SuggestedUsersSkeleton({ count = 5 }: { count?: number }) {
   return (
@@ -27,5 +27,5 @@ export function SuggestedUsersSkeleton({ count = 5 }: { count?: number }) {
         </Item>
       ))}
     </>
-  );
+  )
 }

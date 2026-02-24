@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import Link from 'next/link';
-import { LinkIt, hashtagRegex, mentionRegex, urlRegex } from 'react-linkify-it';
+import Link from 'next/link'
+import { LinkIt, hashtagRegex, mentionRegex, urlRegex } from 'react-linkify-it'
 
 export default function Linkify({ children }: React.PropsWithChildren) {
   return (
@@ -10,7 +10,7 @@ export default function Linkify({ children }: React.PropsWithChildren) {
         <LinkifyURL>{children}</LinkifyURL>
       </LinkifyHashtag>
     </LinkifyMention>
-  );
+  )
 }
 
 function LinkifyURL({ children }: React.PropsWithChildren) {
@@ -32,7 +32,7 @@ function LinkifyURL({ children }: React.PropsWithChildren) {
     >
       {children}
     </LinkIt>
-  );
+  )
 }
 
 function LinkifyMention({ children }: React.PropsWithChildren) {
@@ -52,7 +52,7 @@ function LinkifyMention({ children }: React.PropsWithChildren) {
     >
       {children}
     </LinkIt>
-  );
+  )
 }
 
 function LinkifyHashtag({ children }: React.PropsWithChildren) {
@@ -72,5 +72,5 @@ function LinkifyHashtag({ children }: React.PropsWithChildren) {
     >
       {children}
     </LinkIt>
-  );
+  )
 }

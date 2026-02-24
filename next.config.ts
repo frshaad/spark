@@ -1,4 +1,4 @@
-import type { NextConfig } from 'next';
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   images: {
@@ -18,6 +18,6 @@ const nextConfig: NextConfig = {
   typedRoutes: true,
   cacheComponents: true,
   experimental: { typedEnv: true, authInterrupts: true },
-};
+}
 
-export default nextConfig;
+export default nextConfig

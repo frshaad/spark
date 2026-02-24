@@ -1,6 +1,6 @@
-import { EllipsisVertical, Trash } from 'lucide-react';
-import { useCallback, useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { EllipsisVertical, Trash } from 'lucide-react'
+import { useCallback, useState } from 'react'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogClose,
@@ -9,36 +9,36 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
+} from '@/components/ui/dialog'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { useDeletePost } from '@/hooks/use-delete-post';
-import { authClient } from '@/lib/auth-client';
+} from '@/components/ui/dropdown-menu'
+import { useDeletePost } from '@/hooks/use-delete-post'
+import { authClient } from '@/lib/auth-client'
 
 type PostMenuProps = {
-  authorId: string;
-  postId: string;
-};
+  authorId: string
+  postId: string
+}
 
 export default function PostMenu({ authorId, postId }: PostMenuProps) {
-  const { data } = authClient.useSession();
-  const canManage = authorId === data?.user.id;
-  const { mutate: deletePost, isPending: isDeleting } = useDeletePost();
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { data } = authClient.useSession()
+  const canManage = authorId === data?.user.id
+  const { mutate: deletePost, isPending: isDeleting } = useDeletePost()
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   const onConfirmDelete = useCallback(() => {
     deletePost(postId, {
       onSuccess() {
-        setIsDialogOpen(false);
+        setIsDialogOpen(false)
       },
-    });
-  }, [deletePost, postId]);
+    })
+  }, [deletePost, postId])
 
-  if (!canManage) return null;
+  if (!canManage) return null
 
   return (
     <DropdownMenu>
@@ -80,5 +80,5 @@ export default function PostMenu({ authorId, postId }: PostMenuProps) {
         </DialogContent>
       </Dialog>
     </DropdownMenu>
-  );
+  )
 }

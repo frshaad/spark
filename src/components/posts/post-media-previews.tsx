@@ -1,6 +1,6 @@
-import { Media } from '@/generated/prisma/browser';
-import { cn } from '@/lib/utils';
-import PostMediaPreview from './post-media-preview';
+import { Media } from '@/generated/prisma/browser'
+import { cn } from '@/lib/utils'
+import PostMediaPreview from './post-media-preview'
 
 export default function PostMediaPreviews({ attachments }: { attachments: Media[] }) {
   return (
@@ -9,5 +9,5 @@ export default function PostMediaPreviews({ attachments }: { attachments: Media[
         <PostMediaPreview key={m.id} media={m} />
       ))}
     </div>
-  );
+  )
 }

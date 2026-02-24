@@ -1,5 +1,5 @@
-import Image from 'next/image';
-import { Media } from '@/generated/prisma/browser';
+import Image from 'next/image'
+import { Media } from '@/generated/prisma/browser'
 
 export default function PostMediaPreview({ media }: { media: Media }) {
   if (media.type === 'IMAGE') {
@@ -11,7 +11,7 @@ export default function PostMediaPreview({ media }: { media: Media }) {
         height={500}
         className='mx-auto size-fit max-h-120 rounded-2xl'
       />
-    );
+    )
   }
 
   if (media.type === 'VIDEO') {
@@ -19,8 +19,8 @@ export default function PostMediaPreview({ media }: { media: Media }) {
       <div>
         <video src={media.url} controls className='mx-auto size-fit max-h-120 rounded-2xl' />
       </div>
-    );
+    )
   }
 
-  return <p className='text-destructive'>Unsupported media type</p>;
+  return <p className='text-destructive'>Unsupported media type</p>
 }

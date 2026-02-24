@@ -1,22 +1,22 @@
-'use client';
+'use client'
 
-import { Route } from 'next';
-import { useSearchParams } from 'next/navigation';
-import { useEffect, useState, useTransition } from 'react';
-import { toast } from 'sonner';
-import { Provider } from '@/lib/auth';
-import { authClient } from '@/lib/auth-client';
+import { Route } from 'next'
+import { useSearchParams } from 'next/navigation'
+import { useEffect, useState, useTransition } from 'react'
+import { toast } from 'sonner'
+import { Provider } from '@/lib/auth'
+import { authClient } from '@/lib/auth-client'
 
 export function useSocialSignIn(provider: Provider) {
-  const searchParams = useSearchParams();
-  const callbackURL = (searchParams.get('redirect') || '/') as Route;
+  const searchParams = useSearchParams()
+  const callbackURL = (searchParams.get('redirect') || '/') as Route
 
-  const [isProviderLastMethod, setIsProviderLastMethod] = useState(false);
+  const [isProviderLastMethod, setIsProviderLastMethod] = useState(false)
   useEffect(() => {
-    setIsProviderLastMethod(authClient.isLastUsedLoginMethod(provider));
-  }, [provider]);
+    setIsProviderLastMethod(authClient.isLastUsedLoginMethod(provider))
+  }, [provider])
 
-  const [isPending, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition()
 
   function signInSocial() {
     startTransition(async () => {
@@ -24,17 +24,17 @@ export function useSocialSignIn(provider: Provider) {
         const { error } = await authClient.signIn.social({
           provider,
           callbackURL,
-        });
+        })
         if (error) {
-          toast.error(error.message || 'An error occurred');
+          toast.error(error.message || 'An error occurred')
         } else {
-          toast.success('Signed in successfully');
+          toast.success('Signed in successfully')
         }
       } catch {
-        toast.error('An error occurred');
+        toast.error('An error occurred')
       }
-    });
+    })
   }
 
-  return { isPending, signIn: signInSocial, isProviderLastMethod };
+  return { isPending, signIn: signInSocial, isProviderLastMethod }
 }

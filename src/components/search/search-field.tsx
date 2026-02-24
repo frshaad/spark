@@ -1,19 +1,19 @@
-'use client';
+'use client'
 
-import type React from 'react';
-import { Search } from 'lucide-react';
-import { Route } from 'next';
-import { useRouter } from 'next/navigation';
-import { useRef } from 'react';
-import { useOnClickOutside } from 'usehooks-ts';
-import { Input } from '@/components/ui/input';
-import { useSearch } from '@/hooks/use-search';
-import { cn } from '@/lib/utils';
+import type React from 'react'
+import { Search } from 'lucide-react'
+import { Route } from 'next'
+import { useRouter } from 'next/navigation'
+import { useRef } from 'react'
+import { useOnClickOutside } from 'usehooks-ts'
+import { Input } from '@/components/ui/input'
+import { useSearch } from '@/hooks/use-search'
+import { cn } from '@/lib/utils'
 
 // Mock search function - replace with your actual search logic
 async function searchResults(query: string) {
   // Simulate API call
-  await new Promise((resolve) => setTimeout(resolve, 300));
+  await new Promise((resolve) => setTimeout(resolve, 300))
 
   // Mock data - replace with actual search results
   const mockResults = [
@@ -28,35 +28,35 @@ async function searchResults(query: string) {
     { id: 5, title: 'Deploying to Vercel', url: '/docs/deployment' },
     { id: 6, title: 'Authentication Guide', url: '/docs/auth' },
     { id: 7, title: 'Database Integration', url: '/docs/database' },
-  ];
+  ]
 
   return mockResults
     .filter((item) => item.title.toLowerCase().includes(query.toLowerCase()))
-    .slice(0, 5);
+    .slice(0, 5)
 }
 
 export default function SearchField() {
-  const router = useRouter();
-  const wrapperRef = useRef<HTMLDivElement>(null);
+  const router = useRouter()
+  const wrapperRef = useRef<HTMLDivElement>(null)
 
   const { query, setQuery, results, open, close, isOpen, isLoading } = useSearch({
     searchFn: searchResults,
-  });
+  })
 
-  useOnClickOutside(wrapperRef as React.RefObject<HTMLDivElement>, close);
+  useOnClickOutside(wrapperRef as React.RefObject<HTMLDivElement>, close)
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && query.trim()) {
-      close();
-      router.push(`/search?q=${encodeURIComponent(query)}` as Route);
+      close()
+      router.push(`/search?q=${encodeURIComponent(query)}` as Route)
     }
-  };
+  }
 
   const handleResultClick = (url: string) => {
-    close();
-    setQuery('');
-    router.push(url as Route);
-  };
+    close()
+    setQuery('')
+    router.push(url as Route)
+  }
 
   return (
     <div ref={wrapperRef} className='relative w-full max-w-md'>
@@ -100,5 +100,5 @@ export default function SearchField() {
         </div>
       )}
     </div>
-  );
+  )
 }

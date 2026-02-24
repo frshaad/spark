@@ -1,28 +1,28 @@
-'use client';
+'use client'
 
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { Bell, Loader2 } from 'lucide-react';
-import FeedSkeleton from '@/components/feed.skeleton';
-import InfiniteScrollContainer from '@/components/infinite-scroll-container';
-import { getNotificationsQuery } from '@/lib/queries';
-import Notification from './notification';
+import { useInfiniteQuery } from '@tanstack/react-query'
+import { Bell, Loader2 } from 'lucide-react'
+import FeedSkeleton from '@/components/feed.skeleton'
+import InfiniteScrollContainer from '@/components/infinite-scroll-container'
+import { getNotificationsQuery } from '@/lib/queries'
+import Notification from './notification'
 
 export default function Notifications() {
   const { data, status, hasNextPage, isFetching, fetchNextPage } =
-    useInfiniteQuery(getNotificationsQuery());
+    useInfiniteQuery(getNotificationsQuery())
 
   if (status === 'pending') {
-    return <FeedSkeleton count={5} />;
+    return <FeedSkeleton count={5} />
   }
 
   if (status === 'error') {
-    return <div>Error loading notifications</div>;
+    return <div>Error loading notifications</div>
   }
 
-  const notifications = data.pages.flatMap((page) => page.notifications);
+  const notifications = data.pages.flatMap((page) => page.notifications)
 
   if (status === 'success' && !notifications.length && !hasNextPage) {
-    return <p className='text-muted-foreground text-center'>You don't have any bookmarks yet.</p>;
+    return <p className='text-muted-foreground text-center'>You don't have any bookmarks yet.</p>
   }
 
   return (
@@ -45,5 +45,5 @@ export default function Notifications() {
         {isFetching && <Loader2 className='mx-auto my-3 animate-spin' />}
       </InfiniteScrollContainer>
     </>
-  );
+  )
 }

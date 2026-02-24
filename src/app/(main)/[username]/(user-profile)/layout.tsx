@@ -1,9 +1,9 @@
-import DiscoveryPanel from '@/components/discovery-panel';
+import DiscoveryPanel from '@/components/discovery-panel'
 
 export default function ProfileLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <div className='flex w-full gap-6 lg:pr-10 xl:gap-10'>
@@ -12,5 +12,5 @@ export default function ProfileLayout({
       </main>
       <DiscoveryPanel />
     </div>
-  );
+  )
 }

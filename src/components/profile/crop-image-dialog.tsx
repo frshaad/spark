@@ -1,23 +1,23 @@
-'use client';
+'use client'
 
-import { useCallback, useState } from 'react';
-import Cropper, { Area } from 'react-easy-crop';
-import { Button } from '@/components/ui/button';
+import { useCallback, useState } from 'react'
+import Cropper, { Area } from 'react-easy-crop'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { getCroppedImg } from '@/lib/image-helper';
+} from '@/components/ui/dialog'
+import { getCroppedImg } from '@/lib/image-helper'
 
 type CropImageDialogProps = {
-  src: string;
-  cropAspectRatio: number;
-  onCroppedAction: (blob: Blob | null) => void;
-  onCloseAction: () => void;
-};
+  src: string
+  cropAspectRatio: number
+  onCroppedAction: (blob: Blob | null) => void
+  onCloseAction: () => void
+}
 
 export default function CropImageDialog({
   src,
@@ -25,23 +25,23 @@ export default function CropImageDialog({
   onCroppedAction,
   onCloseAction,
 }: CropImageDialogProps) {
-  const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
+  const [crop, setCrop] = useState({ x: 0, y: 0 })
+  const [zoom, setZoom] = useState(1)
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null)
 
   const onCropComplete = useCallback((_area: Area, areaPixels: Area) => {
-    setCroppedAreaPixels(areaPixels);
-  }, []);
+    setCroppedAreaPixels(areaPixels)
+  }, [])
 
   async function onCrop() {
     try {
-      if (!croppedAreaPixels) return;
+      if (!croppedAreaPixels) return
 
-      const blob = await getCroppedImg(src, croppedAreaPixels);
-      onCroppedAction(blob);
-      onCloseAction();
+      const blob = await getCroppedImg(src, croppedAreaPixels)
+      onCroppedAction(blob)
+      onCloseAction()
     } catch (e) {
-      console.error(e);
+      console.error(e)
     }
   }
 
@@ -74,5 +74,5 @@ export default function CropImageDialog({
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

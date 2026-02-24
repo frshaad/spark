@@ -1,16 +1,16 @@
-import { Route } from 'next';
-import Link from 'next/link';
-import { Item, ItemContent, ItemTitle } from '@/components/ui/item';
-import { getTrendingTopics } from '@/lib/dal/trend';
-import { formatCount } from '@/lib/format';
+import { Route } from 'next'
+import Link from 'next/link'
+import { Item, ItemContent, ItemTitle } from '@/components/ui/item'
+import { getTrendingTopics } from '@/lib/dal/trend'
+import { formatCount } from '@/lib/format'
 
 export default async function TopicsList() {
-  const topics = await getTrendingTopics();
+  const topics = await getTrendingTopics()
 
   return (
     <>
       {topics.map(({ hashtag, count }) => {
-        const title = hashtag.split('#')[1];
+        const title = hashtag.split('#')[1]
 
         return (
           <Item key={title} size='xs'>
@@ -25,8 +25,8 @@ export default async function TopicsList() {
               </Link>
             </ItemContent>
           </Item>
-        );
+        )
       })}
     </>
-  );
+  )
 }

@@ -1,15 +1,15 @@
-'use client';
+'use client'
 
-import { LoaderCircle } from 'lucide-react';
-import { Controller } from 'react-hook-form';
-import { Button } from '@/components/ui/button';
-import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
-import { Input } from '@/components/ui/input';
-import { useUsernameForm } from '@/hooks/use-username-form';
-import { AuthError } from './auth-error';
+import { LoaderCircle } from 'lucide-react'
+import { Controller } from 'react-hook-form'
+import { Button } from '@/components/ui/button'
+import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field'
+import { Input } from '@/components/ui/input'
+import { useUsernameForm } from '@/hooks/use-username-form'
+import { AuthError } from './auth-error'
 
 export default function UsernameForm() {
-  const { control, handleSubmit, isPending, error } = useUsernameForm();
+  const { control, handleSubmit, isPending, error } = useUsernameForm()
 
   return (
     <div className='flex flex-col gap-7'>
@@ -43,5 +43,5 @@ export default function UsernameForm() {
         </FieldGroup>
       </form>
     </div>
-  );
+  )
 }

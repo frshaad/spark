@@ -1,27 +1,27 @@
-'use client';
+'use client'
 
-import { Heart } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useLikePost } from '@/hooks/use-like-post';
-import { useLikesSummary } from '@/hooks/use-like-summary';
-import { formatCount } from '@/lib/format';
-import { LikeInfo } from '@/lib/types';
+import { Heart } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { useLikePost } from '@/hooks/use-like-post'
+import { useLikesSummary } from '@/hooks/use-like-summary'
+import { formatCount } from '@/lib/format'
+import { LikeInfo } from '@/lib/types'
 
 type LikeButtonProps = {
-  postId: string;
-  initialState: LikeInfo;
-};
+  postId: string
+  initialState: LikeInfo
+}
 
 export default function LikeButton({ postId, initialState }: LikeButtonProps) {
   const {
     data: { isLiked, likesCount },
-  } = useLikesSummary(postId, initialState);
+  } = useLikesSummary(postId, initialState)
 
-  const { mutate } = useLikePost();
+  const { mutate } = useLikePost()
 
   function handleLike(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    e.stopPropagation();
-    mutate({ postId, isLiked });
+    e.stopPropagation()
+    mutate({ postId, isLiked })
   }
 
   return (
@@ -44,5 +44,5 @@ export default function LikeButton({ postId, initialState }: LikeButtonProps) {
         </span>
       )}
     </Button>
-  );
+  )
 }

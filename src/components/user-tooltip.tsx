@@ -1,22 +1,22 @@
-'use client';
+'use client'
 
-import Link from 'next/link';
-import FollowButton from '@/components/follow-button';
-import Linkify from '@/components/linkify';
-import FollowStats from '@/components/profile/follow-stats';
-import { Card, CardAction, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import UserAvatar from '@/components/user-avatar';
-import { authClient } from '@/lib/auth-client';
-import { FollowInfo, UserRecord } from '@/lib/types';
+import Link from 'next/link'
+import FollowButton from '@/components/follow-button'
+import Linkify from '@/components/linkify'
+import FollowStats from '@/components/profile/follow-stats'
+import { Card, CardAction, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import UserAvatar from '@/components/user-avatar'
+import { authClient } from '@/lib/auth-client'
+import { FollowInfo, UserRecord } from '@/lib/types'
 
 interface UserTooltipProps extends React.PropsWithChildren {
-  user: UserRecord;
+  user: UserRecord
 }
 
 export default function UserTooltip({ user, children }: UserTooltipProps) {
-  const { data } = authClient.useSession();
-  const authenticatedUserId = data?.user.id;
+  const { data } = authClient.useSession()
+  const authenticatedUserId = data?.user.id
 
   const followState: FollowInfo = {
     isFollowing: Boolean(
@@ -24,7 +24,7 @@ export default function UserTooltip({ user, children }: UserTooltipProps) {
     ),
     followersCount: user._count.followers,
     followingCount: user._count.following,
-  };
+  }
 
   return (
     <Tooltip>
@@ -63,5 +63,5 @@ export default function UserTooltip({ user, children }: UserTooltipProps) {
         </Card>
       </TooltipContent>
     </Tooltip>
-  );
+  )
 }

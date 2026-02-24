@@ -1,18 +1,18 @@
-'use client';
+'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
-import { useState, useTransition } from 'react';
-import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
-import { authClient } from '@/lib/auth-client';
-import { signupSchema } from '@/lib/validation/auth';
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
+import { useState, useTransition } from 'react'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import { authClient } from '@/lib/auth-client'
+import { signupSchema } from '@/lib/validation/auth'
 
 export function useSignupForm() {
-  const router = useRouter();
-  const [isPending, startTransition] = useTransition();
-  const [error, setError] = useState<string | null>(null);
-  const [passwordVisible, setPasswordVisible] = useState(false);
+  const router = useRouter()
+  const [isPending, startTransition] = useTransition()
+  const [error, setError] = useState<string | null>(null)
+  const [passwordVisible, setPasswordVisible] = useState(false)
 
   const form = useForm({
     resolver: zodResolver(signupSchema),
@@ -23,27 +23,27 @@ export function useSignupForm() {
       password: '',
       confirmPassword: '',
     },
-  });
+  })
 
   const handleSubmit = form.handleSubmit((inputs) => {
-    setError(null);
+    setError(null)
     startTransition(async () => {
       try {
-        const { error } = await authClient.signUp.email(inputs);
+        const { error } = await authClient.signUp.email(inputs)
 
         if (error) {
-          setError(error.message || 'Something went wrong');
+          setError(error.message || 'Something went wrong')
         } else {
-          toast.success('Account created successfully!');
-          router.push('/');
+          toast.success('Account created successfully!')
+          router.push('/')
         }
       } catch {
-        setError('An unexpected error occurred');
+        setError('An unexpected error occurred')
       }
-    });
-  });
+    })
+  })
 
-  const togglePasswordVisibility = () => setPasswordVisible((c) => !c);
+  const togglePasswordVisibility = () => setPasswordVisible((c) => !c)
 
   return {
     control: form.control,
@@ -52,5 +52,5 @@ export function useSignupForm() {
     error,
     passwordVisible,
     togglePasswordVisibility,
-  };
+  }
 }

@@ -1,31 +1,31 @@
-'use client';
+'use client'
 
-import './tiptap.css';
-import { EditorContent } from '@tiptap/react';
-import { useDropzone } from '@uploadthing/react';
-import { Loader2 } from 'lucide-react';
-import { useMemo } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import UserAvatar from '@/components/user-avatar';
-import { usePostEditor } from '@/hooks/use-post-editor';
-import { usePostSubmit } from '@/hooks/use-post-submit';
-import { useUploadMedia } from '@/hooks/use-upload-media';
-import { isRTL } from '@/lib/format';
-import { cn } from '@/lib/utils';
-import AddAttachmentsButton from './add-attachment-button';
-import AttachmentPreviews from './attachment-previews';
+import './tiptap.css'
+import { EditorContent } from '@tiptap/react'
+import { useDropzone } from '@uploadthing/react'
+import { Loader2 } from 'lucide-react'
+import { useMemo } from 'react'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardFooter } from '@/components/ui/card'
+import UserAvatar from '@/components/user-avatar'
+import { usePostEditor } from '@/hooks/use-post-editor'
+import { usePostSubmit } from '@/hooks/use-post-submit'
+import { useUploadMedia } from '@/hooks/use-upload-media'
+import { isRTL } from '@/lib/format'
+import { cn } from '@/lib/utils'
+import AddAttachmentsButton from './add-attachment-button'
+import AttachmentPreviews from './attachment-previews'
 
 type Props = {
   user: {
-    name: string;
-    image: string | null;
-  };
-};
+    name: string
+    image: string | null
+  }
+}
 
 export default function PostEditor({ user }: Props) {
-  const { editor, content, clear: clearText } = usePostEditor();
-  const { mutate, isPending } = usePostSubmit();
+  const { editor, content, clear: clearText } = usePostEditor()
+  const { mutate, isPending } = usePostSubmit()
   const {
     attachments,
     isUploading,
@@ -33,19 +33,19 @@ export default function PostEditor({ user }: Props) {
     startUpload,
     uploadProgress,
     reset: resetMediaUpload,
-  } = useUploadMedia();
+  } = useUploadMedia()
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: startUpload,
-  });
+  })
 
-  const { onClick: _, ...rootProps } = getRootProps();
+  const { onClick: _, ...rootProps } = getRootProps()
 
-  const isPostEmpty = content.trim().length === 0 && attachments.length === 0;
-  const isContentRtl = useMemo(() => isRTL(content), [content]);
+  const isPostEmpty = content.trim().length === 0 && attachments.length === 0
+  const isContentRtl = useMemo(() => isRTL(content), [content])
 
   function submit() {
-    if (isPostEmpty) return;
+    if (isPostEmpty) return
     mutate(
       {
         content,
@@ -53,21 +53,21 @@ export default function PostEditor({ user }: Props) {
       },
       {
         onSuccess() {
-          clearText();
-          resetMediaUpload();
+          clearText()
+          resetMediaUpload()
         },
       },
-    );
+    )
   }
 
   function onPaste(e: React.ClipboardEvent<HTMLInputElement>) {
     const files = Array.from(e.clipboardData.items)
       .filter((item) => item.kind === 'file')
-      .map((item) => item.getAsFile()) as File[];
+      .map((item) => item.getAsFile()) as File[]
 
-    if (!files.length) return;
+    if (!files.length) return
 
-    startUpload(files);
+    startUpload(files)
   }
 
   return (
@@ -111,5 +111,5 @@ export default function PostEditor({ user }: Props) {
         </Button>
       </CardFooter>
     </Card>
-  );
+  )
 }

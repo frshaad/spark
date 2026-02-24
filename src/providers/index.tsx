@@ -1,8 +1,8 @@
-'use client';
+'use client'
 
-import { Toaster } from '@/components/ui/sonner';
-import ReactQueryProvider from './react-query-provider';
-import { ThemeProvider } from './theme-provider';
+import { Toaster } from '@/components/ui/sonner'
+import ReactQueryProvider from './react-query-provider'
+import { ThemeProvider } from './theme-provider'
 
 export default function Providers({ children }: React.PropsWithChildren) {
   return (
@@ -12,5 +12,5 @@ export default function Providers({ children }: React.PropsWithChildren) {
         <Toaster richColors />
       </ReactQueryProvider>
     </ThemeProvider>
-  );
+  )
 }

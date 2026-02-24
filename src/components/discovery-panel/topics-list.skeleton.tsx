@@ -1,5 +1,5 @@
-import { Item, ItemContent, ItemTitle } from '@/components/ui/item';
-import { Skeleton } from '@/components/ui/skeleton';
+import { Item, ItemContent, ItemTitle } from '@/components/ui/item'
+import { Skeleton } from '@/components/ui/skeleton'
 
 export function TopicsSkeleton({ count = 5 }: { count?: number }) {
   return (
@@ -15,5 +15,5 @@ export function TopicsSkeleton({ count = 5 }: { count?: number }) {
         </Item>
       ))}
     </>
-  );
+  )
 }

@@ -1,28 +1,25 @@
-'use client';
+'use client'
 
-import { Route } from 'next';
-import Link from 'next/link';
-import { useMemo } from 'react';
-import PostHeader from '@/components/posts/post-header';
-import { Card, CardContent } from '@/components/ui/card';
-import UserAvatar from '@/components/user-avatar';
-import UserTooltip from '@/components/user-tooltip';
-import { isRTL } from '@/lib/format';
-import { CommentRecord, OnboardedUser } from '@/lib/types';
-import { cn } from '@/lib/utils';
-import CommentMenu from './comment-menu';
+import { Route } from 'next'
+import Link from 'next/link'
+import { useMemo } from 'react'
+import PostHeader from '@/components/posts/post-header'
+import { Card, CardContent } from '@/components/ui/card'
+import UserAvatar from '@/components/user-avatar'
+import UserTooltip from '@/components/user-tooltip'
+import { isRTL } from '@/lib/format'
+import { CommentRecord, OnboardedUser } from '@/lib/types'
+import { cn } from '@/lib/utils'
+import CommentMenu from './comment-menu'
 
 type CommentProps = {
-  comment: CommentRecord;
-};
+  comment: CommentRecord
+}
 
 export default function Comment({ comment }: CommentProps) {
-  const authorUrl = useMemo(
-    () => `/${comment.author.username}` as Route,
-    [comment.author.username],
-  );
+  const authorUrl = useMemo(() => `/${comment.author.username}` as Route, [comment.author.username])
 
-  const isContentRtl = useMemo(() => isRTL(comment.content), [comment.content]);
+  const isContentRtl = useMemo(() => isRTL(comment.content), [comment.content])
 
   return (
     <Card role='button' className='group/comment'>
@@ -67,5 +64,5 @@ export default function Comment({ comment }: CommentProps) {
         </div>
       </CardContent>
     </Card>
-  );
+  )
 }

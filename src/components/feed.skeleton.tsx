@@ -1,4 +1,4 @@
-import PostSkeleton from './posts/post.skeleton';
+import PostSkeleton from './posts/post.skeleton'
 
 export default function FeedSkeleton({ count = 3 }: { count?: number }) {
   return (
@@ -7,5 +7,5 @@ export default function FeedSkeleton({ count = 3 }: { count?: number }) {
         <PostSkeleton key={i} />
       ))}
     </div>
-  );
+  )
 }

@@ -1,7 +1,7 @@
-import { Suspense } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import TopicsList from './topics-list';
-import { TopicsSkeleton } from './topics-list.skeleton';
+import { Suspense } from 'react'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import TopicsList from './topics-list'
+import { TopicsSkeleton } from './topics-list.skeleton'
 
 export default function TrendingTopics() {
   return (
@@ -15,5 +15,5 @@ export default function TrendingTopics() {
         </Suspense>
       </CardContent>
     </Card>
-  );
+  )
 }

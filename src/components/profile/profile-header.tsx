@@ -1,24 +1,24 @@
-import { CalendarDays } from 'lucide-react';
-import FollowButton from '@/components/follow-button';
-import Linkify from '@/components/linkify';
-import UserAvatar from '@/components/user-avatar';
-import { formatCount, formatJoinedDate } from '@/lib/format';
-import { FollowInfo, UserRecord } from '@/lib/types';
-import EditProfileButton from './edit-profile-button';
-import FollowStats from './follow-stats';
-import StatBlock from './stat-block';
+import { CalendarDays } from 'lucide-react'
+import FollowButton from '@/components/follow-button'
+import Linkify from '@/components/linkify'
+import UserAvatar from '@/components/user-avatar'
+import { formatCount, formatJoinedDate } from '@/lib/format'
+import { FollowInfo, UserRecord } from '@/lib/types'
+import EditProfileButton from './edit-profile-button'
+import FollowStats from './follow-stats'
+import StatBlock from './stat-block'
 
 type ProfileHeaderProps = {
-  user: UserRecord;
-  authenticatedUserId: string;
-};
+  user: UserRecord
+  authenticatedUserId: string
+}
 
 export default function ProfileHeader({ user, authenticatedUserId }: ProfileHeaderProps) {
   const followInfo: FollowInfo = {
     followersCount: user._count.followers,
     followingCount: user._count.following,
     isFollowing: user.followers.some(({ followerId }) => followerId === authenticatedUserId),
-  };
+  }
 
   return (
     <section aria-label='Profile information' className='px-6 py-6 md:px-10 md:py-8'>
@@ -61,5 +61,5 @@ export default function ProfileHeader({ user, authenticatedUserId }: ProfileHead
         <FollowStats targetUserId={user.id} initialState={followInfo} />
       </div>
     </section>
-  );
+  )
 }

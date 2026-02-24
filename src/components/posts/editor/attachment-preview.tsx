@@ -1,19 +1,19 @@
-import { X } from 'lucide-react';
-import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import { Attachment } from '@/lib/types';
-import { cn } from '@/lib/utils';
+import { X } from 'lucide-react'
+import Image from 'next/image'
+import { Button } from '@/components/ui/button'
+import { Attachment } from '@/lib/types'
+import { cn } from '@/lib/utils'
 
 type AttachmentPreviewProps = {
-  attachment: Attachment;
-  onRemoveClick: () => void;
-};
+  attachment: Attachment
+  onRemoveClick: () => void
+}
 
 export default function AttachmentPreview({
   attachment: { file, isUploading },
   onRemoveClick,
 }: AttachmentPreviewProps) {
-  const src = URL.createObjectURL(file);
+  const src = URL.createObjectURL(file)
 
   return (
     <div className={cn('relative mx-auto size-fit', isUploading && 'opacity-50')}>
@@ -41,5 +41,5 @@ export default function AttachmentPreview({
         </Button>
       )}
     </div>
-  );
+  )
 }

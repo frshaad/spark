@@ -1,5 +1,5 @@
-import TrendingTopics from './trending-topics';
-import WhoToFollow from './who-to-follow';
+import TrendingTopics from './trending-topics'
+import WhoToFollow from './who-to-follow'
 
 export default function DiscoveryPanel() {
   return (
@@ -7,5 +7,5 @@ export default function DiscoveryPanel() {
       <WhoToFollow />
       <TrendingTopics />
     </aside>
-  );
+  )
 }

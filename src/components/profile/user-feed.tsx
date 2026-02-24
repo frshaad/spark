@@ -1,36 +1,36 @@
-'use client';
+'use client'
 
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { Loader2 } from 'lucide-react';
-import FeedSkeleton from '@/components/feed.skeleton';
-import InfiniteScrollContainer from '@/components/infinite-scroll-container';
-import PostsList from '@/components/posts/posts-list';
-import { getFeedQuery } from '@/lib/queries';
-import { QUERY_KEYS } from '@/lib/query-keys';
+import { useInfiniteQuery } from '@tanstack/react-query'
+import { Loader2 } from 'lucide-react'
+import FeedSkeleton from '@/components/feed.skeleton'
+import InfiniteScrollContainer from '@/components/infinite-scroll-container'
+import PostsList from '@/components/posts/posts-list'
+import { getFeedQuery } from '@/lib/queries'
+import { QUERY_KEYS } from '@/lib/query-keys'
 
 type UserProfileFeedProps = {
-  userId: string;
-};
+  userId: string
+}
 
 export default function UserProfileFeed({ userId }: UserProfileFeedProps) {
   const { data, status, hasNextPage, isFetching, fetchNextPage } = useInfiniteQuery(
     getFeedQuery(QUERY_KEYS.userPosts(userId), `users/${userId}/posts`),
-  );
+  )
 
   if (status === 'pending') {
-    return <FeedSkeleton count={5} />;
+    return <FeedSkeleton count={5} />
   }
 
   if (status === 'error') {
-    return <div>Error loading posts</div>;
+    return <div>Error loading posts</div>
   }
 
-  const posts = data.pages.flatMap((page) => page.posts);
+  const posts = data.pages.flatMap((page) => page.posts)
 
   if (status === 'success' && !posts.length && !hasNextPage) {
     return (
       <p className='text-muted-foreground text-center'>The user has not posted anything yet.</p>
-    );
+    )
   }
 
   return (
@@ -43,5 +43,5 @@ export default function UserProfileFeed({ userId }: UserProfileFeedProps) {
       <PostsList posts={posts} />
       {isFetching && <Loader2 className='mx-auto my-3 animate-spin' />}
     </InfiniteScrollContainer>
-  );
+  )
 }

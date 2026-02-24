@@ -1,6 +1,6 @@
-import { Suspense } from 'react';
-import SearchField from '@/components/search/search-field';
-import SearchResultsContent from '@/components/search/search-result';
+import { Suspense } from 'react'
+import SearchField from '@/components/search/search-field'
+import SearchResultsContent from '@/components/search/search-result'
 
 export default function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
   return (
@@ -18,5 +18,5 @@ export default function SearchPage({ searchParams }: { searchParams: Promise<{ q
         </Suspense>
       </div>
     </main>
-  );
+  )
 }

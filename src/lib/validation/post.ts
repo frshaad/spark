@@ -1,4 +1,4 @@
-import * as z from 'zod';
+import * as z from 'zod'
 
 export const createPostSchema = z
   .object({
@@ -7,12 +7,12 @@ export const createPostSchema = z
   })
   .refine(
     (data) => {
-      const hasContent = !!data.content?.trim();
-      const hasMedia = !!data.mediaIds?.length;
+      const hasContent = !!data.content?.trim()
+      const hasMedia = !!data.mediaIds?.length
 
-      return hasContent || hasMedia;
+      return hasContent || hasMedia
     },
     { message: 'Post cannot be empty.', path: ['content'] },
-  );
+  )
 
-export type CreatePostInputs = z.infer<typeof createPostSchema>;
+export type CreatePostInputs = z.infer<typeof createPostSchema>

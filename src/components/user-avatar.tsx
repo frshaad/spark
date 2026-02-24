@@ -1,20 +1,20 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 type UserAvatarProps = {
   user: {
-    name: string;
-    image: string | null;
-  };
-  className?: string;
-};
+    name: string
+    image: string | null
+  }
+  className?: string
+}
 
 export default function UserAvatar({ user, className = '' }: UserAvatarProps) {
-  const { name, image } = user;
+  const { name, image } = user
 
   return (
     <Avatar className={className}>
       <AvatarImage src={image ?? '/avatar-placeholder.webp'} alt={name} />
       <AvatarFallback>{name[0]}</AvatarFallback>
     </Avatar>
-  );
+  )
 }

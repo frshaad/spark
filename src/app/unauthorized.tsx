@@ -1,13 +1,13 @@
-'use client';
+'use client'
 
-import { LogIn, ShieldX } from 'lucide-react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { LogIn, ShieldX } from 'lucide-react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
 
 export default function UnauthorizedPage() {
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   return (
     <div className='bg-background flex min-h-screen w-full items-center justify-center p-4'>
@@ -53,5 +53,5 @@ export default function UnauthorizedPage() {
         </p>
       </div>
     </div>
-  );
+  )
 }

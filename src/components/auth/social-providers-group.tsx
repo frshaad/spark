@@ -1,5 +1,5 @@
-import { Field, FieldGroup } from '@/components/ui/field';
-import SocialSignIn from './social-signin';
+import { Field, FieldGroup } from '@/components/ui/field'
+import SocialSignIn from './social-signin'
 
 export default function SocialProvidersGroup() {
   return (
@@ -30,5 +30,5 @@ export default function SocialProvidersGroup() {
         />
       </Field>
     </FieldGroup>
-  );
+  )
 }
