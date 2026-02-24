@@ -1,4 +1,6 @@
 {
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+
   "plugins": [
     "unicorn",
     "typescript",
@@ -13,8 +15,6 @@
   ],
 
   "rules": {
-    // "no-console": "error",
-
     "jsdoc/check-tag-names": "error",
     "jsdoc/require-yields": "error",
     "jsdoc/check-property-names": "error",
