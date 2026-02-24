@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "next build",
+    "check": "npm-run-all --parallel typecheck lint:ts format",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:reset": "prisma db push --force-reset",
@@ -14,6 +15,7 @@
     "lint": "oxlint --fix",
     "lint:ts": "oxlint --type-aware --type-check --fix",
     "start": "next start",
+    "typecheck": "tsc --noEmit",
     "typegen": "next typegen"
   },
   "dependencies": {
@@ -62,6 +64,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "babel-plugin-react-compiler": "1.0.0",
+    "npm-run-all2": "^8.0.4",
     "oxfmt": "^0.35.0",
     "oxlint": "^1.50.0",
     "oxlint-tsgolint": "^0.14.2",
