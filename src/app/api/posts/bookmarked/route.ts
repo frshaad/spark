@@ -2,10 +2,11 @@ import { NextRequest } from 'next/server';
 import { getBookmarkedPosts } from '@/lib/dal/bookmark';
 import { handleApiError } from '@/lib/errors';
 import {
-  buildCursorPaginatedPosts,
+  buildCursorPaginatedByKey,
   getCursorPaginationParams,
 } from '@/lib/server-api';
 import { requireAuthAPI } from '@/lib/session';
+import { isOnboardedPost } from '@/lib/types';
 
 export async function GET(req: NextRequest) {
   try {
@@ -19,10 +20,12 @@ export async function GET(req: NextRequest) {
     });
 
     return Response.json(
-      buildCursorPaginatedPosts(
-        bookmarks.map((b) => b.post),
+      buildCursorPaginatedByKey({
+        key: 'posts',
+        items: bookmarks.map((b) => b.post),
         pageSize,
-      ),
+        filter: isOnboardedPost,
+      }),
     );
   } catch (error) {
     return handleApiError(error);

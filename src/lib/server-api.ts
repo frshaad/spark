@@ -1,25 +1,33 @@
 import { NextRequest } from 'next/server';
 import {
   CommentRecord,
+  CursorPaginated,
   CursorPaginatedComments,
-  CursorPaginatedPosts,
-  PostRecord,
-  isOnboardedPost,
 } from '@/lib/types';
 
-export function buildCursorPaginatedPosts(
-  posts: PostRecord[],
-  pageSize: number,
-): CursorPaginatedPosts {
-  const validPosts = posts.filter(isOnboardedPost);
+export function buildCursorPaginatedByKey<
+  T extends { id: string },
+  K extends string,
+>({
+  key,
+  items,
+  pageSize,
+  filter,
+}: {
+  key: K;
+  items: T[];
+  pageSize: number;
+  filter?: (item: T) => boolean;
+}): CursorPaginated<T, K> {
+  const validItems = filter ? items.filter(filter) : items;
 
-  const hasNextPage = validPosts.length > pageSize;
-  const nextCursor = hasNextPage ? validPosts[pageSize].id : null;
+  const hasNextPage = validItems.length > pageSize;
+  const nextCursor = hasNextPage ? validItems[pageSize].id : null;
 
   return {
-    posts: validPosts.slice(0, pageSize),
+    [key]: validItems.slice(0, pageSize),
     nextCursor,
-  };
+  } as CursorPaginated<T, K>;
 }
 
 export function buildCursorPaginatedComments(

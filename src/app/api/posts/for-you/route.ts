@@ -2,10 +2,11 @@ import { NextRequest } from 'next/server';
 import { getForYouFeedPosts } from '@/lib/dal/post';
 import { handleApiError } from '@/lib/errors';
 import {
-  buildCursorPaginatedPosts,
+  buildCursorPaginatedByKey,
   getCursorPaginationParams,
 } from '@/lib/server-api';
 import { requireAuthAPI } from '@/lib/session';
+import { isOnboardedPost } from '@/lib/types';
 
 export async function GET(req: NextRequest) {
   try {
@@ -18,7 +19,14 @@ export async function GET(req: NextRequest) {
       authenticatedUserId: user.id,
     });
 
-    return Response.json(buildCursorPaginatedPosts(posts, pageSize));
+    return Response.json(
+      buildCursorPaginatedByKey({
+        key: 'posts',
+        items: posts,
+        pageSize,
+        filter: isOnboardedPost,
+      }),
+    );
   } catch (error) {
     return handleApiError(error);
   }

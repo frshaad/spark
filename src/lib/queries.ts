@@ -3,6 +3,7 @@ import { QUERY_KEYS } from '@/lib/query-keys';
 import {
   BookmarkInfo,
   CursorPaginatedComments,
+  CursorPaginatedNotifications,
   CursorPaginatedPosts,
   FollowInfo,
   LikeInfo,
@@ -39,6 +40,21 @@ export function getCommentsQuery(postId: string) {
         .json<CursorPaginatedComments>(),
     initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
+  });
+}
+
+export function getNotificationsQuery() {
+  return infiniteQueryOptions({
+    queryKey: QUERY_KEYS.notifications,
+    queryFn: ({ pageParam }) =>
+      api
+        .get('notifications', {
+          searchParams: pageParam ? { cursor: pageParam } : undefined,
+        })
+        .json<CursorPaginatedNotifications>(),
+    initialPageParam: undefined as string | undefined,
+    getNextPageParam: (lastPage) => lastPage.nextCursor,
+    maxPages: 15,
   });
 }
 

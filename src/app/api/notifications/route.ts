@@ -1,30 +1,28 @@
 import { NextRequest } from 'next/server';
-import { getFollowingFeedPosts } from '@/lib/dal/post';
+import { getNotificationsForUser } from '@/lib/dal/notification';
 import { handleApiError } from '@/lib/errors';
 import {
   buildCursorPaginatedByKey,
   getCursorPaginationParams,
 } from '@/lib/server-api';
 import { requireAuthAPI } from '@/lib/session';
-import { isOnboardedPost } from '@/lib/types';
 
 export async function GET(req: NextRequest) {
   try {
     const { user } = await requireAuthAPI();
     const { cursor, pageSize } = getCursorPaginationParams(req);
 
-    const posts = await getFollowingFeedPosts({
-      authenticatedUserId: user.id,
+    const notifications = await getNotificationsForUser({
+      recipientId: user.id,
       cursor,
       pageSize,
     });
 
     return Response.json(
       buildCursorPaginatedByKey({
-        key: 'posts',
-        items: posts,
+        key: 'notifications',
+        items: notifications,
         pageSize,
-        filter: isOnboardedPost,
       }),
     );
   } catch (error) {

@@ -2,6 +2,8 @@ import { Route } from 'next';
 import {
   CommentGetPayload,
   CommentInclude,
+  NotificationGetPayload,
+  NotificationInclude,
   PostGetPayload,
   PostInclude,
   UserGetPayload,
@@ -74,6 +76,18 @@ export function buildCommentInclude(viewerId: string) {
   } satisfies CommentInclude;
 }
 
+export const notificationInclude = {
+  issuer: {
+    select: { username: true, name: true, image: true },
+  },
+  recipient: {
+    select: { username: true },
+  },
+  post: {
+    select: { content: true },
+  },
+} satisfies NotificationInclude;
+
 //
 // ─────────────────────────────────────────────
 // Prisma Derived Types
@@ -90,6 +104,10 @@ export type PostRecord = PostGetPayload<{
 
 export type CommentRecord = CommentGetPayload<{
   include: ReturnType<typeof buildCommentInclude>;
+}>;
+
+export type NotificationRecord = NotificationGetPayload<{
+  include: typeof notificationInclude;
 }>;
 
 type AuthorFromPost = PostRecord['author'];
@@ -112,15 +130,23 @@ export type CommentView = Omit<CommentRecord, 'author'> & {
   author: OnboardedUser;
 };
 
-export type CursorPaginatedPosts = {
-  posts: PostView[];
+export type CursorPaginated<T, K extends string> = {
+  [P in K]: T[];
+} & {
   nextCursor: string | null;
 };
 
-export type CursorPaginatedComments = {
-  comments: CommentRecord[];
-  nextCursor: string | null;
-};
+export type CursorPaginatedPosts = CursorPaginated<PostView, 'posts'>;
+
+export type CursorPaginatedComments = CursorPaginated<
+  CommentRecord,
+  'comments'
+>;
+
+export type CursorPaginatedNotifications = CursorPaginated<
+  NotificationRecord,
+  'notifications'
+>;
 
 export type FollowInfo = {
   followersCount: number;
