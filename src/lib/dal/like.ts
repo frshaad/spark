@@ -21,7 +21,7 @@ export function dislikePost(postId: string, authenticatedUserId: string) {
   });
 }
 
-export function createLikePostTransaction({
+export function likePostTransaction({
   issuerId,
   recipientId,
   postId,
@@ -36,7 +36,7 @@ export function createLikePostTransaction({
   ]);
 }
 
-export function removeLikePostTransaction({
+export function unlikePostTransaction({
   issuerId,
   recipientId,
   postId,

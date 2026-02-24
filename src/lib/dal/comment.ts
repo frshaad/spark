@@ -1,7 +1,9 @@
+import { Notification } from '@/generated/prisma/client';
 import prisma from '@/lib/prisma';
 import { type CommentRecord, buildCommentInclude } from '@/lib/types';
+import { createNotification } from './notification';
 
-export async function createComment(data: {
+export function createComment(data: {
   authorId: string;
   postId: string;
   content: string;
@@ -44,4 +46,21 @@ export async function deleteCommentById(id: string, viewerId: string) {
     where: { id },
     include: buildCommentInclude(viewerId),
   });
+}
+
+export function commentTransaction({
+  issuerId,
+  recipientId,
+  postId,
+  content,
+}: Omit<Pick<Notification, 'issuerId' | 'postId' | 'recipientId'>, 'postId'> & {
+  postId: NonNullable<Notification['postId']>;
+  content: string;
+}) {
+  return prisma.$transaction([
+    createComment({ authorId: issuerId, content, postId }),
+    ...(issuerId !== recipientId
+      ? [createNotification({ issuerId, recipientId, postId, type: 'COMMENT' })]
+      : []),
+  ]);
 }

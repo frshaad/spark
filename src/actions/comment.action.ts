@@ -1,7 +1,7 @@
 'use server';
 
 import {
-  createComment,
+  commentTransaction,
   deleteCommentById,
   findCommentById,
 } from '@/lib/dal/comment';
@@ -21,10 +21,11 @@ export async function submitComment({
 
   const validatedComment = commentSchema.parse({ content });
 
-  const newComment = await createComment({
-    authorId: session.user.id,
+  const [newComment] = await commentTransaction({
     postId: post.id,
     content: validatedComment.content,
+    issuerId: session.user.id,
+    recipientId: post.authorId,
   });
 
   return newComment;
