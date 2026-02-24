@@ -14,7 +14,7 @@ export default function Navbar() {
         <Logo />
 
         <nav className='flex flex-col max-lg:gap-3'>
-          {NAV_LINKS.map((item) => (
+          {NAV_LINKS.map(item => (
             <NavButton key={item.href} {...item} />
           ))}
         </nav>
@@ -40,7 +40,7 @@ export default function Navbar() {
 
       {/* Mobile/Tablet Bottom Navigation */}
       <nav className='border-border bg-card/95 supports-backdrop-filter:bg-card/80 fixed right-0 bottom-0 left-0 z-50 flex items-center justify-around border-t p-1 backdrop-blur lg:hidden'>
-        {NAV_LINKS.map((item) => (
+        {NAV_LINKS.map(item => (
           <NavButton key={item.href} {...item} />
         ))}
       </nav>

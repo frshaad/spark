@@ -15,7 +15,7 @@ export function useCommentSubmit() {
 
       client.setQueryData<InfiniteData<CursorPaginatedComments, string | null>>(
         queryKey,
-        (oldData) => {
+        oldData => {
           const firstPage = oldData?.pages[0]
           if (!firstPage) return oldData
 

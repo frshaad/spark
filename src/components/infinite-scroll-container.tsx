@@ -19,7 +19,7 @@ export default function InfiniteScrollContainer({
   const { ref } = useInView({
     rootMargin: '200px',
     triggerOnce: false,
-    onChange: (inView) => {
+    onChange: inView => {
       if (inView && hasNextPage && !isFetching) {
         onBottomReached()
       }

@@ -26,7 +26,7 @@ export default function AvatarInput({ onImageCroppedAction, src }: AvatarInputPr
       'WEBP',
       100,
       0,
-      (uri) => setImageToCrop(uri as File),
+      uri => setImageToCrop(uri as File),
       'file',
     )
   }
@@ -36,7 +36,7 @@ export default function AvatarInput({ onImageCroppedAction, src }: AvatarInputPr
       <input
         type='file'
         accept='image/*'
-        onChange={(e) => onImageSelected(e.target.files?.[0])}
+        onChange={e => onImageSelected(e.target.files?.[0])}
         ref={fileInputRef}
         className='sr-only hidden'
       />

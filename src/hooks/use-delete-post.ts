@@ -20,14 +20,14 @@ export function useDeletePost() {
 
       context.client.setQueriesData<InfiniteData<CursorPaginatedPosts, string | null>>(
         queryFilter,
-        (oldData) => {
+        oldData => {
           if (!oldData) return
 
           return {
             pageParams: oldData.pageParams,
-            pages: oldData.pages.map((page) => ({
+            pages: oldData.pages.map(page => ({
               nextCursor: page.nextCursor,
-              posts: page.posts.filter((post) => post.id !== deletedPost.id),
+              posts: page.posts.filter(post => post.id !== deletedPost.id),
             })),
           }
         },

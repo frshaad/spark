@@ -13,7 +13,7 @@ export default async function SuggestedUsersList() {
 
   return (
     <>
-      {suggestedUsers.map((user) => (
+      {suggestedUsers.map(user => (
         <Item key={user.id}>
           <ItemContent>
             <UserTooltip user={user}>

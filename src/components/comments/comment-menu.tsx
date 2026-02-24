@@ -45,19 +45,19 @@ export default function CommentMenu({ authorId, commentId }: CommentMenuProps) {
       <DropdownMenuTrigger
         render={<Button variant='ghost' />}
         className='opacity-0 transition-opacity group-hover/comment:opacity-100'
-        onClick={(e) => e.stopPropagation()}
+        onClick={e => e.stopPropagation()}
       >
         <EllipsisVertical />
       </DropdownMenuTrigger>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DropdownMenuContent onClick={(e) => e.stopPropagation()}>
+        <DropdownMenuContent onClick={e => e.stopPropagation()}>
           <DropdownMenuItem variant='destructive' onClick={() => setIsDialogOpen(true)}>
             <Trash /> Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
 
-        <DialogContent onClick={(e) => e.stopPropagation()}>
+        <DialogContent onClick={e => e.stopPropagation()}>
           <DialogHeader>
             <DialogTitle>Delete comment?</DialogTitle>
             <DialogDescription>

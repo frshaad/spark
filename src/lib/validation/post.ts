@@ -6,7 +6,7 @@ export const createPostSchema = z
     mediaIds: z.array(z.string()).max(5, 'Cannot upload more than 5 media files').optional(),
   })
   .refine(
-    (data) => {
+    data => {
       const hasContent = !!data.content?.trim()
       const hasMedia = !!data.mediaIds?.length
 

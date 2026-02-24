@@ -24,7 +24,7 @@ export function usePostSubmit() {
 
       await client.cancelQueries(queryFilter)
 
-      client.setQueriesData<InfiniteData<CursorPaginatedPosts, string | null>>(queryFilter, (old) =>
+      client.setQueriesData<InfiniteData<CursorPaginatedPosts, string | null>>(queryFilter, old =>
         prependPostToInfiniteCache(old, newPost),
       )
 

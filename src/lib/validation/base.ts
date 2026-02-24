@@ -45,13 +45,13 @@ export const usernameSchema = z
     `Username must be ${baseSchemaConfig.MAX_USERNAME_LENGTH} characters or fewer`,
   )
   .regex(USERNAME_REGEX, 'Username may contain lowercase letters, numbers, dots, or underscores')
-  .transform((val) => val.toLowerCase())
+  .transform(val => val.toLowerCase())
 
 export const emailSchema = z
   .email({ error: 'Invalid email address' })
   .trim()
   .max(baseSchemaConfig.MAX_EMAIL_LENGTH, 'Email is too long')
-  .transform((s) => s.toLowerCase())
+  .transform(s => s.toLowerCase())
 
 export const passwordSchema = z
   .string()

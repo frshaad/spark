@@ -12,11 +12,11 @@ export default function PostActions({ post }: PostActionsProps) {
 
   const initialLikesState: LikeInfo = {
     likesCount: post._count.likes,
-    isLiked: post.likes.some((p) => p.userId === authenticatedUserId),
+    isLiked: post.likes.some(p => p.userId === authenticatedUserId),
   }
 
   const initialBookmarkState: BookmarkInfo = {
-    isBookmarked: post.bookmarks.some((p) => p.userId === authenticatedUserId),
+    isBookmarked: post.bookmarks.some(p => p.userId === authenticatedUserId),
   }
 
   return (

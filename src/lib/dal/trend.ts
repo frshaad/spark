@@ -14,7 +14,7 @@ export async function getTrendingTopics() {
     LIMIT 5;
   `
 
-  return result.map((row) => ({
+  return result.map(row => ({
     hashtag: row.hashtag,
     count: Number(row.count),
   }))

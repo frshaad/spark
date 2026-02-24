@@ -18,7 +18,7 @@ export default function ForYouFeed() {
     return <div>Error loading posts</div>
   }
 
-  const posts = data.pages.flatMap((page) => page.posts)
+  const posts = data.pages.flatMap(page => page.posts)
 
   if (status === 'success' && !posts.length && !hasNextPage) {
     return <p className='text-muted-foreground text-center'>No one has posted anything yet.</p>

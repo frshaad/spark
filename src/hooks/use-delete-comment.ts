@@ -15,14 +15,14 @@ export function useDeleteComment() {
 
       client.setQueriesData<InfiniteData<CursorPaginatedComments, string | null>>(
         { queryKey },
-        (oldData) => {
+        oldData => {
           if (!oldData) return
 
           return {
             pageParams: oldData.pageParams,
-            pages: oldData.pages.map((page) => ({
+            pages: oldData.pages.map(page => ({
               nextCursor: page.nextCursor,
-              comments: page.comments.filter((comment) => comment.id !== deletedComment.id),
+              comments: page.comments.filter(comment => comment.id !== deletedComment.id),
             })),
           }
         },

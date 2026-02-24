@@ -25,7 +25,7 @@ export function useLoginForm() {
     defaultValues: { loginIdentifier: '', password: '', rememberMe: false },
   })
 
-  const handleSubmit = form.handleSubmit((data) => {
+  const handleSubmit = form.handleSubmit(data => {
     setError(null)
     startTransition(async () => {
       try {
@@ -57,7 +57,7 @@ export function useLoginForm() {
   })
 
   const lastMethod = authClient.getLastUsedLoginMethod()
-  const togglePasswordVisibility = () => setPasswordVisible((c) => !c)
+  const togglePasswordVisibility = () => setPasswordVisible(c => !c)
 
   return {
     control: form.control,

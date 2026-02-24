@@ -20,7 +20,7 @@ export function getFeedQuery(queryKey: QueryKey, apiRoute: string) {
         })
         .json<CursorPaginatedPosts>(),
     initialPageParam: undefined as string | undefined,
-    getNextPageParam: (lastPage) => lastPage.nextCursor,
+    getNextPageParam: lastPage => lastPage.nextCursor,
     maxPages: 15,
   })
 }
@@ -35,7 +35,7 @@ export function getCommentsQuery(postId: string) {
         })
         .json<CursorPaginatedComments>(),
     initialPageParam: undefined as string | undefined,
-    getNextPageParam: (lastPage) => lastPage.nextCursor,
+    getNextPageParam: lastPage => lastPage.nextCursor,
   })
 }
 
@@ -49,7 +49,7 @@ export function getNotificationsQuery() {
         })
         .json<CursorPaginatedNotifications>(),
     initialPageParam: undefined as string | undefined,
-    getNextPageParam: (lastPage) => lastPage.nextCursor,
+    getNextPageParam: lastPage => lastPage.nextCursor,
     maxPages: 15,
   })
 }

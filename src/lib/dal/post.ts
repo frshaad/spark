@@ -125,7 +125,7 @@ export async function createPost(authorId: string, data: CreatePostInputs) {
       content: content || '',
       authorId,
       attachments: {
-        connect: mediaIds ? mediaIds.map((id) => ({ id })) : [],
+        connect: mediaIds ? mediaIds.map(id => ({ id })) : [],
       },
     },
     include: buildPostInclude(authorId),

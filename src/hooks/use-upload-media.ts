@@ -9,17 +9,14 @@ export function useUploadMedia() {
 
   const { startUpload, isUploading } = useUploadThing('attachment', {
     onBeforeUploadBegin(files) {
-      const renamedFiles = files.map((file) => {
+      const renamedFiles = files.map(file => {
         const fileExtension = file.name.split('.').pop()
         return new File([file], `attachment_${crypto.randomUUID()}.${fileExtension}`, {
           type: file.type,
         })
       })
 
-      setAttachments((prev) => [
-        ...prev,
-        ...renamedFiles.map((file) => ({ file, isUploading: true })),
-      ])
+      setAttachments(prev => [...prev, ...renamedFiles.map(file => ({ file, isUploading: true }))])
 
       return renamedFiles
     },
@@ -27,9 +24,9 @@ export function useUploadMedia() {
     onUploadProgress: setUploadProgress,
 
     onClientUploadComplete(res) {
-      setAttachments((prev) =>
-        prev.map((a) => {
-          const uploadResult = res.find((r) => r.name === a.file.name)
+      setAttachments(prev =>
+        prev.map(a => {
+          const uploadResult = res.find(r => r.name === a.file.name)
           if (!uploadResult) return a
 
           return {
@@ -42,7 +39,7 @@ export function useUploadMedia() {
     },
 
     onUploadError(error) {
-      setAttachments((prev) => prev.filter((a) => !a.isUploading))
+      setAttachments(prev => prev.filter(a => !a.isUploading))
       toast.error(error.message)
     },
   })
@@ -62,7 +59,7 @@ export function useUploadMedia() {
   }
 
   function removeAttachment(filename: string) {
-    setAttachments((prev) => prev.filter((a) => a.file.name !== filename))
+    setAttachments(prev => prev.filter(a => a.file.name !== filename))
   }
 
   function reset() {

@@ -4,7 +4,7 @@ import { emailSchema, nameSchema, passwordSchema, usernameSchema } from './base'
 export const loginIdentifierSchema = z
   .string()
   .trim()
-  .transform((value) => value.toLowerCase())
+  .transform(value => value.toLowerCase())
   .superRefine((value, ctx) => {
     const isEmail = emailSchema.safeParse(value).success
     const isUsername = usernameSchema.safeParse(value).success
@@ -25,7 +25,7 @@ export const signupSchema = z
     password: passwordSchema,
     confirmPassword: z.string(),
   })
-  .refine((data) => data.password === data.confirmPassword, {
+  .refine(data => data.password === data.confirmPassword, {
     message: 'Passwords do not match',
     path: ['confirmPassword'],
   })

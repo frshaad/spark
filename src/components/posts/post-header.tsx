@@ -18,12 +18,12 @@ export default function PostHeader({
   const isRtl = useMemo(() => isRTL(displayName), [displayName])
 
   return (
-    <div className='min-w-0' onClick={(e) => e.stopPropagation()}>
+    <div className='min-w-0' onClick={e => e.stopPropagation()}>
       <div className='mb-1 flex items-center gap-2 text-sm'>
         <UserTooltip user={author}>
           <Link
             href={authorUrl}
-            onClick={(e) => e.stopPropagation()}
+            onClick={e => e.stopPropagation()}
             className='font-semibold hover:underline'
           >
             <span dir={isRtl ? 'rtl' : 'ltr'}>{displayName}</span>
@@ -31,7 +31,7 @@ export default function PostHeader({
 
           <Link
             href={authorUrl}
-            onClick={(e) => e.stopPropagation()}
+            onClick={e => e.stopPropagation()}
             className='text-muted-foreground hover:underline'
           >
             <span dir='ltr'>@{author.username}</span>

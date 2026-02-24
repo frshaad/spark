@@ -19,7 +19,7 @@ export default function Notifications() {
     return <div>Error loading notifications</div>
   }
 
-  const notifications = data.pages.flatMap((page) => page.notifications)
+  const notifications = data.pages.flatMap(page => page.notifications)
 
   if (status === 'success' && !notifications.length && !hasNextPage) {
     return <p className='text-muted-foreground text-center'>You don't have any bookmarks yet.</p>
@@ -38,7 +38,7 @@ export default function Notifications() {
         isFetching={isFetching}
       >
         <>
-          {notifications.map((notification) => (
+          {notifications.map(notification => (
             <Notification key={notification.id} notification={notification} />
           ))}
         </>

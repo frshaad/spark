@@ -25,7 +25,7 @@ export default function UserProfileFeed({ userId }: UserProfileFeedProps) {
     return <div>Error loading posts</div>
   }
 
-  const posts = data.pages.flatMap((page) => page.posts)
+  const posts = data.pages.flatMap(page => page.posts)
 
   if (status === 'success' && !posts.length && !hasNextPage) {
     return (

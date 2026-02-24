@@ -13,7 +13,7 @@ import { cn } from '@/lib/utils'
 // Mock search function - replace with your actual search logic
 async function searchResults(query: string) {
   // Simulate API call
-  await new Promise((resolve) => setTimeout(resolve, 300))
+  await new Promise(resolve => setTimeout(resolve, 300))
 
   // Mock data - replace with actual search results
   const mockResults = [
@@ -31,7 +31,7 @@ async function searchResults(query: string) {
   ]
 
   return mockResults
-    .filter((item) => item.title.toLowerCase().includes(query.toLowerCase()))
+    .filter(item => item.title.toLowerCase().includes(query.toLowerCase()))
     .slice(0, 5)
 }
 
@@ -66,7 +66,7 @@ export default function SearchField() {
           type='text'
           placeholder='Search...'
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={e => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
           onFocus={() => query.trim() && results.length > 0 && open()}
           className='pl-9'
@@ -79,7 +79,7 @@ export default function SearchField() {
             <div className='text-muted-foreground p-4 text-center text-sm'>Searching...</div>
           ) : results.length > 0 ? (
             <ul className='py-2'>
-              {results.map((result) => (
+              {results.map(result => (
                 <li key={result.id}>
                   <button
                     onClick={() => handleResultClick(result.url)}

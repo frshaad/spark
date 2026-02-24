@@ -30,10 +30,10 @@ export function useUpdateProfile() {
         { queryKey: QUERY_KEYS.userPosts(updatedUser.id) },
       ]
 
-      feedsToUpdate.forEach((filter) => {
+      feedsToUpdate.forEach(filter => {
         ctx.client.setQueriesData<InfiniteData<CursorPaginatedPosts, string | null>>(
           filter,
-          (oldData) => updatePostsAuthor(oldData, updatedUser, newAvatarUrl),
+          oldData => updatePostsAuthor(oldData, updatedUser, newAvatarUrl),
         )
       })
 
@@ -59,9 +59,9 @@ function updatePostsAuthor(
 
   return {
     pageParams: oldData.pageParams,
-    pages: oldData.pages.map((page) => ({
+    pages: oldData.pages.map(page => ({
       ...page,
-      posts: page.posts.map((post) =>
+      posts: page.posts.map(post =>
         post.authorId === updatedUser.id
           ? {
               ...post,

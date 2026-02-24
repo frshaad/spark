@@ -6,7 +6,7 @@ export async function getCroppedImg(
   image.src = imageSrc
   image.crossOrigin = 'anonymous' // Prevent CORS issues
 
-  await new Promise((resolve) => (image.onload = resolve))
+  await new Promise(resolve => (image.onload = resolve))
 
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
@@ -28,7 +28,7 @@ export async function getCroppedImg(
     pixelCrop.height,
   )
 
-  return new Promise((resolve) => {
-    canvas.toBlob((blob) => resolve(blob), 'image/webp')
+  return new Promise(resolve => {
+    canvas.toBlob(blob => resolve(blob), 'image/webp')
   })
 }

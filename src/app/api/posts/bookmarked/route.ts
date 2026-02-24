@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
     return Response.json(
       buildCursorPaginatedByKey({
         key: 'posts',
-        items: bookmarks.map((b) => b.post),
+        items: bookmarks.map(b => b.post),
         pageSize,
         filter: isOnboardedPost,
       }),

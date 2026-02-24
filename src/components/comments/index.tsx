@@ -31,7 +31,7 @@ export default function Comments({ post }: CommentsProps) {
     return <div>An error occurred while loading comments.</div>
   }
 
-  const comments = data.pages.flatMap((page) => page.comments)
+  const comments = data.pages.flatMap(page => page.comments)
 
   if (status === 'success' && !comments.length && !hasNextPage) {
     return <p className='text-muted-foreground text-center'>No one has commented yet.</p>
@@ -45,7 +45,7 @@ export default function Comments({ post }: CommentsProps) {
       isFetching={isFetching}
     >
       <div className='flex flex-col gap-2'>
-        {comments.map((comment) => (
+        {comments.map(comment => (
           <Comment key={comment.id} comment={comment} />
         ))}
       </div>

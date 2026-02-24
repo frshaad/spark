@@ -39,7 +39,7 @@ export default function Post({ post }: { post: PostView }) {
     <Card role='button' className='group/post'>
       <CardContent className='flex gap-3'>
         <UserTooltip user={post.author}>
-          <Link href={authorUrl} onClick={(e) => e.stopPropagation()}>
+          <Link href={authorUrl} onClick={e => e.stopPropagation()}>
             <UserAvatar
               user={{
                 image: post.author.image,

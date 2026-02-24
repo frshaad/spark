@@ -25,7 +25,7 @@ export function useSignupForm() {
     },
   })
 
-  const handleSubmit = form.handleSubmit((inputs) => {
+  const handleSubmit = form.handleSubmit(inputs => {
     setError(null)
     startTransition(async () => {
       try {
@@ -43,7 +43,7 @@ export function useSignupForm() {
     })
   })
 
-  const togglePasswordVisibility = () => setPasswordVisible((c) => !c)
+  const togglePasswordVisibility = () => setPasswordVisible(c => !c)
 
   return {
     control: form.control,

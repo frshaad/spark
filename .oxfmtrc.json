@@ -2,7 +2,7 @@
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
   "singleQuote": true,
   "jsxSingleQuote": true,
-  // "arrowParens": "avoid",
+  "arrowParens": "avoid",
   "semi": false,
   "sortImports": {
     "newlinesBetween": false,

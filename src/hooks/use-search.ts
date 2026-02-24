@@ -31,7 +31,7 @@ export function useSearch({ searchFn, debounceMs = 300, minLength = 2 }: UseSear
     setIsLoading(true)
 
     void searchFn(debouncedQuery)
-      .then((data) => {
+      .then(data => {
         setResults(data)
         setIsOpen(true)
       })

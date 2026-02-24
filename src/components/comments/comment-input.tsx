@@ -30,7 +30,7 @@ export default function CommentInput({ post }: CommentInputProps) {
           placeholder='Write a comment...'
           className='pr-9'
           value={content}
-          onChange={(e) => setContent(e.target.value)}
+          onChange={e => setContent(e.target.value)}
         />
         <Button
           type='submit'

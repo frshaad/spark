@@ -49,7 +49,7 @@ export default function PostEditor({ user }: Props) {
     mutate(
       {
         content,
-        mediaIds: attachments.map((a) => a.mediaId).filter(Boolean) as string[],
+        mediaIds: attachments.map(a => a.mediaId).filter(Boolean) as string[],
       },
       {
         onSuccess() {
@@ -62,8 +62,8 @@ export default function PostEditor({ user }: Props) {
 
   function onPaste(e: React.ClipboardEvent<HTMLInputElement>) {
     const files = Array.from(e.clipboardData.items)
-      .filter((item) => item.kind === 'file')
-      .map((item) => item.getAsFile()) as File[]
+      .filter(item => item.kind === 'file')
+      .map(item => item.getAsFile()) as File[]
 
     if (!files.length) return
 
