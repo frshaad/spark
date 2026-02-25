@@ -8,6 +8,7 @@ import {
   CursorPaginatedPosts,
   FollowInfo,
   LikeInfo,
+  NotificationCountInfo,
 } from '@/lib/types'
 
 export function getFeedQuery(queryKey: QueryKey, apiRoute: string) {
@@ -81,5 +82,14 @@ export function getBookmarkInfoQuery(postId: string, initialData: BookmarkInfo) 
     queryKey: QUERY_KEYS.bookmarkInfo(postId),
     queryFn: () => api.get(`posts/${postId}/bookmark`).json<BookmarkInfo>(),
     initialData,
+  })
+}
+
+export function getNotificationUnreadCountQuery(initialData: NotificationCountInfo) {
+  return queryOptions({
+    queryKey: QUERY_KEYS.unreadNotificationCount,
+    queryFn: () => api.get('notifications/unread-count').json<NotificationCountInfo>(),
+    initialData,
+    refetchInterval: 60_000,
   })
 }

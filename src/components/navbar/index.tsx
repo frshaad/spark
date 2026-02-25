@@ -2,21 +2,18 @@ import { Search } from 'lucide-react'
 import Link from 'next/link'
 import Logo from '@/components/logo'
 import { Button } from '@/components/ui/button'
-import NavButton from './nav-button'
-import { NAV_LINKS } from './navbar.constants'
+import NavButtons from './nav-buttons'
 import ProfileButton from './profile-button'
 
 export default function Navbar() {
   return (
     <>
       {/* Desktop Sidebar - Hidden on mobile/tablet */}
-      <aside className='hidden max-w-md flex-col justify-between px-10 lg:flex lg:pb-6'>
+      <aside className='hidden max-w-md flex-col justify-between pr-6 pl-10 lg:flex lg:pb-6'>
         <Logo />
 
         <nav className='flex flex-col max-lg:gap-3'>
-          {NAV_LINKS.map(item => (
-            <NavButton key={item.href} {...item} />
-          ))}
+          <NavButtons />
         </nav>
 
         <ProfileButton />
@@ -40,9 +37,7 @@ export default function Navbar() {
 
       {/* Mobile/Tablet Bottom Navigation */}
       <nav className='border-border bg-card/95 supports-backdrop-filter:bg-card/80 fixed right-0 bottom-0 left-0 z-50 flex items-center justify-around border-t p-1 backdrop-blur lg:hidden'>
-        {NAV_LINKS.map(item => (
-          <NavButton key={item.href} {...item} />
-        ))}
+        <NavButtons />
       </nav>
     </>
   )

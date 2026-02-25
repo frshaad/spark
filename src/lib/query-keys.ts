@@ -12,6 +12,8 @@ export const QUERY_KEYS = {
   followerInfo: (userId: string) => ['follower-info', userId] as const,
   likeInfo: (postId: string) => ['like-info', postId] as const,
   bookmarkInfo: (postId: string) => ['bookmark-info', postId] as const,
+
+  unreadNotificationCount: ['unread-notification-count'] as const,
 }
 
 /**

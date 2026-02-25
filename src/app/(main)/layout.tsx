@@ -11,7 +11,7 @@ export default async function AppLayout({
 
   return (
     <TooltipProvider delay={400}>
-      <div className='mx-auto h-screen gap-10 lg:flex lg:pt-4 xl:gap-20'>
+      <div className='mx-auto h-screen gap-6 lg:flex lg:pt-4 xl:gap-16'>
         <Navbar />
         {children}
       </div>

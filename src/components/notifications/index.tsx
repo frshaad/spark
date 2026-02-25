@@ -2,14 +2,22 @@
 
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { Bell, Loader2 } from 'lucide-react'
+import { useEffect } from 'react'
 import FeedSkeleton from '@/components/feed.skeleton'
 import InfiniteScrollContainer from '@/components/infinite-scroll-container'
+import useMarkNotificationsRead from '@/hooks/use-mark-notifications-read'
 import { getNotificationsQuery } from '@/lib/queries'
 import Notification from './notification'
 
 export default function Notifications() {
   const { data, status, hasNextPage, isFetching, fetchNextPage } =
     useInfiniteQuery(getNotificationsQuery())
+
+  const { mutate: markAllAsRead } = useMarkNotificationsRead()
+
+  useEffect(() => {
+    markAllAsRead()
+  }, [markAllAsRead])
 
   if (status === 'pending') {
     return <FeedSkeleton count={5} />
