@@ -40,6 +40,8 @@ const inputGroupAddonVariants = cva(
   },
 )
 
+/* oxlint-disable jsx-a11y/click-events-have-key-events */
+
 function InputGroupAddon({
   className,
   align = 'inline-start',

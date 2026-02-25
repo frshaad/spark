@@ -38,7 +38,7 @@ export function useSearch({ searchFn, debounceMs = 300, minLength = 2 }: UseSear
       .finally(() => {
         setIsLoading(false)
       })
-  }, [debouncedQuery, searchFn])
+  }, [debouncedQuery, searchFn, minLength])
 
   return {
     query,

@@ -82,6 +82,7 @@ export default function SearchField() {
               {results.map(result => (
                 <li key={result.id}>
                   <button
+                    type='button'
                     onClick={() => handleResultClick(result.url)}
                     className={cn(
                       'flex w-full items-center px-4 py-2.5 text-left text-sm transition-colors',

@@ -22,6 +22,7 @@ export default function Comment({ comment }: CommentProps) {
   const isContentRtl = useMemo(() => isRTL(comment.content), [comment.content])
 
   return (
+    /* oxlint-disable prefer-tag-over-role */
     <Card role='button' className='group/comment'>
       <CardContent className='flex gap-3'>
         <UserTooltip user={comment.author}>

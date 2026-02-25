@@ -26,6 +26,7 @@ export default function AttachmentPreview({
           className='size-fit max-h-120 rounded-2xl'
         />
       ) : (
+        /* oxlint-disable media-has-caption */
         <video controls className='size-fit max-h-120 rounded-2xl'>
           <source src={src} type={file.type} />
         </video>

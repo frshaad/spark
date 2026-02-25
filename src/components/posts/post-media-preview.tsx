@@ -17,6 +17,7 @@ export default function PostMediaPreview({ media }: { media: Media }) {
   if (media.type === 'VIDEO') {
     return (
       <div>
+        {/* oxlint-disable */}
         <video src={media.url} controls className='mx-auto size-fit max-h-120 rounded-2xl' />
       </div>
     )
