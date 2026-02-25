@@ -18,7 +18,8 @@ export default function PostHeader({
   const isRtl = useMemo(() => isRTL(displayName), [displayName])
 
   return (
-    <button type='button' className='min-w-0' onClick={e => e.stopPropagation()}>
+    // oxlint-disable click-events-have-key-events, prefer-tag-over-role
+    <div role='button' className='min-w-0' onClick={e => e.stopPropagation()}>
       <div className='mb-1 flex items-center gap-2 text-sm'>
         <UserTooltip user={author}>
           <Link
@@ -42,6 +43,6 @@ export default function PostHeader({
 
         <span className='text-muted-foreground'>{formatPostDate(new Date(createdAt))}</span>
       </div>
-    </button>
+    </div>
   )
 }

@@ -36,8 +36,7 @@ export default function Post({ post }: { post: PostView }) {
   }, [navigateToPost])
 
   return (
-    /* oxlint-disable prefer-tag-over-role */
-    <Card role='button' className='group/post'>
+    <Card className='group/post'>
       <CardContent className='flex gap-3'>
         <UserTooltip user={post.author}>
           <Link href={authorUrl} onClick={e => e.stopPropagation()}>
@@ -51,8 +50,8 @@ export default function Post({ post }: { post: PostView }) {
           </Link>
         </UserTooltip>
 
-        <button
-          type='button'
+        {/* oxlint-disable click-events-have-key-events, no-static-element-interactions */}
+        <div
           className='w-full cursor-pointer space-y-5'
           onClick={handleCardClick}
           aria-label={`Open post by ${post.author.name}`}
@@ -74,7 +73,7 @@ export default function Post({ post }: { post: PostView }) {
           </div>
 
           <PostActions post={post} />
-        </button>
+        </div>
       </CardContent>
     </Card>
   )
