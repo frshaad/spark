@@ -157,6 +157,10 @@ export type BookmarkInfo = {
   isBookmarked: boolean
 }
 
+export type NotificationCountInfo = {
+  unreadCount: number
+}
+
 export type Attachment = {
   mediaId?: string
   file: File

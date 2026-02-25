@@ -11,7 +11,7 @@
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
     "dev": "next dev",
-    "format": "oxfmt",
+    "format": "oxfmt --no-error-on-unmatched-pattern",
     "lint": "oxlint --fix",
     "lint:ts": "oxlint --type-aware --type-check --fix",
     "prepare": "husky",
@@ -76,7 +76,7 @@
     "typescript": "^5.9.3"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,mjs,cjs}": "pnpm run check",
-    "*": "pnpm run format --no-error-on-unmatched-pattern"
+    "*.{js,jsx,ts,tsx,mjs,cjs}": "oxlint --type-aware --type-check --fix",
+    "*": "oxfmt --no-error-on-unmatched-pattern"
   }
 }

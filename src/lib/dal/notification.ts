@@ -35,3 +35,19 @@ export function getNotificationsForUser({
     skip: cursor ? 1 : 0,
   })
 }
+
+export function getNotificationUnreadCount(recipientId: string) {
+  return prisma.notification.count({
+    where: {
+      recipientId,
+      isRead: false,
+    },
+  })
+}
+
+export function markNotificationsRead(recipientId: string) {
+  return prisma.notification.updateMany({
+    where: { recipientId, isRead: false },
+    data: { isRead: true },
+  })
+}
