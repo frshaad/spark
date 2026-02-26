@@ -1,10 +1,11 @@
 'use client'
 
 import { LoaderCircle, SendHorizonalIcon } from 'lucide-react'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useCommentSubmit } from '@/hooks/use-comment-submit'
+import { isRTL } from '@/lib/format'
 import { PostView } from '@/lib/types'
 
 type CommentInputProps = {
@@ -22,6 +23,8 @@ export default function CommentInput({ post }: CommentInputProps) {
     mutate({ content, post }, { onSuccess: () => setContent('') })
   }
 
+  const isContentRtl = useMemo(() => isRTL(content), [content])
+
   return (
     <form className='w-full space-y-2' onSubmit={onSubmit}>
       <div className='relative'>
@@ -29,6 +32,7 @@ export default function CommentInput({ post }: CommentInputProps) {
           type='text'
           placeholder='Write a comment...'
           className='pr-9'
+          dir={isContentRtl ? 'rtl' : 'ltr'}
           value={content}
           onChange={e => setContent(e.target.value)}
         />
