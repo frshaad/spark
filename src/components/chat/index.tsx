@@ -1,6 +1,7 @@
 'use client'
 
 import { Loader2 } from 'lucide-react'
+import { useTheme } from 'next-themes'
 import { Chat as StreamChat } from 'stream-chat-react'
 import { Card } from '@/components/ui/card'
 import { useInitializeChatClient } from '@/hooks/use-initialize-chat-client'
@@ -14,10 +15,15 @@ export default function Chat() {
     return <Loader2 className='mx-auto my-3 animate-spin' />
   }
 
+  const { resolvedTheme } = useTheme()
+
   return (
-    <Card className='relative w-full overflow-hidden'>
+    <Card className='relative w-full overflow-hidden max-lg:rounded-none'>
       <div className='absolute top-0 bottom-0 flex w-full'>
-        <StreamChat client={chatClient}>
+        <StreamChat
+          client={chatClient}
+          theme={resolvedTheme === 'dark' ? 'str-chat__theme-dark' : 'str-chat__theme-light'}
+        >
           <ChatSidebar />
           <ChatChannel />
         </StreamChat>

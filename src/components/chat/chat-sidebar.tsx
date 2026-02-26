@@ -8,7 +8,24 @@ export default function ChatSidebar() {
 
   return (
     <div className='flex size-full flex-col border-e md:w-72'>
-      <ChannelList filters={{ type: 'messaging', members: { $in: [user.id] } }} showChannelSearch />
+      <ChannelList
+        filters={{ type: 'messaging', members: { $in: [user.id] } }}
+        showChannelSearch
+        options={{
+          state: true,
+          presence: true,
+          limit: 10,
+        }}
+        sort={{ last_message_at: -1 }}
+        additionalChannelSearchProps={{
+          searchForChannels: true,
+          searchQueryParams: {
+            channelFilters: {
+              filters: { members: { $in: [user.id] } },
+            },
+          },
+        }}
+      />
     </div>
   )
 }

@@ -8,3 +8,22 @@ const streamServerClient = StreamChat.getInstance(
 export function createToken(userId: string, exp: number, iat: number) {
   return streamServerClient.createToken(userId, exp, iat)
 }
+
+export function createStreamUser({
+  id,
+  image,
+  name,
+  username,
+}: {
+  id: string
+  name: string
+  username: string
+  image: string | undefined
+}) {
+  return streamServerClient.upsertUser({
+    id,
+    username,
+    name,
+    image,
+  })
+}
