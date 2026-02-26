@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Avatar, AvatarImage } from '@/components/ui/avatar'
 
 type UserAvatarProps = {
   user: {
@@ -14,7 +14,6 @@ export default function UserAvatar({ user, className = '' }: UserAvatarProps) {
   return (
     <Avatar className={className}>
       <AvatarImage src={image ?? '/avatar-placeholder.webp'} alt={name} />
-      <AvatarFallback>{name[0]}</AvatarFallback>
     </Avatar>
   )
 }
