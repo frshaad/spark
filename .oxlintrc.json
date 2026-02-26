@@ -17,5 +17,7 @@
     "import"
   ],
 
-  "rules": {}
+  "rules": {
+    "eslint/complexity": ["warn", { "max": 10 }]
+  }
 }
