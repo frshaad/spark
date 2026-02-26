@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server'
+import type { NextRequest } from 'next/server'
 import { getPaginatedComments } from '@/lib/dal/comment'
 import { handleApiError } from '@/lib/errors'
 import { buildCursorPaginatedComments, getCursorPaginationParams } from '@/lib/server-api'

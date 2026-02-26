@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
+import type { FollowInfo } from '@/lib/types'
 import { getFollowerSummaryQuery } from '@/lib/queries'
-import { FollowInfo } from '@/lib/types'
 
 /**
  * Fetches and subscribes to a user's follower summary.

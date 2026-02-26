@@ -1,4 +1,4 @@
-import { BookmarkInfo, LikeInfo, PostRecord } from '@/lib/types'
+import type { BookmarkInfo, LikeInfo, PostRecord } from '@/lib/types'
 import BookmarkButton from './bookmark-button'
 import CommentButton from './comment-button'
 import LikeButton from './like-button'

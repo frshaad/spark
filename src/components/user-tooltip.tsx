@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import type { FollowInfo, UserRecord } from '@/lib/types'
 import FollowButton from '@/components/follow-button'
 import Linkify from '@/components/linkify'
 import FollowStats from '@/components/profile/follow-stats'
@@ -8,7 +9,6 @@ import { Card, CardAction, CardContent, CardFooter, CardHeader } from '@/compone
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import UserAvatar from '@/components/user-avatar'
 import { authClient } from '@/lib/auth-client'
-import { FollowInfo, UserRecord } from '@/lib/types'
 
 interface UserTooltipProps extends React.PropsWithChildren {
   user: UserRecord

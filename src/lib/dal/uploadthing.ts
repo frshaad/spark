@@ -1,5 +1,5 @@
 import { UTApi } from 'uploadthing/server'
-import { Media } from '@/generated/prisma/client'
+import type { Media } from '@/generated/prisma/client'
 
 export async function deleteUnusedMediaFromStorage(
   unusedMediaUploads: Pick<Media, 'id' | 'url'>[],

@@ -1,11 +1,12 @@
 'use client'
 
-import { type VariantProps } from 'class-variance-authority'
+import type { VariantProps } from 'class-variance-authority'
+import type { Route } from 'next'
 import { LoaderCircle } from 'lucide-react'
-import { Route } from 'next'
-import { Button, buttonVariants } from '@/components/ui/button'
+import type { buttonVariants } from '@/components/ui/button'
+import type { Provider } from '@/lib/auth'
+import { Button } from '@/components/ui/button'
 import { useSocialSignIn } from '@/hooks/use-social-auth'
-import { type Provider } from '@/lib/auth'
 import LastUsedMethodBadge from './last-method-badge'
 
 type Props = {

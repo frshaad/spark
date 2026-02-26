@@ -1,4 +1,4 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import ProfileHeader from '@/components/profile/profile-header'
 import UserProfileFeed from '@/components/profile/user-feed'

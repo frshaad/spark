@@ -1,7 +1,8 @@
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { cache } from 'react'
-import { OnboardedUser, Session, auth } from './auth'
+import type { OnboardedUser, Session } from './auth'
+import { auth } from './auth'
 import { ForbiddenError, UnauthorizedError } from './errors'
 
 export const getSession = cache(

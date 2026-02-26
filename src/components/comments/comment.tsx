@@ -1,14 +1,14 @@
 'use client'
 
-import { Route } from 'next'
+import type { Route } from 'next'
 import Link from 'next/link'
 import { useMemo } from 'react'
+import type { CommentRecord, OnboardedUser } from '@/lib/types'
 import PostHeader from '@/components/posts/post-header'
 import { Card, CardContent } from '@/components/ui/card'
 import UserAvatar from '@/components/user-avatar'
 import UserTooltip from '@/components/user-tooltip'
 import { isRTL } from '@/lib/format'
-import { CommentRecord, OnboardedUser } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import CommentMenu from './comment-menu'
 

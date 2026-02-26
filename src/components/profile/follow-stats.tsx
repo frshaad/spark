@@ -1,8 +1,8 @@
 'use client'
 
+import type { FollowInfo } from '@/lib/types'
 import { useFollowerSummary } from '@/hooks/use-follower-summary'
 import { formatCount } from '@/lib/format'
-import { FollowInfo } from '@/lib/types'
 import StatBlock from './stat-block'
 
 type FollowStatsProps = {

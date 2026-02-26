@@ -1,7 +1,7 @@
+import type { NotificationCountInfo } from '@/lib/types'
 import { getNotificationUnreadCount } from '@/lib/dal/notification'
 import { handleApiError } from '@/lib/errors'
 import { requireAuthAPI } from '@/lib/session'
-import { NotificationCountInfo } from '@/lib/types'
 
 export async function GET() {
   try {

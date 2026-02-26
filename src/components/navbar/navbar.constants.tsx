@@ -1,5 +1,5 @@
 import { Bell, Bookmark, House, Send } from 'lucide-react'
-import { NavigationButton } from '@/lib/types'
+import type { NavigationButton } from '@/lib/types'
 
 export const NAV_LINKS: Record<
   'home' | 'notifications' | 'messages' | 'bookmarks',

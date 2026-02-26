@@ -1,8 +1,8 @@
 'use client'
 
+import type { Route } from 'next'
 import type React from 'react'
 import { Search } from 'lucide-react'
-import { Route } from 'next'
 import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
 import { useOnClickOutside } from 'usehooks-ts'

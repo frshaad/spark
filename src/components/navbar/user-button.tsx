@@ -1,7 +1,7 @@
 'use client'
 
+import type { Route } from 'next'
 import { CircleUser, LogOut } from 'lucide-react'
-import { Route } from 'next'
 import Link from 'next/link'
 import SignOutButton from '@/components/auth/signout-button'
 import { ModeToggle } from '@/components/mode-toggle'
@@ -50,7 +50,7 @@ export default function UserButton({ user }: UserButtonProps) {
           <Link href={`/${username}` as Route}>
             <DropdownMenuItem
               render={<Button variant='ghost' className='w-full justify-start' />}
-              nativeButton={true}
+              nativeButton
             >
               <CircleUser />
               Profile

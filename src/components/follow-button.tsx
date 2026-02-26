@@ -1,10 +1,10 @@
 'use client'
 
 import { UserPlus } from 'lucide-react'
+import type { FollowInfo } from '@/lib/types'
 import { Button } from '@/components/ui/button'
 import { useFollow } from '@/hooks/use-follow'
 import { useFollowerSummary } from '@/hooks/use-follower-summary'
-import { FollowInfo } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
 type FollowButtonProps = {

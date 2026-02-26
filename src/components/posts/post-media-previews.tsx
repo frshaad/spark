@@ -1,4 +1,4 @@
-import { Media } from '@/generated/prisma/browser'
+import type { Media } from '@/generated/prisma/browser'
 import { cn } from '@/lib/utils'
 import PostMediaPreview from './post-media-preview'
 

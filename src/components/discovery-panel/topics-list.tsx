@@ -1,4 +1,4 @@
-import { Route } from 'next'
+import type { Route } from 'next'
 import Link from 'next/link'
 import { Item, ItemContent, ItemTitle } from '@/components/ui/item'
 import { getTrendingTopics } from '@/lib/dal/trend'

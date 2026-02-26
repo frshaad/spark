@@ -2,11 +2,11 @@
 
 import { LoaderCircle, SendHorizonalIcon } from 'lucide-react'
 import { useMemo, useState } from 'react'
+import type { PostView } from '@/lib/types'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useCommentSubmit } from '@/hooks/use-comment-submit'
 import { isRTL } from '@/lib/format'
-import { PostView } from '@/lib/types'
 
 type CommentInputProps = {
   post: PostView

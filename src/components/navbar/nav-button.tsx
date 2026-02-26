@@ -4,8 +4,8 @@ import { Dot } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useMediaQuery } from 'usehooks-ts'
+import type { NavigationButton } from '@/lib/types'
 import { Button, buttonVariants } from '@/components/ui/button'
-import { NavigationButton } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
 interface NavButtonProps extends NavigationButton {

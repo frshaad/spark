@@ -1,8 +1,9 @@
-import { QueryKey, useMutation } from '@tanstack/react-query'
+import type { QueryKey } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
+import type { LikeInfo } from '@/lib/types'
 import { api } from '@/lib/ky'
 import { QUERY_KEYS } from '@/lib/query-keys'
-import { LikeInfo } from '@/lib/types'
 
 type LikeVariables = {
   postId: string

@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server'
+import type { NextRequest } from 'next/server'
 import { getFollowingFeedPosts } from '@/lib/dal/post'
 import { handleApiError } from '@/lib/errors'
 import { buildCursorPaginatedByKey, getCursorPaginationParams } from '@/lib/server-api'

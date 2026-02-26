@@ -2,10 +2,10 @@
 
 import { useQuery } from '@tanstack/react-query'
 import { Bookmark } from 'lucide-react'
+import type { BookmarkInfo } from '@/lib/types'
 import { Button } from '@/components/ui/button'
 import { useBookmarkPost } from '@/hooks/use-bookmark-post'
 import { getBookmarkInfoQuery } from '@/lib/queries'
-import { BookmarkInfo } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
 type BookmarkButtonProps = {

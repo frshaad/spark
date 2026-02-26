@@ -1,11 +1,11 @@
 'use client'
 
 import { Heart } from 'lucide-react'
+import type { LikeInfo } from '@/lib/types'
 import { Button } from '@/components/ui/button'
 import { useLikePost } from '@/hooks/use-like-post'
 import { useLikesSummary } from '@/hooks/use-like-summary'
 import { formatCount } from '@/lib/format'
-import { LikeInfo } from '@/lib/types'
 
 type LikeButtonProps = {
   postId: string

@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { Media } from '@/generated/prisma/browser'
+import type { Media } from '@/generated/prisma/browser'
 
 export default function PostMediaPreview({ media }: { media: Media }) {
   if (media.type === 'IMAGE') {

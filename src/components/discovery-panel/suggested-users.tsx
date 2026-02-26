@@ -1,4 +1,4 @@
-import { Route } from 'next'
+import type { Route } from 'next'
 import Link from 'next/link'
 import FollowButton from '@/components/follow-button'
 import { Item, ItemActions, ItemContent, ItemTitle } from '@/components/ui/item'

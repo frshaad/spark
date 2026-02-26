@@ -1,7 +1,7 @@
+import type { FollowInfo } from '@/lib/types'
 import { followTransaction, getFollowRelationship, unfollowTransaction } from '@/lib/dal/follow'
 import { BadRequestError, NotFoundError, handleApiError } from '@/lib/errors'
 import { requireAuthAPI } from '@/lib/session'
-import { FollowInfo } from '@/lib/types'
 
 type RouteCTX = RouteContext<'/api/users/[targetUserId]/follow'>
 

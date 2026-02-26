@@ -1,4 +1,4 @@
-import { Attachment } from '@/lib/types'
+import type { Attachment } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import AttachmentPreview from './attachment-preview'
 

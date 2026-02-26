@@ -1,5 +1,5 @@
+import type { Metadata } from 'next'
 import { Loader2 } from 'lucide-react'
-import { Metadata } from 'next'
 import { Suspense } from 'react'
 import Comments from '@/components/comments'
 import CommentInput from '@/components/comments/comment-input'

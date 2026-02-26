@@ -1,10 +1,11 @@
 import { notFound } from 'next/navigation'
 import { cache } from 'react'
-import { PostGetPayload, PostSelect } from '@/generated/prisma/models'
+import type { PostGetPayload, PostSelect } from '@/generated/prisma/models'
+import type { PostRecord, PostView } from '@/lib/types'
+import type { CreatePostInputs } from '@/lib/validation/post'
 import { NotFoundError } from '@/lib/errors'
 import prisma from '@/lib/prisma'
-import { PostRecord, PostView, buildPostInclude } from '@/lib/types'
-import { CreatePostInputs } from '@/lib/validation/post'
+import { buildPostInclude } from '@/lib/types'
 
 export const findPostByIdFull = cache(async (id: string) => {
   return prisma.post.findUnique({

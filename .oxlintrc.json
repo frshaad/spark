@@ -18,6 +18,29 @@
   ],
 
   "rules": {
-    "eslint/complexity": ["warn", { "max": 10 }]
+    "eqeqeq": "error",
+    "no-array-constructor": "warn",
+    "eslint/complexity": ["warn", { "max": 10 }],
+    "eslint/no-empty-function": "warn",
+
+    "typescript/consistent-type-imports": "error",
+    "typescript/no-import-type-side-effects": "error",
+    "typescript/no-inferrable-types": "warn",
+
+    "react/self-closing-comp": "error",
+    "react/jsx-boolean-value": "error",
+
+    "nextjs/no-img-element": "error",
+
+    "unicorn/filename-case": [
+      "warn",
+      {
+        "case": "kebabCase"
+      }
+    ],
+    "unicorn/prefer-node-protocol": "error",
+
+    "import/no-cycle": "error",
+    "import/no-duplicates": "error"
   }
 }

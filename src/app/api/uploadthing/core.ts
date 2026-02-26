@@ -1,6 +1,6 @@
 import { type FileRouter, createUploadthing } from 'uploadthing/next'
 import { UTApi, UploadThingError } from 'uploadthing/server'
-import { Media } from '@/generated/prisma/client'
+import type { Media } from '@/generated/prisma/client'
 import { createMediaRecord } from '@/lib/dal/media'
 import { updateAvatar } from '@/lib/dal/user'
 import { getSession } from '@/lib/session'

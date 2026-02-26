@@ -1,4 +1,4 @@
-import { PostView } from '@/lib/types'
+import type { PostView } from '@/lib/types'
 import Post from './post'
 
 export default function PostsList({ posts }: { posts: PostView[]; className?: string }) {

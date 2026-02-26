@@ -1,7 +1,7 @@
 import { X } from 'lucide-react'
 import Image from 'next/image'
+import type { Attachment } from '@/lib/types'
 import { Button } from '@/components/ui/button'
-import { Attachment } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
 type AttachmentPreviewProps = {

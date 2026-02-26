@@ -1,9 +1,9 @@
+import type { Route } from 'next'
 import { Heart, MessageCircle, UserPlus } from 'lucide-react'
-import { Route } from 'next'
 import Link from 'next/link'
+import type { NotificationType } from '@/generated/prisma/enums'
+import type { NotificationRecord } from '@/lib/types'
 import { Card, CardContent } from '@/components/ui/card'
-import { NotificationType } from '@/generated/prisma/enums'
-import { NotificationRecord } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import UserAvatar from '../user-avatar'
 

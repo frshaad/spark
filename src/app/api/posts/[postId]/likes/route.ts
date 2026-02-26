@@ -1,8 +1,8 @@
+import type { LikeInfo } from '@/lib/types'
 import { likePostTransaction, unlikePostTransaction } from '@/lib/dal/like'
 import { findPostById } from '@/lib/dal/post'
 import { NotFoundError, handleApiError } from '@/lib/errors'
 import { requireAuthAPI } from '@/lib/session'
-import { LikeInfo } from '@/lib/types'
 
 type RouteCtx = RouteContext<'/api/posts/[postId]/likes'>
 

@@ -1,7 +1,6 @@
-import { QueryKey, infiniteQueryOptions, queryOptions } from '@tanstack/react-query'
-import { api } from '@/lib/ky'
-import { QUERY_KEYS } from '@/lib/query-keys'
-import {
+import type { QueryKey } from '@tanstack/react-query'
+import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query'
+import type {
   BookmarkInfo,
   CursorPaginatedComments,
   CursorPaginatedNotifications,
@@ -10,6 +9,8 @@ import {
   LikeInfo,
   NotificationCountInfo,
 } from '@/lib/types'
+import { api } from '@/lib/ky'
+import { QUERY_KEYS } from '@/lib/query-keys'
 
 export function getFeedQuery(queryKey: QueryKey, apiRoute: string) {
   return infiniteQueryOptions({

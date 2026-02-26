@@ -1,8 +1,9 @@
-import { InfiniteData, QueryFilters, useMutation } from '@tanstack/react-query'
+import type { InfiniteData, QueryFilters } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
+import type { CursorPaginatedPosts } from '@/lib/types'
 import { api } from '@/lib/ky'
 import { QUERY_KEYS } from '@/lib/query-keys'
-import { CursorPaginatedPosts } from '@/lib/types'
 
 export function useDeleteAvatar(userId: string) {
   return useMutation({

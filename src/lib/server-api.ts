@@ -1,5 +1,5 @@
-import { NextRequest } from 'next/server'
-import { CommentRecord, CursorPaginated, CursorPaginatedComments } from '@/lib/types'
+import type { NextRequest } from 'next/server'
+import type { CommentRecord, CursorPaginated, CursorPaginatedComments } from '@/lib/types'
 
 export function buildCursorPaginatedByKey<T extends { id: string }, K extends string>({
   key,
@@ -39,7 +39,7 @@ export function buildCursorPaginatedComments(
   }
 }
 
-export function getCursorPaginationParams(req: NextRequest, pageSize: number = 5) {
+export function getCursorPaginationParams(req: NextRequest, pageSize = 5) {
   const cursor = req.nextUrl.searchParams.get('cursor') || undefined
 
   return { cursor, pageSize }

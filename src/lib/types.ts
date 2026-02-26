@@ -1,5 +1,5 @@
-import { Route } from 'next'
-import {
+import type { Route } from 'next'
+import type {
   CommentGetPayload,
   CommentInclude,
   NotificationGetPayload,

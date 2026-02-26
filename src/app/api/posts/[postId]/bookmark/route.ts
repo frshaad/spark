@@ -1,7 +1,7 @@
+import type { BookmarkInfo } from '@/lib/types'
 import { bookmarkPost, deleteBookmark, getBookmarkInfo } from '@/lib/dal/bookmark'
 import { handleApiError } from '@/lib/errors'
 import { requireAuthAPI } from '@/lib/session'
-import { BookmarkInfo } from '@/lib/types'
 
 type RouteCtx = RouteContext<'/api/posts/[postId]/bookmark'>
 

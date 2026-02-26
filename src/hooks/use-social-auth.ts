@@ -1,10 +1,10 @@
 'use client'
 
-import { Route } from 'next'
+import type { Route } from 'next'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState, useTransition } from 'react'
 import { toast } from 'sonner'
-import { Provider } from '@/lib/auth'
+import type { Provider } from '@/lib/auth'
 import { authClient } from '@/lib/auth-client'
 
 export function useSocialSignIn(provider: Provider) {

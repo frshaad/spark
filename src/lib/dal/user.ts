@@ -1,7 +1,8 @@
 import { cache } from 'react'
+import type { UserRecord } from '@/lib/types'
+import type { UpdateUserProfileValues } from '@/lib/validation/user'
 import prisma from '@/lib/prisma'
-import { UserRecord, buildUserSelect } from '@/lib/types'
-import { UpdateUserProfileValues } from '@/lib/validation/user'
+import { buildUserSelect } from '@/lib/types'
 
 export const getUsersToFollow = cache(async (userId: string) => {
   return prisma.user.findMany({

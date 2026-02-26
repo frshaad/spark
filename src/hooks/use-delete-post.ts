@@ -1,10 +1,11 @@
-import { InfiniteData, QueryFilters, useMutation } from '@tanstack/react-query'
-import { Route } from 'next'
+import type { InfiniteData, QueryFilters } from '@tanstack/react-query'
+import type { Route } from 'next'
+import { useMutation } from '@tanstack/react-query'
 import { usePathname, useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import type { CursorPaginatedPosts } from '@/lib/types'
 import { deletePost } from '@/actions/post.action'
 import { QUERY_KEYS } from '@/lib/query-keys'
-import { CursorPaginatedPosts } from '@/lib/types'
 
 export function useDeletePost() {
   const pathname = usePathname()

@@ -1,4 +1,4 @@
-import { Notification } from '@/generated/prisma/client'
+import type { Notification } from '@/generated/prisma/client'
 import prisma from '@/lib/prisma'
 import { type CommentRecord, buildCommentInclude } from '@/lib/types'
 import { createNotification } from './notification'

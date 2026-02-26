@@ -1,4 +1,4 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import { AuthCard } from '@/components/auth/auth-card'
 import SignupForm from '@/components/auth/signup-form'

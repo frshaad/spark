@@ -1,7 +1,8 @@
 'use client'
 
+import type { StaticImageData } from 'next/image'
 import { Camera } from 'lucide-react'
-import Image, { StaticImageData } from 'next/image'
+import Image from 'next/image'
 import { useRef, useState } from 'react'
 import Resizer from 'react-image-file-resizer'
 import CropImageDialog from './crop-image-dialog'

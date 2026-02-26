@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { toast } from 'sonner'
-import { Attachment } from '@/lib/types'
+import type { Attachment } from '@/lib/types'
 import { useUploadThing } from '@/lib/uploadthing'
 
 export function useUploadMedia() {

@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server'
+import type { NextRequest } from 'next/server'
 import { getNotificationsForUser } from '@/lib/dal/notification'
 import { handleApiError } from '@/lib/errors'
 import { buildCursorPaginatedByKey, getCursorPaginationParams } from '@/lib/server-api'

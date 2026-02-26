@@ -1,8 +1,9 @@
-import { InfiniteData, QueryKey, useMutation } from '@tanstack/react-query'
+import type { InfiniteData, QueryKey } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
+import type { CursorPaginatedComments } from '@/lib/types'
 import { deleteComment } from '@/actions/comment.action'
 import { QUERY_KEYS } from '@/lib/query-keys'
-import { CursorPaginatedComments } from '@/lib/types'
 
 export function useDeleteComment() {
   return useMutation({

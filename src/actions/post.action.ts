@@ -1,10 +1,11 @@
 'use server'
 
+import type { PostView } from '@/lib/types'
+import type { CreatePostInputs } from '@/lib/validation/post'
 import { createPost, deletePost as deletePostById, findPostByIdFull } from '@/lib/dal/post'
 import { ForbiddenError, NotFoundError } from '@/lib/errors'
 import { requireAuthAPI } from '@/lib/session'
-import { PostView } from '@/lib/types'
-import { CreatePostInputs, createPostSchema } from '@/lib/validation/post'
+import { createPostSchema } from '@/lib/validation/post'
 
 export async function submitPost(input: CreatePostInputs): Promise<PostView> {
   const session = await requireAuthAPI()

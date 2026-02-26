@@ -1,11 +1,12 @@
-import { InfiniteData, QueryFilters, useMutation } from '@tanstack/react-query'
+import type { InfiniteData, QueryFilters } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import type { CursorPaginatedPosts, UserRecord } from '@/lib/types'
+import type { UpdateUserProfileValues } from '@/lib/validation/user'
 import { updateUserProfileData } from '@/actions/user.action'
 import { QUERY_KEYS } from '@/lib/query-keys'
-import { CursorPaginatedPosts, UserRecord } from '@/lib/types'
 import { useUploadThing } from '@/lib/uploadthing'
-import { UpdateUserProfileValues } from '@/lib/validation/user'
 
 type UpdateUserProfileVariables = {
   values: UpdateUserProfileValues

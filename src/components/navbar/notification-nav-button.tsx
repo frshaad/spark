@@ -1,9 +1,9 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
+import type { NotificationCountInfo } from '@/lib/types'
 import { formatCount } from '@/lib/format'
 import { getNotificationUnreadCountQuery } from '@/lib/queries'
-import { NotificationCountInfo } from '@/lib/types'
 import NavButton from './nav-button'
 import { NAV_LINKS } from './navbar.constants'
 
