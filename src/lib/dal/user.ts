@@ -14,6 +14,12 @@ export const getUsersToFollow = cache(async (userId: string) => {
   })
 })
 
+export const findUser = cache(async (userId: string) => {
+  return prisma.user.findUnique({
+    where: { id: userId },
+  })
+})
+
 export const getUserByUsername = cache(
   async (username: string, authenticatedUserId: string): Promise<UserRecord | null> => {
     return prisma.user.findFirst({
@@ -30,14 +36,17 @@ export async function updateAvatar(authenticatedUserId: string, imageUrl: string
   })
 }
 
-// export async function deletePreviousAvatar(userId: string) {
-//   return prisma.
-// }
-
 export async function updateUserProfile(userId: string, data: UpdateUserProfileValues) {
   return prisma.user.update({
     where: { id: userId },
     data,
     select: buildUserSelect(userId),
+  })
+}
+
+export async function deleteUserAvatar(userId: string) {
+  return prisma.user.update({
+    where: { id: userId },
+    data: { image: null },
   })
 }
