@@ -40,6 +40,16 @@ export class BadRequestError extends HttpError {
 }
 
 export function handleApiError(error: unknown) {
+  // Rethrow Next.js internal errors (like dynamic usage signals)
+  // so the framework can handle them correctly.
+  if (
+    error instanceof Error &&
+    ((error as any).digest === 'HANGING_PROMISE_REJECTION' ||
+      (error as any).digest === 'DYNAMIC_SERVER_USAGE')
+  ) {
+    throw error
+  }
+
   // Expected, controlled errors
   if (error instanceof HttpError) {
     return NextResponse.json({ error: error.message }, { status: error.status })

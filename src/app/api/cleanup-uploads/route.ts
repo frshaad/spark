@@ -3,8 +3,9 @@ import { deleteUnusedMediaFromStorage } from '@/lib/dal/uploadthing'
 import { handleApiError } from '@/lib/errors'
 
 export async function GET(request: Request) {
+  const authHeader = request.headers.get('authorization')
+
   try {
-    const authHeader = request.headers.get('authorization')
     if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
       return new Response('Unauthorized', {
         status: 401,
