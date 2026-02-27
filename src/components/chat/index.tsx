@@ -9,13 +9,13 @@ import ChatChannel from './chat-channel'
 import ChatSidebar from './chat-sidebar'
 
 export default function Chat() {
+  const { resolvedTheme } = useTheme()
+
   const chatClient = useInitializeChatClient()
 
   if (!chatClient) {
     return <Loader2 className='mx-auto my-3 animate-spin' />
   }
-
-  const { resolvedTheme } = useTheme()
 
   return (
     <Card className='relative w-full overflow-hidden max-lg:rounded-none'>
