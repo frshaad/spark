@@ -52,7 +52,7 @@ export default function Post({ post }: { post: PostView }) {
 
         {/* oxlint-disable click-events-have-key-events, no-static-element-interactions */}
         <div
-          className='w-full cursor-pointer space-y-5'
+          className='w-full cursor-pointer space-y-1'
           onClick={handleCardClick}
           aria-label={`Open post by ${post.author.name}`}
         >
@@ -67,7 +67,7 @@ export default function Post({ post }: { post: PostView }) {
             </div>
           </div>
 
-          <div>
+          <div className='h-full'>
             <PostContent content={post.content} />
             {!!post.attachments.length && <PostMediaPreviews attachments={post.attachments} />}
           </div>

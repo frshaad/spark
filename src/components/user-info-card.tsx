@@ -22,8 +22,8 @@ export default async function UserInfoCard({ user }: UserInfoCardProps) {
       <CardContent className='space-y-5'>
         <UserTooltip user={user}>
           <Link href={`/${user.username}`} className='flex items-center gap-3'>
-            <UserAvatar user={{ name: user.name, image: user.image }} className='size-16' />
-            <div>
+            <UserAvatar user={{ name: user.name, image: user.image }} className='size-14' />
+            <div className='flex flex-col items-start'>
               <p className='line-clamp-1 text-lg font-semibold break-all hover:underline'>
                 {user.name}
               </p>
