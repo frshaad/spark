@@ -9,14 +9,14 @@ export default function PostMediaPreview({ media }: { media: Media }) {
         alt='Attachment'
         width={500}
         height={500}
-        className='mx-auto size-fit max-h-120 rounded-2xl'
+        className='pointer-events-auto mx-auto size-fit max-h-120 rounded-2xl'
       />
     )
   }
 
   if (media.type === 'VIDEO') {
     return (
-      <div>
+      <div className='pointer-events-auto'>
         {/* oxlint-disable */}
         <video src={media.url} controls className='mx-auto size-fit max-h-120 rounded-2xl' />
       </div>

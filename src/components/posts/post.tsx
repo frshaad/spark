@@ -27,13 +27,29 @@ export default function Post({ post }: { post: PostView }) {
     router.push(postUrl)
   }, [router, postUrl])
 
-  const handleCardClick = useCallback(() => {
-    if (typeof window !== 'undefined') {
-      const selection = window.getSelection()
-      if (selection && selection.toString().length > 0) return
-    }
-    navigateToPost()
-  }, [navigateToPost])
+  const handleCardClick = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      // Don't navigate if clicking on an interactive element
+      const target = e.target as HTMLElement
+      if (
+        target.closest('button') ||
+        target.closest('a') ||
+        target.closest('video') ||
+        target.closest('[role="button"]')
+      ) {
+        return
+      }
+
+      // Don't navigate if text is selected
+      if (typeof window !== 'undefined') {
+        const selection = window.getSelection()
+        if (selection && selection.toString().length > 0) return
+      }
+
+      navigateToPost()
+    },
+    [navigateToPost],
+  )
 
   return (
     <Card className='group/post'>

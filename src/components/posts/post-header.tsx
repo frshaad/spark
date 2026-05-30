@@ -19,7 +19,7 @@ export default function PostHeader({
 
   return (
     // oxlint-disable click-events-have-key-events, prefer-tag-over-role
-    <div role='button' className='min-w-0' onClick={e => e.stopPropagation()}>
+    <div role='button' className='pointer-events-auto min-w-0' onClick={e => e.stopPropagation()}>
       <div className='mb-1 flex items-center gap-2 text-sm'>
         <UserTooltip user={author}>
           <Link
