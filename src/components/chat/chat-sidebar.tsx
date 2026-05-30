@@ -1,13 +1,31 @@
+import { X } from 'lucide-react'
 import { ChannelList } from 'stream-chat-react'
 import { useAuth } from '@/hooks/use-auth'
 
-export default function ChatSidebar() {
+interface ChatSidebarProps {
+  onClose?: () => void
+}
+
+export default function ChatSidebar({ onClose }: ChatSidebarProps) {
   const { user } = useAuth()
 
   if (!user) return null
 
   return (
-    <div className='flex size-full flex-col border-e md:w-72'>
+    <div className='flex h-full w-full flex-col border-e'>
+      {/* Mobile close button */}
+      <div className='flex items-center justify-between border-b p-3 lg:hidden'>
+        <h2 className='text-sm font-semibold'>Channels</h2>
+        <button
+          onClick={onClose}
+          className='rounded-md p-1 hover:bg-slate-100 dark:hover:bg-slate-800'
+          aria-label='Close sidebar'
+        >
+          <X className='size-4' />
+        </button>
+      </div>
+
+      {/* Channel list */}
       <ChannelList
         filters={{ type: 'messaging', members: { $in: [user.id] } }}
         showChannelSearch
