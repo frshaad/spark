@@ -1,5 +1,6 @@
 'use server'
 
+import { revalidatePath } from 'next/cache'
 import type { PostView } from '@/lib/types'
 import type { CreatePostInputs } from '@/lib/validation/post'
 import { createPost, deletePost as deletePostById, findPostByIdFull } from '@/lib/dal/post'
@@ -24,5 +25,7 @@ export async function deletePost(postId: string): Promise<PostView> {
   if (post.authorId !== session.user.id) throw new ForbiddenError()
 
   const deletedPost = await deletePostById(post.id, session.user.id)
+
+  revalidatePath(`/${deletedPost.author.username}`)
   return deletedPost as PostView
 }
