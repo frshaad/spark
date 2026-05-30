@@ -27,8 +27,6 @@ export function useSocialSignIn(provider: Provider) {
         })
         if (error) {
           toast.error(error.message || 'An error occurred')
-        } else {
-          toast.success('Signed in successfully')
         }
       } catch {
         toast.error('An error occurred')
