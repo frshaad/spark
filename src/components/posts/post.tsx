@@ -67,7 +67,7 @@ export default function Post({ post }: { post: PostView }) {
             </div>
           </div>
 
-          <div className='h-full'>
+          <div>
             <PostContent content={post.content} />
             {!!post.attachments.length && <PostMediaPreviews attachments={post.attachments} />}
           </div>
